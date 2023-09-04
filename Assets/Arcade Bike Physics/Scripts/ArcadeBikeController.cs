@@ -54,7 +54,8 @@ public class ArcadeBikeController : MonoBehaviour
     private void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal"); //turning input
-        verticalInput = Input.GetAxis("Vertical");     //accelaration input
+        verticalInput = Input.GetAxis("Vertical"); //accelaration input
+        verticalInput = 1f;    //ToDO: remove this line
         Visuals();
         AudioManager();
 
