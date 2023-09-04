@@ -5,8 +5,7 @@ using UnityEngine;
 public class SpawnTiles : MonoBehaviour
 {
     
-    //TODO: spawn next tile when player gets to close to the end...
-    //TODO: unload tiles the player has passed...
+
 
 
     [SerializeField] private GameObject tile;
