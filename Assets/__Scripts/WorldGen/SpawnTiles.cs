@@ -11,14 +11,14 @@ public class SpawnTiles : MonoBehaviour
 
     [SerializeField] private GameObject tile;
     [SerializeField] private int tileCount = 10;
-    private List<GameObject> tiles;
+    [SerializeField] private List<GameObject> tiles;
 
 
 
 
     public void spawnNewTile() {
         Transform exitPoint = tiles[tiles.Count - 1].transform;
-        GameObject newTile = Instantiate(tile, new Vector3(exitPoint.transform.position.x + tile.transform.GetChild(0).localScale.x, exitPoint.transform.position.y, exitPoint.transform.position.z), exitPoint.rotation);
+        GameObject newTile = Instantiate(tile, new Vector3(exitPoint.transform.position.x + (tile.transform.GetChild(0).localScale.x * 2), exitPoint.transform.position.y, exitPoint.transform.position.z), exitPoint.rotation);
         newTile.transform.parent = transform;
         tiles.Add(newTile);
         if (tiles.Count > tileCount) {
@@ -29,11 +29,8 @@ public class SpawnTiles : MonoBehaviour
 
 
     void Start() {
-        tiles = new List<GameObject>();
-        for (int i = 0; i < tileCount; i++) {
-            GameObject newTile = Instantiate(tile, new Vector3(i * (tile.transform.GetChild(0).localScale.x * 2), 0, 0), Quaternion.identity);
-            newTile.transform.parent = transform;
-            tiles.Add(newTile);
+        while (tiles.Count < tileCount) {
+            spawnNewTile();
         }
     }
 
