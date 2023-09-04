@@ -13,7 +13,11 @@ public class TileScript : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
             spanwer.GetComponent<SpawnTiles>().spawnNewTile();
-            Destroy(gameObject);
         }
+    }
+
+    [EButton("Spawn Tile")]
+    public void spawnTile() {
+        spanwer.GetComponent<SpawnTiles>().spawnNewTile();
     }
 }

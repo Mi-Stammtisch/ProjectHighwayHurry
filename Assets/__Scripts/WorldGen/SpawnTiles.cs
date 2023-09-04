@@ -31,8 +31,7 @@ public class SpawnTiles : MonoBehaviour
     void Start() {
         tiles = new List<GameObject>();
         for (int i = 0; i < tileCount; i++) {
-            GameObject newTile = Instantiate(tile, new Vector3(i * tile.transform.GetChild(0).localScale.x, 0, 0), Quaternion.identity);
-            Debug.Log(new Vector3(i * tile.transform.GetChild(0).localScale.x, 0, 0));
+            GameObject newTile = Instantiate(tile, new Vector3(i * (tile.transform.GetChild(0).localScale.x * 2), 0, 0), Quaternion.identity);
             newTile.transform.parent = transform;
             tiles.Add(newTile);
         }
