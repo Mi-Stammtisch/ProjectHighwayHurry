@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //check if path is near end
-        if (distanceTravelled >= Currentpath.path.length - switchPathDistance)
+        if (distanceTravelled >= Currentpath.path.length)
         {
             Debug.Log("Near End");
 
