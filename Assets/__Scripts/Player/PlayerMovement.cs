@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Path Interaction")]
 
+    private CustomSpline MiddlePath;
+    private CustomSpline LeftPath;
+    private CustomSpline RightPath;
+
     [SerializeField] PathBatch CurrentPathBatch;
 
     [SerializeField] PathCreator Currentpath;
@@ -24,19 +28,19 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    [SerializeField] float PlayerConstantSpeed = 15f; 
-    
+    [SerializeField] float PlayerConstantSpeed = 15f;
+
 
 
     [Header("Player Strave Interaction")]
-    [SerializeField] float PlayerStraveSpeed = 15f;    
+    [SerializeField] float PlayerStraveSpeed = 15f;
     [SerializeField] float PlayerSraveTilt = 15f;
     [SerializeField] private float switchPathDistance = 5f; // at what distance from the end of the path should the player switch to left or right path
     [SerializeField] private bool canStraveSwitchPath = true; //can the player switch paths
     [SerializeField] private float MaxStraveDistance = 5f;
     [SerializeField] public float straveDistanceTravelled;
 
-    
+
 
 
 
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject playerModel;
 
+    SpawnTileV2 spawnTileV2;
+
 
     private Vector3 moveDirection;
     public void OnStrave(InputValue value)
@@ -57,16 +63,54 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Start()
+    IEnumerator Start()
     {
+       
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
+
+        spawnTileV2 = SpawnTileV2.Instance;
+        
+
+        //Debug Time to wait for SpawnTileV2 to spawn tiles
+        float time = Time.time;
+        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
+
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
+        
+
+        if (spawnTileV2.tiles[1] != null)
+        {
+            GameObject tile = spawnTileV2.tiles[1];
+            MiddlePath = tile.GetComponent<ExitPointDirection>().middleSpline;
+            LeftPath = tile.GetComponent<ExitPointDirection>().leftSpline;
+            RightPath = tile.GetComponent<ExitPointDirection>().rightSpline;
+
+            currentPathType = PathType.Middle;
+            CurrentPathBatch = new PathBatch(LeftPath.spline, RightPath.spline, MiddlePath.spline);
+
+
+            Currentpath = MiddlePath.spline;
+
+            //distanceTravelled = Vector3.Magnitude(transform.position - pathCreator.path.GetPointAtDistance(0f));
+            //Debug.Log("pathLength: " + pathCreator.path.length);
+
+            //transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+            //transform.position += new Vector3(0, 0.5f, 0);
+
+        }
+
 
     }
 
 
     private void Update()
     {
+        if (Currentpath == null)
+        {
+            return;
+        }
         //Forward Movement
         distanceTravelled += PlayerConstantSpeed * Time.deltaTime;
         transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
@@ -134,30 +178,57 @@ public class PlayerMovement : MonoBehaviour
 
 
         //check if path is near end
-        if (distanceTravelled >= Currentpath.path.length)
+        if (distanceTravelled >= Currentpath.path.length -0.4f)
         {
-            Debug.Log("Near End");
 
-            distanceTravelled = 0f; //TODO: Implement Next Path Switching
+            //Debug.LogError($"Path is near end, currentPathType: {currentPathType}");
+            if (MiddlePath.next() != null && MiddlePath.next().isNull() == false)
+            {
+                MiddlePath = MiddlePath.next();
+                LeftPath = LeftPath.next();
+                RightPath = RightPath.next();
+                   
+
+                CurrentPathBatch = new PathBatch(LeftPath.spline, RightPath.spline, MiddlePath.spline);
+
+                switch (currentPathType)
+                {
+                    case PathType.Left:
+                        Currentpath = CurrentPathBatch.leftPath;
+                        break;
+                    case PathType.Right:
+                        Currentpath = CurrentPathBatch.rightPath;
+                        break;
+                    case PathType.Middle:
+                        Currentpath = CurrentPathBatch.middlePath;
+                        break;
+                }
+                distanceTravelled = 0f; 
+
+            }else
+            {
+                Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
+            }
 
         }
+
     }
 
     private void SwitchToLeftPath()
     {
         Vector3 PlayerModelWorldPosition = playerModel.transform.position;
-        
+
         float leftRightStraveFix = -1f;
-        if(currentPathType == PathType.Middle)
+        if (currentPathType == PathType.Middle)
         {
             leftRightStraveFix = 1f;
         }
-            
+
 
         distanceTravelled = FindClosesdDistancePoint(CurrentPathBatch.leftPath);
         Currentpath = CurrentPathBatch.leftPath;
-        
-        straveDistanceTravelled = leftRightStraveFix * GetStraveDistanceTravelled(PlayerModelWorldPosition,Currentpath.path.GetPointAtDistance(distanceTravelled));
+
+        straveDistanceTravelled = leftRightStraveFix * GetStraveDistanceTravelled(PlayerModelWorldPosition, Currentpath.path.GetPointAtDistance(distanceTravelled));
         playerModel.transform.position = PlayerModelWorldPosition;
 
         currentPathType = PathType.Left;
@@ -169,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 PlayerModelWorldPosition = playerModel.transform.position;
 
         float leftRightStraveFix = 1f;
-        if(currentPathType == PathType.Middle)
+        if (currentPathType == PathType.Middle)
         {
             leftRightStraveFix = -1f;
         }
@@ -188,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 PlayerModelWorldPosition = playerModel.transform.position;
 
         float leftRightStraveFix = -1f;
-        if(currentPathType == PathType.Right)
+        if (currentPathType == PathType.Right)
         {
             leftRightStraveFix = 1f;
         }
@@ -209,7 +280,7 @@ public class PlayerMovement : MonoBehaviour
     private float GetStraveDistanceTravelled(Vector3 PlayerModelWorldPosition, Vector3 NewAnkerPoint)
     {
         //return distance between playermodel and newankerpoint
-        return Vector3.Distance(PlayerModelWorldPosition, NewAnkerPoint);        
+        return Vector3.Distance(PlayerModelWorldPosition, NewAnkerPoint);
     }
 
 

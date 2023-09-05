@@ -84,7 +84,8 @@ public class ScuffedCarAI : MonoBehaviour
                     stopMoving = true;
                 }
                 else {
-                    Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
+                    //Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
+                    Destroy(gameObject);
                 }
             } 
         }
