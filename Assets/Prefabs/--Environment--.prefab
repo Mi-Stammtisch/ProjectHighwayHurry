@@ -69,6 +69,14 @@ MonoBehaviour:
   tiles:
   - {fileID: 641013350416526535}
   - {fileID: 2240827761847656194}
+  turnSpawnCooldownMax: 0
+  maxDistanceFromSpawn: 1
+  spawnTurnChance:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7111454593069549839
 GameObject:
   m_ObjectHideFlags: 0
