@@ -38,6 +38,8 @@ public class ScuffedCarAI : MonoBehaviour
         //Debug.Log("pathLength: " + pathCreator.path.length);
 
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+        transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
+        //transform.rotation *= Quaternion.Euler(0, 180, 0);
         transform.position += new Vector3(0, 0.5f, 0);
 
 
@@ -72,6 +74,8 @@ public class ScuffedCarAI : MonoBehaviour
             if (distanceTravelled <= pathCreator.path.length && distanceTravelled > 1f) {
                 distanceTravelled -= speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
+                //transform.rotation *= Quaternion.Euler(0, 180, 0);
             }
             else {
                 //TODO: move onto next spline

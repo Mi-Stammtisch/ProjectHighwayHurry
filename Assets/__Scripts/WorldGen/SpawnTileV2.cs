@@ -12,6 +12,7 @@ public class SpawnTileV2 : MonoBehaviour
     [SerializeField] public List<GameObject> tiles;
     [SerializeField] private int turnSpawnCooldownMax;
     [SerializeField] private int maxDistanceFromSpawn = 1;
+    [SerializeField] private int numberOfStraightTilesInTurns = 2;
     [SerializeField] private AnimationCurve spawnTurnChance;
     private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
@@ -129,12 +130,18 @@ public class SpawnTileV2 : MonoBehaviour
                 turnSpawnCooldown = turnSpawnCooldownMax;
                 if (UnityEngine.Random.Range(0, 2) == 0) {
                         spawnInitialTiles(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
+                        for(int i = 0; i <= UnityEngine.Random.Range(0, numberOfStraightTilesInTurns + 1); i++) {
+                            nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                        }
                         nextTiles.Add(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
                         nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
                         nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
                 }
                 else {
                     spawnInitialTiles(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
+                    for(int i = 0; i <= UnityEngine.Random.Range(0, numberOfStraightTilesInTurns + 1); i++) {
+                            nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                    }
                     nextTiles.Add(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
                     nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
                     nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);

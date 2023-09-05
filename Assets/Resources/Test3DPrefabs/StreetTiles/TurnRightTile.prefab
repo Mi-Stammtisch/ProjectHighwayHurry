@@ -81,6 +81,14 @@ MonoBehaviour:
   leftPath: {fileID: 6207645001284960702}
   middlePath: {fileID: 3104559652663012494}
   rightPath: {fileID: 2059254104151346667}
+  leftSpline:
+    spline: {fileID: 0}
+  middleSpline:
+    spline: {fileID: 0}
+  rightSpline:
+    spline: {fileID: 0}
+  nextSpline: {fileID: 0}
+  previousSpline: {fileID: 0}
 --- !u!1 &6854014180400008772
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,10 +779,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6209894022651200912}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae7000278b4cd124f8bd1422b37464ee,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7505113650275872785}
     - targetCorrespondingSourceObject: {fileID: -674449036139524865, guid: ae7000278b4cd124f8bd1422b37464ee,
         type: 3}
       insertIndex: -1
@@ -813,26 +817,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8530229673839104334}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8836096968722754591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ae7000278b4cd124f8bd1422b37464ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 8530229673839104334}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7505113650275872785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8836096968722754591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5079d6aaf6528a4fb2132905bf9df1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryPoint: {fileID: 6854014180400008772}
-  exitPoint: {fileID: 2439732750986661843}
-  leftPath: {fileID: 0}
-  middlePath: {fileID: 0}
-  rightPath: {fileID: 0}
