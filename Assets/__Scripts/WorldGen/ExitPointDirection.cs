@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PathCreation;
 
 public class ExitPointDirection : MonoBehaviour
 {
@@ -14,6 +15,28 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] public GameObject leftPath;
     [SerializeField] public GameObject middlePath;
     [SerializeField] public GameObject rightPath;
+
+    [SerializeField] public CustomSpline leftSpline;
+    [SerializeField] public CustomSpline middleSpline;
+    [SerializeField] public CustomSpline rightSpline;
+
+    [SerializeField] private PathCreator nextSpline;
+    [SerializeField] private PathCreator previousSpline;
+
+    void Awake() {
+        leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
+        middleSpline = new CustomSpline(middlePath.GetComponent<PathCreator>());
+        rightSpline = new CustomSpline(rightPath.GetComponent<PathCreator>());
+    }
+
+    void Update() {
+        if (leftSpline.next() != null && leftSpline.next().isNull() == false) {
+            nextSpline = leftSpline.next().spline;
+        }
+        if (leftSpline.previous() != null && leftSpline.previous().isNull() == false) {
+            previousSpline = leftSpline.previous().spline;
+        }
+    }
 
     void OnDrawGizmos()
     {

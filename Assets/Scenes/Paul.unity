@@ -134,7 +134,12 @@ PrefabInstance:
     - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: tileCount
-      value: 8
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
+        type: 3}
+      propertyPath: tiles.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
@@ -331,13 +336,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3663314898717055057, guid: 7f07de2e5eea36c46b982396a1e74211,
+        type: 3}
+      propertyPath: editorData.globalDisplaySettingsFoldout
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7111454593069549839, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_Name
       value: --Environment--
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2240827761847656194, guid: 7f07de2e5eea36c46b982396a1e74211, type: 3}
+    - {fileID: 641013350416526535, guid: 7f07de2e5eea36c46b982396a1e74211, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f07de2e5eea36c46b982396a1e74211, type: 3}

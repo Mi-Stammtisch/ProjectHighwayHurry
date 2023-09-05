@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-
 using UnityEngine;
+
 
 public class SpawnTileV2 : MonoBehaviour
 {
@@ -14,13 +14,38 @@ public class SpawnTileV2 : MonoBehaviour
     private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
 
-
-
-
     private void spawnInitialTiles(GameObject tile) {
-        GameObject newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
-        GameObject exitPoint = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint();
-        GameObject entryPoint = newTile.GetComponent<ExitPointDirection>().getEntryPoint();
+        GameObject newTile;
+        GameObject exitPoint;
+        if (tiles.Count > 0) {
+            newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
+            GameObject lastTile = tiles[tiles.Count - 1];
+
+            lastTile.GetComponent<ExitPointDirection>().leftSpline.setNext(newTile.GetComponent<ExitPointDirection>().leftSpline);
+            lastTile.GetComponent<ExitPointDirection>().middleSpline.setNext(newTile.GetComponent<ExitPointDirection>().middleSpline);
+            lastTile.GetComponent<ExitPointDirection>().rightSpline.setNext(newTile.GetComponent<ExitPointDirection>().rightSpline);
+
+
+            newTile.GetComponent<ExitPointDirection>().leftSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().leftSpline);
+            newTile.GetComponent<ExitPointDirection>().middleSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().middleSpline);
+            newTile.GetComponent<ExitPointDirection>().rightSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().rightSpline);
+
+            exitPoint = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint();
+        }
+        else {
+            newTile = Instantiate(tile, Vector3.zero, Quaternion.identity);
+
+            exitPoint = new GameObject();
+            exitPoint.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
+        
+
+        
+
+
+
+
+        
 
 
         for (int i = 0; i <= 4; i++) {
@@ -54,10 +79,9 @@ public class SpawnTileV2 : MonoBehaviour
 
 
     public void spawnNewTile() {
-        Debug.Log("spawnNewTile");
         if (nextTiles.Count == 0) {
             float distanceToSpawn = Vector3.Magnitude(tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position);
-            Debug.Log("distanceToSpawn: " + distanceToSpawn);
+            //Debug.Log("distanceToSpawn: " + distanceToSpawn);
             
             /*
             if (distanceToSpawn <= 500) {

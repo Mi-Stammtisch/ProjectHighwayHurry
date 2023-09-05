@@ -48,8 +48,8 @@ MonoBehaviour:
     _bezierPath:
       points:
       - {x: 0, y: 0, z: 0}
-      - {x: 1, y: 0, z: 0}
-      - {x: 49, y: 0, z: 0}
+      - {x: 0.35208073, y: 0, z: 0}
+      - {x: 49.35208, y: 0, z: 0}
       - {x: 50, y: 0, z: 0}
       isClosed: 0
       space: 0
