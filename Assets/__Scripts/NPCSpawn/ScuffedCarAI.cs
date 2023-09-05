@@ -4,6 +4,7 @@ using System.IO;
 using PathCreation;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UIElements;
 
 public class ScuffedCarAI : MonoBehaviour
 {
@@ -17,7 +18,17 @@ public class ScuffedCarAI : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private bool moving = false;
     [SerializeField] private bool stopMoving = false;
+
+    [Header("Coins")]
+    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private int numberOfCoins;
+    [Range(0f, 1f)]
+    [SerializeField] private float coinSpawnChance;
+    [SerializeField] private float coinSpawnDistanceCar;
+    [SerializeField] private float coinSpacing;
     private CustomSpline pathCreator;
+    private bool initialized = false;
+    private bool hasStarted = false;
 
 
     void Start() {
@@ -39,7 +50,7 @@ public class ScuffedCarAI : MonoBehaviour
 
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
-        //transform.rotation *= Quaternion.Euler(0, 180, 0);
+        transform.rotation *= Quaternion.Euler(0, -90, 0);
         transform.position += new Vector3(0, 0.5f, 0);
 
 
@@ -49,13 +60,32 @@ public class ScuffedCarAI : MonoBehaviour
         else {
             speed = 0;
         }
+
+
+        
+        hasStarted = true;
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player" && !initialized && hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
             speed = Random.Range(minSpeed, maxSpeed);
             moving = true;
+
+            //spawn coins
+            if (Random.Range(0f, 1f) <= coinSpawnChance) {
+                for (int i = 0; i < numberOfCoins; i++) {
+                    GameObject coin = Instantiate(coinPrefab, transform.position + transform.right * coinSpawnDistanceCar + transform.right * coinSpacing * i, Quaternion.identity);
+                    coin.transform.parent = transform;
+                    GameObject coinBehind = Instantiate(coinPrefab, transform.position + -transform.right * coinSpawnDistanceCar + -transform.right * coinSpacing * i, Quaternion.identity);
+                    coinBehind.transform.parent = transform;
+                    //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
+                    //coin.GetComponent<CoinController>().initializeData(pathCreator, distanceTravelled, speed);
+                    //coin.GetComponent<CoinController>().startMoving();
+                }
+            }
+
+            initialized = true;
         }
     }
 
@@ -204,7 +234,8 @@ public class CustomSpline {
     }
 
     public bool isNull() {
-        return spline == null;}
+        return spline == null;
+    }
 }
 
 

@@ -184,6 +184,12 @@ MonoBehaviour:
   speed: 0
   moving: 0
   stopMoving: 0
+  coinPrefab: {fileID: 1380776303194083014, guid: d507bff8ae0abe54d9f5ed6f2892f243,
+    type: 3}
+  numberOfCoins: 3
+  coinSpawnChance: 0.461
+  coinSpawnDistanceCar: 15
+  coinSpacing: 8
 --- !u!1 &3289295078356639460
 GameObject:
   m_ObjectHideFlags: 0
