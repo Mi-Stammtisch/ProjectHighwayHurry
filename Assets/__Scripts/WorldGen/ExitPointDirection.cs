@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ExitPointDirection : MonoBehaviour
 {
+    [Header("Entry/Exit Points")]
     [Tooltip("Drag the entryPoint in here")]
     [SerializeField] private GameObject entryPoint;
     [Tooltip("Drag the exitPoint in here")]
     [SerializeField] private GameObject exitPoint;
+
+    [Header("Splines")]
+    [SerializeField] private GameObject leftPath;
+    [SerializeField] private GameObject middlePath;
+    [SerializeField] private GameObject rightPath;
 
     void OnDrawGizmos()
     {
