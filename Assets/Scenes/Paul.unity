@@ -143,6 +143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
+      propertyPath: turnSpawnCooldownMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
+        type: 3}
       propertyPath: spawnTurnChance.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}

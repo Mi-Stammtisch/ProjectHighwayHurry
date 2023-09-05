@@ -8,8 +8,10 @@ public class SpawnTileV2 : MonoBehaviour
     [SerializeField] private TilePool tilePool;
     [SerializeField] private int tileCount = 5;
     [SerializeField] private List<GameObject> tiles;
+    [SerializeField] private int turnSpawnCooldownMax;
     [SerializeField] private int maxDistanceFromSpawn = 1;
     [SerializeField] private AnimationCurve spawnTurnChance;
+    private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
 
 
@@ -90,7 +92,8 @@ public class SpawnTileV2 : MonoBehaviour
             //Debug.Log("turnChance: " + turnChance);
             //Debug.Log("--------------");
             bool spawnTurn = UnityEngine.Random.Range(0f, 1f) < turnChance;
-            if (spawnTurn) {
+            if (spawnTurn && turnSpawnCooldown <= 0) {
+                turnSpawnCooldown = turnSpawnCooldownMax;
                 if (UnityEngine.Random.Range(0, 2) == 0) {
                         spawnInitialTiles(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
                         nextTiles.Add(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
@@ -106,6 +109,7 @@ public class SpawnTileV2 : MonoBehaviour
             }
             else {
                 spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                turnSpawnCooldown--;
             }
         }
         else {
