@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RelaodSceneOnCarHit : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class RelaodSceneOnCarHit : MonoBehaviour
         explo.transform.localScale = 5 * Vector3.one;
 
         yield return new WaitForSeconds(0.5f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 }
