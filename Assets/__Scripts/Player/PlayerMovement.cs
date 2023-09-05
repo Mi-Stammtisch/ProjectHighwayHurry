@@ -43,7 +43,16 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+    [Range(-1, 1f)]
+    [SerializeField] private float ChangeToForWardPatjDistance = 1f;
 
+
+
+
+    [SerializeField] private float wheleSpinSpeed = 100f;
+    [SerializeField] private float wheleRadius = 1f;
+    [SerializeField] GameObject wheleFront;
+    [SerializeField] GameObject wheleBack;
 
 
 
@@ -62,9 +71,27 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = value.Get<Vector2>();
     }
 
+   
+    private void OnDrawGizmosSelected()
+    {
+        if(wheleFront == null || wheleBack == null)
+        {
+            Debug.LogError("wheleFront or wheleBack is null");
+            return;
+        }
+        //drawCircle around wheleFront
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(wheleFront.transform.position, wheleRadius);
+
+        //drawCircle around wheleBack
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(wheleBack.transform.position, wheleRadius);
+    }
 
     IEnumerator Start()
     {
+
+        
        
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
@@ -99,11 +126,27 @@ public class PlayerMovement : MonoBehaviour
             //transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
             //transform.position += new Vector3(0, 0.5f, 0);
 
+
         }
+
+
+        StartCoroutine(WheleSpinner());
 
 
     }
 
+
+    IEnumerator WheleSpinner()
+    {
+        while (true)
+        {
+            //calculate new rotation speed based on player speed and wheleRadius
+            float newRotationSpeed = PlayerConstantSpeed / (2 * Mathf.PI * wheleRadius);
+            wheleFront.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
+            wheleBack.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
+            yield return null;
+        }
+    }
 
     private void Update()
     {
@@ -178,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //check if path is near end
-        if (distanceTravelled >= Currentpath.path.length -0.4f)
+        if (distanceTravelled >= Currentpath.path.length -ChangeToForWardPatjDistance)
         {
 
             //Debug.LogError($"Path is near end, currentPathType: {currentPathType}");
