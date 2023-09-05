@@ -175,8 +175,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1d2a356d1a9964ab2c3a5b69597d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 5
-  maxSpeed: 10
+  minSpeed: 15
+  maxSpeed: 50
+  tile: {fileID: 0}
+  trackType: 0
+  previousSpline: {fileID: 0}
+  distanceTravelled: 0
+  speed: 0
+  moving: 0
+  stopMoving: 0
 --- !u!1 &3289295078356639460
 GameObject:
   m_ObjectHideFlags: 0

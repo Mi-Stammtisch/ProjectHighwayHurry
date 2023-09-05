@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class SpawnTileV2 : MonoBehaviour
 {
+    //Instance 
+    public static SpawnTileV2 Instance;
     [SerializeField] private TilePool tilePool;
     [SerializeField] private int tileCount = 5;
-    [SerializeField] private List<GameObject> tiles;
+    [SerializeField] public List<GameObject> tiles;
     [SerializeField] private int turnSpawnCooldownMax;
     [SerializeField] private int maxDistanceFromSpawn = 1;
     [SerializeField] private AnimationCurve spawnTurnChance;
@@ -68,6 +70,13 @@ public class SpawnTileV2 : MonoBehaviour
             Destroy(tiles[0], 1f);
             tiles.RemoveAt(0);
         }
+    }
+
+   
+    private void Awake()
+    {
+            
+            Instance = this;
     }
 
 
