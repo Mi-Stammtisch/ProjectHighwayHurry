@@ -12,6 +12,7 @@ public class RelaodSceneOnCarHit : MonoBehaviour
         {
 
             StartCoroutine(ReloadScene());
+            Debug.Log("Car Hit");
         }
     }
 
