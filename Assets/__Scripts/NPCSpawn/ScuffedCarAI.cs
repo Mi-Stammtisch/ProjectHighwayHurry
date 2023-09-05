@@ -83,15 +83,18 @@ public class ScuffedCarAI : MonoBehaviour
                 //then get direction vector
                 Vector3 direction = transform.position - point1;
 
+                Vector3 direction2 = pathCreator.path.GetDirectionAtDistance(distanceTravelled - 1f);
+
                 //isolate y axis
-                direction.x = 0;
-                direction.z = 0;
+                
 
                 //rotate direction vector by 90 to left
-                direction = Quaternion.Euler(0, -90, -90) * direction;
+                direction = Quaternion.Euler(0, -90, 0) * direction;
 
                 //then rotate
-                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
+
+                transform.rotation *= Quaternion.Euler(0, -90, 0);
                 
 
 
