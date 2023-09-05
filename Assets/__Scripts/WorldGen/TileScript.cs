@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
-    private GameObject spanwer;
+    private GameObject spawner;
 
     void Start() {
-        spanwer = transform.parent.parent.gameObject;
+        spawner = transform.parent.parent.parent.gameObject;
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            spanwer.GetComponent<SpawnTiles>().spawnNewTile();
+            spawner.GetComponent<SpawnTileV2>().spawnNewTile();
         }
     }
 
     [EButton("Spawn Tile")]
     public void spawnTile() {
-        spanwer.GetComponent<SpawnTiles>().spawnNewTile();
+        spawner.GetComponent<SpawnTileV2>().spawnNewTile();
     }
 }
