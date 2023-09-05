@@ -11,9 +11,9 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] private GameObject exitPoint;
 
     [Header("Splines")]
-    [SerializeField] private GameObject leftPath;
-    [SerializeField] private GameObject middlePath;
-    [SerializeField] private GameObject rightPath;
+    [SerializeField] public GameObject leftPath;
+    [SerializeField] public GameObject middlePath;
+    [SerializeField] public GameObject rightPath;
 
     void OnDrawGizmos()
     {
