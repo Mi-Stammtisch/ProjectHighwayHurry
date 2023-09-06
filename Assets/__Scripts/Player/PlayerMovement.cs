@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
+    private List<Vector3> pointsOnParabola = new List<Vector3>();
+
 
     private Vector3 moveDirection;
     public void OnStrave(InputValue value)
@@ -286,6 +288,28 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+
+    }
+
+    public IEnumerator Hop(List<Vector3> points)
+    {
+        //follow path with playermodel.transform.position.y
+        Debug.Log("Hop");
+
+        while (true)
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                playerModel.transform.position = new Vector3(playerModel.transform.position.x, points[i].y, playerModel.transform.position.z);
+                yield return null;
+            }
+        }
+        
+
+       
+
+        
+        
 
     }
 
