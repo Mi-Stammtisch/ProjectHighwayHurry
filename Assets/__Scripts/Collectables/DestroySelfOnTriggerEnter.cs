@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class DestroySelfOnTriggerEnter : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class DestroySelfOnTriggerEnter : MonoBehaviour
         {
             //destroy this object
             //Debug.Log("Collected Coin");
+            Scoreboard.Instance.coinCollect();
             Destroy(gameObject);
         }
     }

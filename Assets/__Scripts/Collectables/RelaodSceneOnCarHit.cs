@@ -12,7 +12,8 @@ public class RelaodSceneOnCarHit : MonoBehaviour
         {
 
             StartCoroutine(ReloadScene());
-            Debug.Log("Car Hit");
+            GameManager.Instance.playerDeath();
+            Debug.Log("Car Hit");            
         }
     }
 
@@ -22,7 +23,7 @@ public class RelaodSceneOnCarHit : MonoBehaviour
         explo.transform.localScale = 5 * Vector3.one;
 
         yield return new WaitForSeconds(0.5f);
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.buildIndex);
+        //Scene scene = SceneManager.GetActiveScene();
+        //SceneManager.LoadScene(scene.buildIndex);
     }
 }
