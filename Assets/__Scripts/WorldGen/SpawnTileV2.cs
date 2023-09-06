@@ -14,6 +14,8 @@ public class SpawnTileV2 : MonoBehaviour
     [SerializeField] private int maxDistanceFromSpawn = 1;
     [SerializeField] private int numberOfStraightTilesInTurns = 2;
     [SerializeField] private AnimationCurve spawnTurnChance;
+    [SerializeField] private bool testRun = false;
+    [SerializeField] private List<GameObject> testTiles;
     private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
 
@@ -82,6 +84,12 @@ public class SpawnTileV2 : MonoBehaviour
 
 
     void Start() {
+        if (testRun) {
+            foreach (GameObject tile in testTiles) {
+                nextTiles.Add(tile);
+            }
+            spawnNewTile();
+        }
         while (tiles.Count < tileCount) {
             spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
         }
@@ -91,35 +99,6 @@ public class SpawnTileV2 : MonoBehaviour
     public void spawnNewTile() {
         if (nextTiles.Count == 0) {
             float distanceToSpawn = Vector3.Magnitude(tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position);
-            //Debug.Log("distanceToSpawn: " + distanceToSpawn);
-            
-            /*
-            if (distanceToSpawn <= 500) {
-                spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-            }
-            else {
-                if (UnityEngine.Random.Range(0, 2) == 0) {
-                    spawnInitialTiles(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
-                    nextTiles.Add(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
-                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-                }
-                else {
-                    spawnInitialTiles(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
-                    nextTiles.Add(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
-                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-                }
-            }
-        }
-        else {
-            spawnInitialTiles(nextTiles[0]);
-            nextTiles.RemoveAt(0);
-        }
-        */
-        //spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
-
-
             float ddwd = distanceToSpawn / maxDistanceFromSpawn;
             //Debug.Log("ddwd: " + ddwd);
             float turnChance = spawnTurnChance.Evaluate(ddwd);
