@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreboardUIController : MonoBehaviour
+public class UIController : MonoBehaviour
 {
     
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
