@@ -11,6 +11,7 @@ public class PlayerCamera : MonoBehaviour
 
     #region Variables
     
+    
 
     [SerializeField] GameObject defaultCamera;
     [SerializeField] GameObject TopDonwCamera;
@@ -54,6 +55,8 @@ public class PlayerCamera : MonoBehaviour
     private void Start()
     {
         CallDefaultCam(-1);
+
+        transform.parent = null;
         
     }
 

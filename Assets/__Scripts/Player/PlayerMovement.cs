@@ -33,12 +33,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Header("Player Strave Interaction")]
-    [SerializeField] float PlayerStraveSpeed = 15f;
+    [SerializeField] float PlayerStraveSpeed = 30f;
+    [SerializeField] float PlayerStraveAcceleration = 10f;
     [SerializeField] float PlayerSraveTilt = 15f;
     [SerializeField] private float switchPathDistance = 5f; // at what distance from the end of the path should the player switch to left or right path
     [SerializeField] private bool canStraveSwitchPath = true; //can the player switch paths
     [SerializeField] private float MaxStraveDistance = 5f;
     [SerializeField] public float straveDistanceTravelled;
+    [SerializeField] public float overShootRecoverSpeed = 0.5f;
+
+    private float currentStraveSpeed;
 
 
 
@@ -59,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] float distanceTravelled;
+    [SerializeField] GameObject middleLaneCamRef;
 
     private GameObject playerModel;
 
@@ -71,10 +76,10 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = value.Get<Vector2>();
     }
 
-   
+
     private void OnDrawGizmosSelected()
     {
-        if(wheleFront == null || wheleBack == null)
+        if (wheleFront == null || wheleBack == null)
         {
             Debug.LogError("wheleFront or wheleBack is null");
             return;
@@ -91,13 +96,13 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Start()
     {
 
-        
-       
+
+
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
 
         spawnTileV2 = SpawnTileV2.Instance;
-        
+
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
@@ -105,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
         Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
-        
+
 
         if (spawnTileV2.tiles[1] != null)
         {
@@ -128,6 +133,8 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
+
+        //middleLaneCamRef.transform.parent = null;
 
 
         StartCoroutine(WheleSpinner());
@@ -154,6 +161,16 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        if (middleLaneCamRef != null)
+        {
+            middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+            middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+
+        }
+
+        else Debug.LogError("middleLaneCamRef is null");
+
         //Forward Movement
         distanceTravelled += PlayerConstantSpeed * Time.deltaTime;
         transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
@@ -162,22 +179,36 @@ public class PlayerMovement : MonoBehaviour
         //Left and Right Strave
         if (moveDirection.x != 0)
         {
-            //move player model left and right smooth clamp to max distance
+            //calculate new strave speed increase with acceleration
+            currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * moveDirection.x;
+            currentStraveSpeed = Mathf.Clamp(currentStraveSpeed, -PlayerStraveSpeed, PlayerStraveSpeed);
+
+
+
+            /*
+             //move player model left and right smooth clamp to max distance
             straveDistanceTravelled += PlayerStraveSpeed * Time.deltaTime * moveDirection.x;
             straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
             Vector3 thisPlayerModelPosition = playerModel.transform.localPosition;
             playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, thisPlayerModelPosition.z);
 
-
+            */
 
             //tilt player model in direction of movedirection.x 
             playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.Euler(0, 0, -moveDirection.x * PlayerSraveTilt), Time.deltaTime * 5f);
         }
         else
         {
-            //undo tilt when not straving
+            //decrease strave speed
+            currentStraveSpeed = Mathf.Lerp(currentStraveSpeed, 0f, Time.deltaTime * overShootRecoverSpeed);
+            //undo tilt when not straving            
             playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 5f);
         }
+        //move player model left and right smooth clamp to max distance
+        straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
+        straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+        Vector3 thisPlayerModelPosition = playerModel.transform.localPosition;
+        playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, thisPlayerModelPosition.z);
 
 
         //Check if straveDistanceTravelled is greater than switchPathDistance
@@ -221,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //check if path is near end
-        if (distanceTravelled >= Currentpath.path.length -ChangeToForWardPatjDistance)
+        if (distanceTravelled >= Currentpath.path.length - ChangeToForWardPatjDistance)
         {
 
             //Debug.LogError($"Path is near end, currentPathType: {currentPathType}");
@@ -230,7 +261,7 @@ public class PlayerMovement : MonoBehaviour
                 MiddlePath = MiddlePath.next();
                 LeftPath = LeftPath.next();
                 RightPath = RightPath.next();
-                   
+
 
                 CurrentPathBatch = new PathBatch(LeftPath.spline, RightPath.spline, MiddlePath.spline);
 
@@ -246,9 +277,10 @@ public class PlayerMovement : MonoBehaviour
                         Currentpath = CurrentPathBatch.middlePath;
                         break;
                 }
-                distanceTravelled = 0f; 
+                distanceTravelled = 0f;
 
-            }else
+            }
+            else
             {
                 Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
             }
