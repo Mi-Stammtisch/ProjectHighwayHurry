@@ -233,8 +233,8 @@ MonoBehaviour:
   tileCount: 5
   tiles: []
   turnSpawnCooldownMax: 5
-  maxDistanceFromSpawn: 500
-  numberOfStraightTilesInTurns: 2
+  maxDistanceFromSpawn: 1000
+  numberOfStraightTilesInTurns: 5
   spawnTurnChance:
     serializedVersion: 2
     m_Curve:
@@ -268,6 +268,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  testRun: 0
+  testTiles: []
 --- !u!1 &7111454593069549839
 GameObject:
   m_ObjectHideFlags: 0
