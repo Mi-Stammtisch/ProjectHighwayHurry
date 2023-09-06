@@ -125,7 +125,7 @@ public class Jump : MonoBehaviour
             {
                 if (UsePlayerSpeed)
                 {
-                    ObjectSpeed = playerMovement.PlayerConstantSpeed / 3f;
+                    ObjectSpeed = playerMovement.PlayerConstantStartingSpeed / 3f;
                 }
                 
                 //Set playerMovement to parabola points
