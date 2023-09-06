@@ -11,6 +11,7 @@ public class DestroySelfOnTriggerEnter : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //destroy this object
+            //Debug.Log("Collected Coin");
             Destroy(gameObject);
         }
     }
