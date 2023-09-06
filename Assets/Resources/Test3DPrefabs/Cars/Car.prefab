@@ -175,8 +175,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1d2a356d1a9964ab2c3a5b69597d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 5
-  maxSpeed: 10
+  minSpeed: 15
+  maxSpeed: 50
+  tile: {fileID: 0}
+  trackType: 0
+  previousSpline: {fileID: 0}
+  distanceTravelled: 0
+  speed: 0
+  moving: 0
+  stopMoving: 0
+  coinPrefab: {fileID: 1380776303194083014, guid: d507bff8ae0abe54d9f5ed6f2892f243,
+    type: 3}
+  numberOfCoins: 3
+  coinSpawnChance: 0.461
+  coinSpawnDistanceCar: 15
+  coinSpacing: 8
 --- !u!1 &3289295078356639460
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +538,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: cc3f7a1cca32d2d40976f357e21de5c2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d03c4b5308b7d3c46aaa2a207048fcaf, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc3f7a1cca32d2d40976f357e21de5c2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c393196ea76764a977b2fe49269f1d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: cc3f7a1cca32d2d40976f357e21de5c2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c393196ea76764a977b2fe49269f1d, type: 2}
     - target: {fileID: 919132149155446097, guid: cc3f7a1cca32d2d40976f357e21de5c2,
         type: 3}
       propertyPath: m_Name

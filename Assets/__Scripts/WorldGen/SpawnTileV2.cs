@@ -2,20 +2,53 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SpawnTileV2 : MonoBehaviour
 {
+    //Instance 
+    public static SpawnTileV2 Instance;
     [SerializeField] private TilePool tilePool;
     [SerializeField] private int tileCount = 5;
-    [SerializeField] private List<GameObject> tiles;
+    [SerializeField] public List<GameObject> tiles;
+    [SerializeField] private int turnSpawnCooldownMax;
+    [SerializeField] private int maxDistanceFromSpawn = 1;
+    [SerializeField] private int numberOfStraightTilesInTurns = 2;
+    [SerializeField] private AnimationCurve spawnTurnChance;
+    private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
 
-
-
-
     private void spawnInitialTiles(GameObject tile) {
-        GameObject newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
-        GameObject exitPoint = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint();
-        GameObject entryPoint = newTile.GetComponent<ExitPointDirection>().getEntryPoint();
+        GameObject newTile;
+        GameObject exitPoint;
+        if (tiles.Count > 0) {
+            newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
+            GameObject lastTile = tiles[tiles.Count - 1];
+
+            lastTile.GetComponent<ExitPointDirection>().leftSpline.setNext(newTile.GetComponent<ExitPointDirection>().leftSpline);
+            lastTile.GetComponent<ExitPointDirection>().middleSpline.setNext(newTile.GetComponent<ExitPointDirection>().middleSpline);
+            lastTile.GetComponent<ExitPointDirection>().rightSpline.setNext(newTile.GetComponent<ExitPointDirection>().rightSpline);
+
+
+            newTile.GetComponent<ExitPointDirection>().leftSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().leftSpline);
+            newTile.GetComponent<ExitPointDirection>().middleSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().middleSpline);
+            newTile.GetComponent<ExitPointDirection>().rightSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().rightSpline);
+
+            exitPoint = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint();
+        }
+        else {
+            newTile = Instantiate(tile, Vector3.zero, Quaternion.identity);
+
+            exitPoint = new GameObject();
+            exitPoint.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+        }
+        
+
+        
+
+
+
+
+        
 
 
         for (int i = 0; i <= 4; i++) {
@@ -40,6 +73,13 @@ public class SpawnTileV2 : MonoBehaviour
         }
     }
 
+   
+    private void Awake()
+    {
+            
+            Instance = this;
+    }
+
 
     void Start() {
         while (tiles.Count < tileCount) {
@@ -51,8 +91,9 @@ public class SpawnTileV2 : MonoBehaviour
     public void spawnNewTile() {
         if (nextTiles.Count == 0) {
             float distanceToSpawn = Vector3.Magnitude(tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position);
-            Debug.Log("distanceToSpawn: " + distanceToSpawn);
+            //Debug.Log("distanceToSpawn: " + distanceToSpawn);
             
+            /*
             if (distanceToSpawn <= 500) {
                 spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
             }
@@ -75,6 +116,46 @@ public class SpawnTileV2 : MonoBehaviour
             spawnInitialTiles(nextTiles[0]);
             nextTiles.RemoveAt(0);
         }
+        */
         //spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+
+
+            float ddwd = distanceToSpawn / maxDistanceFromSpawn;
+            //Debug.Log("ddwd: " + ddwd);
+            float turnChance = spawnTurnChance.Evaluate(ddwd);
+            //Debug.Log("turnChance: " + turnChance);
+            //Debug.Log("--------------");
+            bool spawnTurn = UnityEngine.Random.Range(0f, 1f) < turnChance;
+            if (spawnTurn && turnSpawnCooldown <= 0) {
+                turnSpawnCooldown = turnSpawnCooldownMax;
+                if (UnityEngine.Random.Range(0, 2) == 0) {
+                        spawnInitialTiles(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
+                        for(int i = 0; i <= UnityEngine.Random.Range(0, numberOfStraightTilesInTurns + 1); i++) {
+                            nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                        }
+                        nextTiles.Add(tilePool.leftTurnTiles[UnityEngine.Random.Range(0, tilePool.leftTurnTiles.Count)]);
+                        nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                        nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                }
+                else {
+                    spawnInitialTiles(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
+                    for(int i = 0; i <= UnityEngine.Random.Range(0, numberOfStraightTilesInTurns + 1); i++) {
+                            nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                    }
+                    nextTiles.Add(tilePool.rightTurnTiles[UnityEngine.Random.Range(0, tilePool.rightTurnTiles.Count)]);
+                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                    nextTiles.Add(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                }
+            }
+            else {
+                spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+                turnSpawnCooldown--;
+            }
+        }
+        else {
+            spawnInitialTiles(nextTiles[0]);
+            nextTiles.RemoveAt(0);
+        }
+
     }
 }
