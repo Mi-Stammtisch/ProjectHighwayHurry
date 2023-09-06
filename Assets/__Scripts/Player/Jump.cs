@@ -20,6 +20,8 @@ public class Jump : MonoBehaviour
     [Range(0, 100)]
     [SerializeField] float ObjectSpeed;
 
+    [SerializeField] bool UsePlayerSpeed = true;
+
 
 
     private Vector3 RampEndPos()
@@ -121,7 +123,13 @@ public class Jump : MonoBehaviour
 
             if(other.gameObject.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
             {
+                if (UsePlayerSpeed)
+                {
+                    ObjectSpeed = playerMovement.PlayerConstantSpeed / 3f;
+                }
+                
                 //Set playerMovement to parabola points
+
                 StartCoroutine(playerMovement.Hop(points));
             }
             else

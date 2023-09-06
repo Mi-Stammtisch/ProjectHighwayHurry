@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    [SerializeField] float PlayerConstantSpeed = 15f;
+    public float PlayerConstantSpeed = 15f;
 
 
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
-    private List<Vector3> pointsOnParabola = new List<Vector3>();
+    
 
 
     private Vector3 moveDirection;
@@ -296,22 +296,67 @@ public class PlayerMovement : MonoBehaviour
         //follow path with playermodel.transform.position.y
         Debug.Log("Hop");
 
-        while (true)
+        List<Vector3> pointsOnParabola = points;
+
+        Vector3 closestPoint = pointsOnParabola[0];
+            float closestDistance = Vector3.Distance(playerModel.transform.position, closestPoint);
+
+        while (closestDistance < 5f)
         {
-            for (int i = 0; i < points.Count; i++)
+            //find closest point in list to playermodel.transform.position
+            float tempDistance = Vector3.Distance(playerModel.transform.position, closestPoint);
+            foreach (Vector3 point in pointsOnParabola)
             {
-                playerModel.transform.position = new Vector3(playerModel.transform.position.x, points[i].y, playerModel.transform.position.z);
-                yield return null;
+                float distance = Vector3.Distance(playerModel.transform.position, point);
+                if (distance < tempDistance)
+                {
+                    tempDistance = distance;
+                    closestPoint = point;
+                    closestDistance = distance;
+                }
             }
+
+            
+            
+
+            
+            foreach (Vector3 point in pointsOnParabola)
+            {
+                float distance = Vector3.Distance(playerModel.transform.position, point);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPoint = point;
+                }
+            }
+
+            //move player model y position to closest point on parabola
+            Vector3 thisPlayerModelPosition = playerModel.transform.position;
+            playerModel.transform.position = new Vector3(thisPlayerModelPosition.x, closestPoint.y, thisPlayerModelPosition.z);
+
+            
+            yield return null;
+
+
         }
-        
 
-       
 
         
+        //while playermodel.transform.position.y > 0f move playermodel.transform.position.y down
+        while (playerModel.transform.position.y > 0f)
+        {
+            Vector3 thisPlayerModelPosition = playerModel.transform.position;
+            playerModel.transform.position = new Vector3(thisPlayerModelPosition.x, thisPlayerModelPosition.y - 0.1f, thisPlayerModelPosition.z);
+            yield return null;
+        }
+
+
+        Debug.Log("Hop finished");    
         
 
     }
+
+    
 
     private void SwitchToLeftPath()
     {
