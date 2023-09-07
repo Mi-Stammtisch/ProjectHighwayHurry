@@ -7,7 +7,7 @@ public class TileScript : MonoBehaviour
     private GameObject spawner;
 
     void Start() {
-        spawner = transform.parent.parent.parent.gameObject;
+        spawner = GameObject.Find("TileSpawner");
     }
 
     void OnTriggerEnter(Collider other) {
