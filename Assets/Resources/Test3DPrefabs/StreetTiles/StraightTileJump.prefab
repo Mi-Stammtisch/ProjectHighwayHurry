@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbb278497529014e846a8cc35d404f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RandomCam: 0
 --- !u!1 &9166388592502378254
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +822,7 @@ PrefabInstance:
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
       propertyPath: editorData.vertexPathUpToDate
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
@@ -871,7 +872,7 @@ PrefabInstance:
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
       propertyPath: editorData._bezierPath.points.Array.data[2].x
-      value: 105.61102
+      value: 149
       objectReference: {fileID: 0}
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}

@@ -7,6 +7,7 @@ using PathCreation;
 using System.IO;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using System;
+using Unity.VisualScripting;
 
 
 
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private CustomSpline LeftPath;
     private CustomSpline RightPath;
 
-    [SerializeField] PathBatch CurrentPathBatch;
+    [SerializeField] public PathBatch CurrentPathBatch;
 
     [SerializeField] PathCreator Currentpath;
 
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerConstantStartingSpeed = 15f;
     public float PlayerConstantMaxSpeed = 300f;
     public float currentPlayerSpeed;
-    [Range(1,5)]
+    [Range(1, 5)]
     [Tooltip("How much faster should the player be after 1000 meters in percent")]
     public float PlayerSpeedIncreaseOver100Meters = 1.1f;
 
@@ -59,8 +60,10 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    [Range(-1, 1f)]
+    [Range(-2, 1f)]
     [SerializeField] private float ChangeToForWardPatjDistance = 1f;
+
+    [SerializeField] private float DontChangeRecoverLaneTpRecorverSpeed = 5f;
 
 
 
@@ -69,6 +72,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wheleRadius = 1f;
     [SerializeField] GameObject wheleFront;
     [SerializeField] GameObject wheleBack;
+
+    [SerializeField] public List<GameObject> saveBeforeTeleport;
+    private List<Vector3> saveBeforeTeleportPositions = new List<Vector3>();
 
 
 
@@ -81,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
-    
+
 
 
     private Vector3 moveDirection;
@@ -109,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Start()
     {
+
+
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
 
@@ -149,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
         //middleLaneCamRef.transform.parent = null;
 
-
+        StartCoroutine(Updater());
         StartCoroutine(WheleSpinner());
 
 
@@ -168,160 +176,187 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Update()
+    IEnumerator Updater()
     {
-        if (Currentpath == null)
+        while (Currentpath == null)
         {
-            return;
+            yield return null;
         }
 
-        if (middleLaneCamRef != null)
+        while (true)
         {
-            middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
-            middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+            Vector3 tempCurrentPosition = transform.position;
+            Vector3 tempCurrentModelPosition = playerModel.transform.position;
 
-        }
-
-        else Debug.LogError("middleLaneCamRef is null");
-
-        //Forward Movement
-        distanceTravelled += currentPlayerSpeed * Time.deltaTime;
-        transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
-        transform.rotation = Currentpath.path.GetRotationAtDistance(distanceTravelled);
-
-        //update distanceTravelledInMeters
-        currentMeter += currentPlayerSpeed * Time.deltaTime;
-
-        if (currentMeter >= 1f)
-        {
-            TotaldistanceTravelledInMeters++;
-            currentMeter -= 1f;            
-        }
-
-        //update player speed
-        if(TotaldistanceTravelledInMeters / 100 > currentSpeedInceses)
-        {
-            currentSpeedInceses++;
-            float boost = PlayerSpeedIncreaseOver100Meters * PlayerConstantStartingSpeed - PlayerConstantStartingSpeed;
-            currentPlayerSpeed += boost;
-            currentPlayerSpeed = Mathf.Clamp(currentPlayerSpeed, PlayerConstantStartingSpeed, PlayerConstantMaxSpeed);
-            
-        }
-
-        
-
-
-        //Left and Right Strave
-        if (moveDirection.x != 0)
-        {
-            //calculate new strave speed increase with acceleration
-            currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * moveDirection.x;
-            currentStraveSpeed = Mathf.Clamp(currentStraveSpeed, -PlayerStraveSpeed, PlayerStraveSpeed);
+            if (middleLaneCamRef != null)
+            {
+                middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+                middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+            }
 
 
 
-            /*
-             //move player model left and right smooth clamp to max distance
-            straveDistanceTravelled += PlayerStraveSpeed * Time.deltaTime * moveDirection.x;
+            //Forward Movement
+            distanceTravelled += currentPlayerSpeed * Time.deltaTime;
+            transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
+            transform.rotation = Currentpath.path.GetRotationAtDistance(distanceTravelled);
+
+            //update distanceTravelledInMeters
+            currentMeter += currentPlayerSpeed * Time.deltaTime;
+
+            if (currentMeter >= 1f)
+            {
+                TotaldistanceTravelledInMeters++;
+                currentMeter -= 1f;
+
+                //update player speed
+                if (TotaldistanceTravelledInMeters / 100 > currentSpeedInceses)
+                {
+                    currentSpeedInceses++;
+                    float boost = PlayerSpeedIncreaseOver100Meters * PlayerConstantStartingSpeed - PlayerConstantStartingSpeed;
+                    currentPlayerSpeed += boost;
+                    currentPlayerSpeed = Mathf.Clamp(currentPlayerSpeed, PlayerConstantStartingSpeed, PlayerConstantMaxSpeed);
+
+                }
+            }
+
+            //Left and Right Strave
+            if (moveDirection.x != 0)
+            {
+                //calculate new strave speed increase with acceleration
+                currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * moveDirection.x;
+                currentStraveSpeed = Mathf.Clamp(currentStraveSpeed, -PlayerStraveSpeed, PlayerStraveSpeed);
+
+                //tilt player model in direction of movedirection.x 
+                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.Euler(0, 0, -moveDirection.x * PlayerSraveTilt), Time.deltaTime * 5f);
+            }
+            else
+            {
+                //decrease strave speed
+                currentStraveSpeed = Mathf.Lerp(currentStraveSpeed, 0f, Time.deltaTime * overShootRecoverSpeed);
+                //undo tilt when not straving            
+                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 5f);
+            }
+
+            //move player model left and right smooth clamp to max distance
+            straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
             straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
             Vector3 thisPlayerModelPosition = playerModel.transform.localPosition;
             playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, thisPlayerModelPosition.z);
 
-            */
 
-            //tilt player model in direction of movedirection.x 
-            playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.Euler(0, 0, -moveDirection.x * PlayerSraveTilt), Time.deltaTime * 5f);
-        }
-        else
-        {
-            //decrease strave speed
-            currentStraveSpeed = Mathf.Lerp(currentStraveSpeed, 0f, Time.deltaTime * overShootRecoverSpeed);
-            //undo tilt when not straving            
-            playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 5f);
-        }
-        //move player model left and right smooth clamp to max distance
-        straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
-        straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
-        Vector3 thisPlayerModelPosition = playerModel.transform.localPosition;
-        playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, thisPlayerModelPosition.z);
-
-
-        //Check if straveDistanceTravelled is greater than switchPathDistance
-        if (canStraveSwitchPath)
-        {
-
-
-            switch (currentPathType)
+            //Check if straveDistanceTravelled is greater than switchPathDistance
+            if (canStraveSwitchPath)
             {
-                case PathType.Left:
-                    if (straveDistanceTravelled >= switchPathDistance)
-                    {
-                        SwitchToMiddlePath();
-                    }
-                    break;
-                case PathType.Right:
-                    if (straveDistanceTravelled <= -switchPathDistance)
-                    {
-                        SwitchToMiddlePath();
-                    }
-                    break;
-                case PathType.Middle:
-                    if (straveDistanceTravelled >= switchPathDistance)
-                    {
-                        SwitchToRightPath();
-                    }
-                    else if (straveDistanceTravelled <= -switchPathDistance)
-                    {
-                        SwitchToLeftPath();
-                    }
-                    break;
-
-            }
-
-        }
-
-
-
-
-
-
-
-        //check if path is near end
-        if (distanceTravelled >= Currentpath.path.length - ChangeToForWardPatjDistance)
-        {
-
-            //Debug.LogError($"Path is near end, currentPathType: {currentPathType}");
-            if (MiddlePath.next() != null && MiddlePath.next().isNull() == false)
-            {
-                MiddlePath = MiddlePath.next();
-                LeftPath = LeftPath.next();
-                RightPath = RightPath.next();
-
-
-                CurrentPathBatch = new PathBatch(LeftPath.spline, RightPath.spline, MiddlePath.spline);
-
                 switch (currentPathType)
                 {
                     case PathType.Left:
-                        Currentpath = CurrentPathBatch.leftPath;
+                        if (straveDistanceTravelled >= switchPathDistance)
+                        {
+                            SaveObjPositions();
+                            SwitchToMiddlePath();
+                            TeleportObjPositions();
+                        }
                         break;
                     case PathType.Right:
-                        Currentpath = CurrentPathBatch.rightPath;
+                        if (straveDistanceTravelled <= -switchPathDistance)
+                        {
+                            SaveObjPositions();
+                            SwitchToMiddlePath();
+                            TeleportObjPositions();
+                        }
                         break;
                     case PathType.Middle:
-                        Currentpath = CurrentPathBatch.middlePath;
+                        if (straveDistanceTravelled >= switchPathDistance)
+                        {
+                            SaveObjPositions();
+                            SwitchToRightPath();
+                            TeleportObjPositions();
+                        }
+                        else if (straveDistanceTravelled <= -switchPathDistance)
+                        {
+                            SaveObjPositions();
+                            SwitchToLeftPath();
+                            TeleportObjPositions();
+                        }
                         break;
                 }
-                distanceTravelled = 0f;
-
             }
-            else
+
+
+            //check if path is near end
+            if (distanceTravelled >= Currentpath.path.length + ChangeToForWardPatjDistance)
             {
-                Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
+
+                //Debug.LogError($"Path is near end, currentPathType: {currentPathType}");
+                if (MiddlePath.next() != null && MiddlePath.next().isNull() == false)
+                {
+                    SaveObjPositions();
+                    MiddlePath = MiddlePath.next();
+                    LeftPath = LeftPath.next();
+                    RightPath = RightPath.next();
+
+
+                    CurrentPathBatch = new PathBatch(LeftPath.spline, RightPath.spline, MiddlePath.spline);
+
+                    switch (currentPathType)
+                    {
+                        case PathType.Left:
+                            Currentpath = CurrentPathBatch.leftPath;
+                            break;
+                        case PathType.Right:
+                            Currentpath = CurrentPathBatch.rightPath;
+                            break;
+                        case PathType.Middle:
+                            Currentpath = CurrentPathBatch.middlePath;
+                            break;
+                    }
+                    distanceTravelled = Currentpath.path.GetClosestDistanceAlongPath(transform.position);
+
+                    TeleportObjPositions();
+
+
+                }
+                else
+                {
+                    Debug.Log("Jetzt hat es alles auseinander genommen, du Hurensohn");
+                }
+
             }
 
+            if (Vector3.Distance(transform.position, tempCurrentPosition) > 0.45f && Vector3.Distance(transform.position, tempCurrentPosition) < 5f)
+            {
+                Debug.LogWarning("Player moved: " + Vector3.Distance(transform.position, tempCurrentPosition));
+            }
+
+            if (Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition) > 0.45f && Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition) < 5f)
+            {
+                Debug.LogWarning("PlayerModel moved: " + Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition));
+            }
+            yield return null;
         }
 
+
+    }
+   
+
+    private void SaveObjPositions()
+    {
+
+        saveBeforeTeleportPositions.Clear();
+        foreach (GameObject tgameObject in saveBeforeTeleport)
+        {
+            saveBeforeTeleportPositions.Add(tgameObject.transform.position);
+        }
+    }
+
+    private void TeleportObjPositions()
+    {
+
+        foreach (GameObject tgameObject in saveBeforeTeleport)
+        {
+            tgameObject.transform.position = saveBeforeTeleportPositions[saveBeforeTeleport.IndexOf(tgameObject)];
+        }
     }
 
     public IEnumerator Hop(List<Vector3> points)
@@ -332,7 +367,7 @@ public class PlayerMovement : MonoBehaviour
         List<Vector3> pointsOnParabola = points;
 
         Vector3 closestPoint = pointsOnParabola[0];
-            float closestDistance = Vector3.Distance(playerModel.transform.position, closestPoint);
+        float closestDistance = Vector3.Distance(playerModel.transform.position, closestPoint);
 
         while (closestDistance < 5f)
         {
@@ -349,10 +384,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            
-            
 
-            
+
+
+
             foreach (Vector3 point in pointsOnParabola)
             {
                 float distance = Vector3.Distance(playerModel.transform.position, point);
@@ -367,14 +402,14 @@ public class PlayerMovement : MonoBehaviour
             Vector3 thisPlayerModelPosition = playerModel.transform.position;
             playerModel.transform.position = new Vector3(thisPlayerModelPosition.x, closestPoint.y, thisPlayerModelPosition.z);
 
-            
+
             yield return null;
 
 
         }
 
 
-        
+
         //while playermodel.transform.position.y > 0f move playermodel.transform.position.y down
         while (playerModel.transform.position.y > 0f)
         {
@@ -384,12 +419,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        Debug.Log("Hop finished");    
-        
+        Debug.Log("Hop finished");
+
 
     }
 
-    
+
 
     private void SwitchToLeftPath()
     {

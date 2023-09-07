@@ -53,6 +53,12 @@ public class ExitPointDirection : MonoBehaviour
         Gizmos.DrawRay(entryPoint.transform.position, entryPoint.transform.forward * 10);
         Gizmos.DrawRay(entryPoint.transform.position + entryPoint.transform.forward * 10, (entryPoint.transform.forward * -1) + (entryPoint.transform.right * 0.5f));
         Gizmos.DrawRay(entryPoint.transform.position + entryPoint.transform.forward * 10, (entryPoint.transform.forward * -1) + (entryPoint.transform.right * -0.5f));
+
+        //draw 2x2 cube at the entry point and exit point
+        Gizmos.color = Color.blue;
+        Gizmos.DrawCube(entryPoint.transform.position, new Vector3(2, 2, 2));
+        Gizmos.DrawCube(exitPoint.transform.position, new Vector3(2, 2, 2));
+        
         
         //Debug.Log("exitPointRotation in degrees: " + exitPoint.transform.rotation.eulerAngles);
     }

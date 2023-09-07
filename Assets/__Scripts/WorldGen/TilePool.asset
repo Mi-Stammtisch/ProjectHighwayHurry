@@ -15,9 +15,9 @@ MonoBehaviour:
   straightTiles:
   - {fileID: 8225489620772765178, guid: 995daacdd9670644e9f1bde650fb9051, type: 3}
   leftTurnTiles:
-  - {fileID: 475040044006216262, guid: 69bf61ba520cbd84693056d312b74d69, type: 3}
+  - {fileID: 4474832942736717380, guid: 90362bcd8db58374aacbc4201a860d00, type: 3}
   rightTurnTiles:
-  - {fileID: 3343113584077230119, guid: 9c109c9694659da4c8f7fb1a0647753d, type: 3}
+  - {fileID: 2091638568948375565, guid: 7691218b8d1b57b4693c6aac9ab7504e, type: 3}
   specialTiles:
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
   specialTileSpawning: 4

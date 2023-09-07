@@ -56,7 +56,7 @@ public class PlayerCamera : MonoBehaviour
     {
         CallDefaultCam(-1);
 
-        transform.parent = null;
+        
         
     }
 

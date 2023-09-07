@@ -61,6 +61,11 @@ sysinfo.txt
 *.unitypackage
 *.app
 
+#blenderShit
+*.blend1
+*.blend1.meta
+*.blend.meta
+
 # Crashlytics generated file
 crashlytics-build.properties
 
@@ -100,3 +105,31 @@ Assets/Modles3D/Atlanten/new_emission_atlas.psd.meta
 Assets/Modles3D/Atlanten/new_color_atlas.psd.meta
 Assets/Modles3D/Environment/Lantern.blend.meta
 Assets/Modles3D/Environment/Lantern.blend1.meta
+Assets/Modles3D/Environment/BarrierBeton.blend.meta
+Assets/Modles3D/Environment/BarrierBeton.blend1.meta
+Assets/Modles3D/Environment/BaustelleLarge.blend.meta
+Assets/Modles3D/Environment/BaustelleLargeFuß.blend.meta
+Assets/Modles3D/Environment/BaustelleLargeFuß.blend1.meta
+Assets/Modles3D/Environment/BaustelleSmall.blend.meta
+Assets/Modles3D/Environment/BaustelleSmall.blend1.meta
+Assets/Modles3D/Environment/BaustelleSmallFuß.blend.meta
+Assets/Modles3D/Environment/BaustelleSmallFuß.blend1.meta
+Assets/Modles3D/Environment/Pinguin.blend.meta
+Assets/Modles3D/Environment/Pinguin.blend1.meta
+Assets/Modles3D/Environment/skybox.meta
+Assets/Modles3D/Environment/skybox/skybox.png.meta
+Assets/Modles3D/Environment/skybox/skybox.psd.meta
+Assets/Modles3D/Environment/skybox/skybox_back.png.meta
+Assets/Modles3D/Environment/skybox/skybox_top.png.meta
+Assets/Modles3D/Environment/skybox/skybox_right.png.meta
+Assets/Modles3D/Environment/skybox/skybox_left.png.meta
+Assets/Modles3D/Environment/skybox/skybox_front.png.meta
+Assets/Modles3D/Environment/skybox/skybox_down.png.meta
+Assets/Modles3D/Environment/skybox/skybox_bottom.png.meta
+Assets/Modles3D/Tiles.meta
+Assets/Modles3D/Tiles/CurveLeft.blend.meta
+Assets/Modles3D/Tiles/CurveLeft.blend1.meta
+Assets/Modles3D/Tiles/CurveRight.blend.meta
+Assets/Modles3D/Tiles/CurveRight.blend1.meta
+Assets/Modles3D/Tiles/Straight.blend.meta
+Assets/Modles3D/Tiles/Straight.blend1.meta
