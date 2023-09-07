@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePool: {fileID: 11400000, guid: 539906843a119324491b246455f7fc20, type: 2}
-  tileCount: 3
+  tileCount: 5
   tiles: []
   turnSpawnCooldownMax: 5
   maxDistanceFromSpawn: 10000
