@@ -76,10 +76,10 @@ MonoBehaviour:
   moving: 0
   stopMoving: 0
   coinPrefab: {fileID: 0}
-  numberOfCoins: 0
-  coinSpawnChance: 0
-  coinSpawnDistanceCar: 0
-  coinSpacing: 0
+  numberOfCoins: 5
+  coinSpawnChance: 1
+  coinSpawnDistanceCar: 8.5
+  coinSpacing: 1.5
 --- !u!65 &4525971994117466784
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2930536, y: 0.9404833, z: 3.092639}
+  m_Size: {x: 2.3597798, y: 0.9404833, z: 5.554461}
   m_Center: {x: -0.009742767, y: 0.4797347, z: -0.15596247}
 --- !u!1001 &945955654809389391
 PrefabInstance:
