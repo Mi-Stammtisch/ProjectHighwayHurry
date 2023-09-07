@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 using PathCreation;
 using System.IO;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System;
 
 
 
@@ -28,7 +30,17 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public float PlayerConstantSpeed = 15f;
+    public float PlayerConstantStartingSpeed = 15f;
+    public float PlayerConstantMaxSpeed = 300f;
+    public float currentPlayerSpeed;
+    [Range(1,5)]
+    [Tooltip("How much faster should the player be after 1000 meters in percent")]
+    public float PlayerSpeedIncreaseOver100Meters = 1.1f;
+
+    public Int64 TotaldistanceTravelledInMeters = 0;
+    float currentMeter;
+
+    public Int32 currentSpeedInceses = 0;
 
 
 
@@ -97,13 +109,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Start()
     {
-
-
-
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
 
         spawnTileV2 = SpawnTileV2.Instance;
+
+        currentPlayerSpeed = PlayerConstantStartingSpeed;
 
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
@@ -150,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             //calculate new rotation speed based on player speed and wheleRadius
-            float newRotationSpeed = PlayerConstantSpeed / (2 * Mathf.PI * wheleRadius);
+            float newRotationSpeed = currentPlayerSpeed / (2 * Mathf.PI * wheleRadius);
             wheleFront.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
             wheleBack.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
             yield return null;
@@ -174,9 +185,31 @@ public class PlayerMovement : MonoBehaviour
         else Debug.LogError("middleLaneCamRef is null");
 
         //Forward Movement
-        distanceTravelled += PlayerConstantSpeed * Time.deltaTime;
+        distanceTravelled += currentPlayerSpeed * Time.deltaTime;
         transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
         transform.rotation = Currentpath.path.GetRotationAtDistance(distanceTravelled);
+
+        //update distanceTravelledInMeters
+        currentMeter += currentPlayerSpeed * Time.deltaTime;
+
+        if (currentMeter >= 1f)
+        {
+            TotaldistanceTravelledInMeters++;
+            currentMeter -= 1f;            
+        }
+
+        //update player speed
+        if(TotaldistanceTravelledInMeters / 100 > currentSpeedInceses)
+        {
+            currentSpeedInceses++;
+            float boost = PlayerSpeedIncreaseOver100Meters * PlayerConstantStartingSpeed - PlayerConstantStartingSpeed;
+            currentPlayerSpeed += boost;
+            currentPlayerSpeed = Mathf.Clamp(currentPlayerSpeed, PlayerConstantStartingSpeed, PlayerConstantMaxSpeed);
+            
+        }
+
+        
+
 
         //Left and Right Strave
         if (moveDirection.x != 0)
