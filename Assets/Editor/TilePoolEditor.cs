@@ -71,15 +71,22 @@ public class TilePoolEditor : Editor
         {
             case SpecialTileSpawning.TimeBased:
                 tilePool.time = EditorGUILayout.FloatField("Time Between Spawn", tilePool.time);
+                tilePool.noSpecialTiles = false;
                 break;
             case SpecialTileSpawning.TileBased:
                 tilePool.tile = EditorGUILayout.IntField("Tiles Between Spawn", tilePool.tile);
+                tilePool.noSpecialTiles = false;
                 break;
             case SpecialTileSpawning.DifficultyBased:
                 tilePool.difficulty = EditorGUILayout.FloatField("Difficulty (IDK, leave empty)", tilePool.difficulty);
+                tilePool.noSpecialTiles = false;
                 break;
             case SpecialTileSpawning.Random:
                 tilePool.random = EditorGUILayout.Slider("Random Chance", tilePool.random, 0f, 1f);
+                tilePool.noSpecialTiles = false;
+                break;
+            case SpecialTileSpawning.NoSpecialTiles:
+                tilePool.noSpecialTiles = true;
                 break;
         }
 

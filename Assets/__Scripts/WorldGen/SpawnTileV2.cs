@@ -125,7 +125,7 @@ public class SpawnTileV2 : MonoBehaviour
 
     public void spawnNewTile() {
 
-        specialTile?.Invoke();
+        if (!tilePool.noSpecialTiles) specialTile?.Invoke();
 
         if (nextTiles.Count == 0) {
             float distanceToSpawn = Vector3.Magnitude(tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position);

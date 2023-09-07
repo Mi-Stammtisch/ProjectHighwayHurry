@@ -20,6 +20,7 @@ public class TilePool : ScriptableObject
     public float difficulty;
     [Range(0, 1)]
     public float random;
+    public bool noSpecialTiles;
 
 
 
@@ -31,5 +32,6 @@ public enum SpecialTileSpawning {
     TimeBased,
     TileBased,
     DifficultyBased,
-    Random
+    Random,
+    NoSpecialTiles
 }
