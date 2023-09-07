@@ -87,7 +87,9 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
+    private bool tilesCached = false;
 
+    
 
 
     private Vector3 moveDirection;
@@ -113,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(wheleBack.transform.position, wheleRadius);
     }
 
+    void Awake() {
+        SpawnTileV2.onTilesCached += () => { tilesCached = true; };
+    }
+
     IEnumerator Start()
     {
 
@@ -129,7 +135,12 @@ public class PlayerMovement : MonoBehaviour
         float time = Time.time;
         Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
 
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(1f);
+        //wait unit onTileCached event is fired
+        while (!tilesCached) {
+            yield return null;
+        }
+
         Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
 
@@ -153,6 +164,9 @@ public class PlayerMovement : MonoBehaviour
             //transform.position += new Vector3(0, 0.5f, 0);
 
 
+        }
+        else {
+            Debug.LogError("SpawnTileV2.tiles[1] is null");
         }
 
         //middleLaneCamRef.transform.parent = null;

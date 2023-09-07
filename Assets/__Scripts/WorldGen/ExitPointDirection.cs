@@ -5,6 +5,9 @@ using PathCreation;
 
 public class ExitPointDirection : MonoBehaviour
 {
+    [Header("Tile Settings")]
+    [SerializeField] private TileType tileType;
+
     [Header("Entry/Exit Points")]
     [Tooltip("Drag the entryPoint in here")]
     [SerializeField] private GameObject entryPoint;
@@ -16,12 +19,19 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] public GameObject middlePath;
     [SerializeField] public GameObject rightPath;
 
-    [SerializeField] public CustomSpline leftSpline;
-    [SerializeField] public CustomSpline middleSpline;
-    [SerializeField] public CustomSpline rightSpline;
+    [Header("Car Spawning")]
+    [SerializeField] private GameObject spawnPointsLeftParent;
+    [SerializeField] private GameObject spawnPointsMiddleParent;
+    [SerializeField] private GameObject spawnPointsRightParent;
+
+    public CustomSpline leftSpline;
+    public CustomSpline middleSpline;
+    public CustomSpline rightSpline;
 
     [SerializeField] private PathCreator nextSpline;
     [SerializeField] private PathCreator previousSpline;
+
+    private List<GameObject> cars = new List<GameObject>();
 
     void Awake() {
         leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
@@ -70,4 +80,56 @@ public class ExitPointDirection : MonoBehaviour
     public GameObject getExitPoint() {
         return exitPoint;
     }
+
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    public void spawnCars(List<GameObject> spawnCars) {
+        if (tileType != TileType.straight) return;
+        
+        int track = Random.Range(0, 3);
+        GameObject spawnPoint;
+        foreach (GameObject car in spawnCars) {
+            switch(track) {
+                case 0:
+                    spawnPoint = spawnPointsLeftParent.transform.GetChild(Random.Range(0, spawnPointsLeftParent.transform.childCount)).gameObject;
+                    car.GetComponent<ScuffedCarAI>().init(TrackType.left, gameObject, spawnPoint);
+                    cars.Add(car);
+                    break;
+                case 1:
+                    spawnPoint = spawnPointsMiddleParent.transform.GetChild(Random.Range(0, spawnPointsMiddleParent.transform.childCount)).gameObject;
+                    car.GetComponent<ScuffedCarAI>().init(TrackType.middle, gameObject, spawnPoint);
+                    cars.Add(car);
+                    break;
+                case 2:
+                    spawnPoint = spawnPointsRightParent.transform.GetChild(Random.Range(0, spawnPointsRightParent.transform.childCount)).gameObject;
+                    car.GetComponent<ScuffedCarAI>().init(TrackType.right, gameObject, spawnPoint);
+                    cars.Add(car);
+                    break;
+            }
+        }
+    }
+
+    public void Reset() {
+        nextSpline = null;
+        previousSpline = null;
+        GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>().resetCars(cars);
+        cars.Clear();
+    }
+
+    public void addCars(GameObject car) {
+        cars.Add(car);
+    }
+    public void addCars(List<GameObject> cars) {
+        this.cars.AddRange(cars);
+    }
+}
+
+
+public enum TileType {
+    straight,
+    leftTurn,
+    rightTurn,
+    special
 }

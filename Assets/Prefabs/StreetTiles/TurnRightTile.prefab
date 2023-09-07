@@ -144,11 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5079d6aaf6528a4fb2132905bf9df1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 2
   entryPoint: {fileID: 6990584492746843306}
   exitPoint: {fileID: 1081298309003922603}
   leftPath: {fileID: 4978516973403051850}
   middlePath: {fileID: 2093478110332669691}
   rightPath: {fileID: 1022074720269977661}
+  spawnPointParent: {fileID: 0}
   leftSpline:
     spline: {fileID: 0}
   middleSpline:

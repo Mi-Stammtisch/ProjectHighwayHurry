@@ -1,18 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using PathCreation;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UIElements;
 
 public class ScuffedCarAI : MonoBehaviour
 {
     Coroutine moveCoroutine;
     [SerializeField] private float minSpeed = 3f;
     [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private GameObject tile;
-    [SerializeField] private trackType trackType;
+    //[SerializeField] private GameObject tile;
     [SerializeField] private PathCreator previousSpline;
     [SerializeField] private float distanceTravelled;
     [SerializeField] private float speed;
@@ -31,20 +26,23 @@ public class ScuffedCarAI : MonoBehaviour
     private bool hasStarted = false;
 
 
-    void Start() {
+    public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
         //pathCreator = new CustomSpline(spline.GetComponent<PathCreator>());
         switch (trackType) {
-            case trackType.middle:
+            case TrackType.middle:
                 pathCreator = tile.GetComponent<ExitPointDirection>().middleSpline;
                 break;
-            case trackType.left:
+            case TrackType.left:
                 pathCreator = tile.GetComponent<ExitPointDirection>().leftSpline;
                 break;
-            case trackType.right:
+            case TrackType.right:
                 pathCreator = tile.GetComponent<ExitPointDirection>().rightSpline;
                 break;
         }
 
+        transform.position = spawnPoint.transform.position;
+
+        if (pathCreator == null) Debug.LogError("pathCreator is null");
         distanceTravelled = Vector3.Magnitude(transform.position - pathCreator.path.GetPointAtDistance(0f));
         //Debug.Log("pathLength: " + pathCreator.path.length);
 
@@ -60,14 +58,12 @@ public class ScuffedCarAI : MonoBehaviour
         else {
             speed = 0;
         }
-
-
         
-        hasStarted = true;
+        initialized = true;
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.gameObject.tag == "Player" && !initialized && hasStarted) {
+        if (other.gameObject.tag == "Player" && initialized && !hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
             speed = Random.Range(minSpeed, maxSpeed);
             moving = true;
@@ -87,58 +83,30 @@ public class ScuffedCarAI : MonoBehaviour
                 }
             }
 
-            initialized = true;
+            hasStarted = true;
         }
     }
 
 
-    void Update() {
-        if (pathCreator.previous() != null && pathCreator.previous().isNull() == false) {
-            previousSpline = pathCreator.previous().spline;
-        }
-        else {
-            //speed = 0;
-        }
+    private void Update() {
+
 
 
 
         if (moving && !stopMoving && pathCreator.isNull() == false) {
             if (distanceTravelled <= pathCreator.path.length && distanceTravelled > 1f) {
+                Debug.Log("Test01");
                 distanceTravelled -= speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
                 transform.position += new Vector3(0, 0.5f, 0);
 
-                //rotate in move direction
-                //first get point at distance - 1 
-                Vector3 point1 = pathCreator.path.GetPointAtDistance(distanceTravelled - 1f);               
-
-                //then get direction vector
-                Vector3 direction = transform.position - point1;
-
-                Vector3 direction2 = pathCreator.path.GetDirectionAtDistance(distanceTravelled - 1f);
-
-                //isolate y axis
-                
-
-                //rotate direction vector by 90 to left
-                direction = Quaternion.Euler(0, -90, 0) * direction;
-
                 //then rotate
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
 
-                transform.rotation *= Quaternion.Euler(0, -90, 0);
-                
-
-
-
-                
-
-
-
-                
-               
+                transform.rotation *= Quaternion.Euler(0, 180, 0);
             }
             else {
+                Debug.Log("Test02");
                 //TODO: move onto next spline
                 //set distanceTravelled to spline.length
                 if (pathCreator.previous() != null && pathCreator.previous().isNull() == false) {
@@ -154,25 +122,20 @@ public class ScuffedCarAI : MonoBehaviour
                 }
             } 
         }
-        else if(pathCreator.isNull() == true && !stopMoving) {
+        else if(pathCreator == null || pathCreator.isNull() == true && !stopMoving) {
+            Debug.Log("Test03");
             stopMoving = true;
         }
     }
 
-
-
-    private IEnumerator moveCar(float speed) {
-        /*
-        while (true) {
-            transform.position += -transform.right * Time.deltaTime * Random.Range(minSpeed, maxSpeed);
-            yield return null;
-        }
-        */
-
-        distanceTravelled += speed * Time.deltaTime;
-        transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
-        yield return null;
+    public void Reset() {
+        initialized = false;
+        hasStarted = false;
+        stopMoving = false;
+        moving = false;
+        //pathCreator = null;
     }
+    
 }
 
 
@@ -238,10 +201,16 @@ public class CustomSpline {
     public bool isNull() {
         return spline == null;
     }
+
+    public void reset() {
+        //spline = null;
+        nextSpline = null;
+        previousSpline = null;
+    }
 }
 
 
-public enum trackType {
+public enum TrackType {
     middle,
     left,
     right
