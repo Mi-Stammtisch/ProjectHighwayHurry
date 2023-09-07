@@ -233,7 +233,7 @@ MonoBehaviour:
   tileCount: 3
   tiles: []
   turnSpawnCooldownMax: 5
-  maxDistanceFromSpawn: 1000
+  maxDistanceFromSpawn: 10000
   numberOfStraightTilesInTurns: 5
   spawnTurnChance:
     serializedVersion: 2
@@ -268,7 +268,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  testRun: 1
+  testRun: 0
   testTiles:
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
