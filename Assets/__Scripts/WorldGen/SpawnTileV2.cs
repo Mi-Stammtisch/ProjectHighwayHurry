@@ -19,11 +19,16 @@ public class SpawnTileV2 : MonoBehaviour
     private int turnSpawnCooldown;
     private List<GameObject> nextTiles = new List<GameObject>();
 
+    private event Action specialTile;
+    private float startTime;
+    private int tileBasedCounter = 0;
+
     private void spawnInitialTiles(GameObject tile) {
         GameObject newTile;
         GameObject exitPoint;
         if (tiles.Count > 0) {
             newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
+            tileBasedCounter++;
             GameObject lastTile = tiles[tiles.Count - 1];
 
             lastTile.GetComponent<ExitPointDirection>().leftSpline.setNext(newTile.GetComponent<ExitPointDirection>().leftSpline);
@@ -39,6 +44,7 @@ public class SpawnTileV2 : MonoBehaviour
         }
         else {
             newTile = Instantiate(tile, Vector3.zero, Quaternion.identity);
+            tileBasedCounter++;
 
             exitPoint = new GameObject();
             exitPoint.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
@@ -84,6 +90,27 @@ public class SpawnTileV2 : MonoBehaviour
 
 
     void Start() {
+
+
+        switch (tilePool.specialTileSpawning) {
+            case SpecialTileSpawning.TimeBased:
+                specialTile += timeBased;
+                startTime = Time.time;
+                break;
+            case SpecialTileSpawning.TileBased:
+                specialTile += tileBased;
+                break;
+            case SpecialTileSpawning.DifficultyBased:
+                specialTile += diffBased;
+                break;
+            case SpecialTileSpawning.Random:
+                specialTile += randomBased;
+                break;
+        }
+
+
+
+
         if (testRun) {
             foreach (GameObject tile in testTiles) {
                 nextTiles.Add(tile);
@@ -97,6 +124,9 @@ public class SpawnTileV2 : MonoBehaviour
 
 
     public void spawnNewTile() {
+
+        specialTile?.Invoke();
+
         if (nextTiles.Count == 0) {
             float distanceToSpawn = Vector3.Magnitude(tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position);
             float ddwd = distanceToSpawn / maxDistanceFromSpawn;
@@ -131,10 +161,37 @@ public class SpawnTileV2 : MonoBehaviour
                 turnSpawnCooldown--;
             }
         }
-        else {
+        else if (nextTiles.Count > 0) {
             spawnInitialTiles(nextTiles[0]);
             nextTiles.RemoveAt(0);
         }
+    }
 
+
+    private void timeBased() {
+        if (Time.time - startTime > tilePool.time) {
+            startTime = Time.time;
+            nextTiles.Add(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
+            Debug.Log("Spawned special tile");
+        }
+    }
+
+    private void tileBased() {
+        if (tileBasedCounter > tilePool.tile) {
+            nextTiles.Add(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
+            Debug.Log("Spawned special tile");
+            tileBasedCounter = 0;
+        }
+    }
+
+    private void diffBased() {
+        //TODO: Implement difficulty based spawning of special tiles
+    }
+
+    private void randomBased() {
+        if (UnityEngine.Random.Range(0f, 1f) < tilePool.random) {
+            nextTiles.Add(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
+            Debug.Log("Spawned special tile");
+        }
     }
 }
