@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class StartCarMovement : MonoBehaviour
 {
-    
 
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Car")) {
-            other.gameObject.GetComponent<ScuffedCarAI>().triggerStayOld();
+    [SerializeField] private float radius;
+    [SerializeField] private float cooldown;
+
+    void Start() {
+        StartCoroutine(checkForCars());
+    }
+
+
+    IEnumerator checkForCars() {
+        while (true) {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
+            foreach (Collider collider in colliders) {
+                if (collider.gameObject.CompareTag("Car")) {
+                    Debug.Log("Car found");
+                    collider.gameObject.GetComponent<ScuffedCarAI>().triggerStayOld();
+                }
+            }
+            yield return new WaitForSeconds(cooldown);
         }
     }
 }
