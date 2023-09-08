@@ -204,9 +204,21 @@ public class PlayerMovement : MonoBehaviour
 
             if (middleLaneCamRef != null)
             {
-                middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+                //middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+                //middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+
+                float distanceToMiddleLane = Vector3.Distance(transform.position, CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position));
+                float distanceToMiddleLaneX = Mathf.Abs(CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position).x - transform.position.x);
+
+                //offset middleLaneCamRef.transform.position.x by distanceToMiddleLaneX                
+                middleLaneCamRef.transform.position = new Vector3(transform.position.x + distanceToMiddleLaneX, transform.position.y, transform.position.z);
+                
+                
+                
                 middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
             }
+
+            
 
 
 
