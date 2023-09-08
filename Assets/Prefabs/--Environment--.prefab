@@ -305,7 +305,7 @@ MonoBehaviour:
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
-  enableCarSpawning: 0
+  enableCarSpawning: 1
   carCacheParent: {fileID: 1654609325494267642}
   cars:
   - {fileID: 324075200823789674, guid: 40e6f23ea0e674e4594ec13469bc7a65, type: 3}
@@ -403,8 +403,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9063608213440213854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.056177553, y: 0.70487064, z: -0.056177385, w: 0.7048727}
-  m_LocalPosition: {x: -13.833721, y: 6.579741, z: 2.6528666}
+  m_LocalRotation: {x: 0.04683435, y: 0.35048217, z: -0.017551355, w: 0.93523306}
+  m_LocalPosition: {x: -14.073704, y: 6.579741, z: -3.1271346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

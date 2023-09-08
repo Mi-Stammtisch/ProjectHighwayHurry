@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float overShootRecoverSpeed = 0.5f;
 
     private float currentStraveSpeed;
+    [SerializeField] bool resetSraveSpeedOnMaxStraveDistance = true;
 
 
 
@@ -204,18 +205,18 @@ public class PlayerMovement : MonoBehaviour
 
             if (middleLaneCamRef != null)
             {
-                //middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
-                //middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+                middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(CurrentPathBatch.middlePath.path.GetClosestDistanceAlongPath(transform.position));
+                middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(CurrentPathBatch.middlePath.path.GetClosestDistanceAlongPath(transform.position));
 
-                float distanceToMiddleLane = Vector3.Distance(transform.position, CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position));
-                float distanceToMiddleLaneX = Mathf.Abs(CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position).x - transform.position.x);
+                //float distanceToMiddleLane = Vector3.Distance(transform.position, CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position));
+                //float distanceToMiddleLaneX = Mathf.Abs(CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position).x - transform.position.x);
 
                 //offset middleLaneCamRef.transform.position.x by distanceToMiddleLaneX                
-                middleLaneCamRef.transform.position = new Vector3(transform.position.x + distanceToMiddleLaneX, transform.position.y, transform.position.z);
+                //middleLaneCamRef.transform.position = new Vector3(transform.position.x + distanceToMiddleLaneX, transform.position.y, transform.position.z);
                 
                 
                 
-                middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
+                //middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
             }
 
             
@@ -266,9 +267,13 @@ public class PlayerMovement : MonoBehaviour
 
             //move player model left and right smooth clamp to max distance
             straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
+
             straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+            
+            if((straveDistanceTravelled <= -MaxStraveDistance || straveDistanceTravelled >= MaxStraveDistance) && resetSraveSpeedOnMaxStraveDistance)currentStraveSpeed = 0f;
+            
             Vector3 thisPlayerModelPosition = playerModel.transform.localPosition;
-            playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, thisPlayerModelPosition.z);
+            playerModel.transform.localPosition = new Vector3(straveDistanceTravelled, thisPlayerModelPosition.y, 0);
 
 
             //Check if straveDistanceTravelled is greater than switchPathDistance
@@ -379,6 +384,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    
     private void TeleportObjPositions()
     {
 
