@@ -181,83 +181,8 @@ public class Spline : MonoBehaviour
             }
         }
         return Vector3.zero;
-
     }
 
-    private float DistanceInCurrentSegment()
-    {
-        //return distance progessded in current spline segment
-        float distance = 0;
-        for (int i = 0; i < transform.childCount - 1; i++)
-        {
-            float splineSegmentLength = AproximateSplineSegmentLength(transform.GetChild(i).gameObject, transform.GetChild(i + 1).gameObject);
-            if (distance + splineSegmentLength > distance)
-            {
-                return distance;
-            }
-            else
-            {
-                distance += splineSegmentLength;
-            }
-        }
-        return 0;
-    }
-
-    private int GetCurrentSplineSegment(float t)
-    {
-        //return current spline segment
-        float distance = 0;
-        for (int i = 0; i < transform.childCount - 1; i++)
-        {
-            float splineSegmentLength = AproximateSplineSegmentLength(transform.GetChild(i).gameObject, transform.GetChild(i + 1).gameObject);
-            if (distance + splineSegmentLength > t)
-            {
-                return i;
-            }
-            else
-            {
-                distance += splineSegmentLength;
-            }
-        }
-        return 0;
-    }
-
-    public GameObject PreviusNodeAtDistance(float t){
-        //return previous node at distance t
-        float distance = 0;
-        for (int i = 0; i < transform.childCount - 1; i++)
-        {
-            float splineSegmentLength = AproximateSplineSegmentLength(transform.GetChild(i).gameObject, transform.GetChild(i + 1).gameObject);
-            if (distance + splineSegmentLength > t)
-            {
-                return transform.GetChild(i).gameObject;
-            }
-            else
-            {
-                distance += splineSegmentLength;
-            }
-        }
-        return null;
-    }
-
-    public GameObject NextNodeAtDistance(float t)
-    {
-        //return next node at distance t
-        float distance = 0;
-        for (int i = 0; i < transform.childCount - 1; i++)
-        {
-            float splineSegmentLength = AproximateSplineSegmentLength(transform.GetChild(i).gameObject, transform.GetChild(i + 1).gameObject);
-            if (distance + splineSegmentLength > t)
-            {
-                return transform.GetChild(i + 1).gameObject;
-            }
-            else
-            {
-                distance += splineSegmentLength;
-            }
-        }
-        return null;
-    }
     public Vector3 GetPointInDistance(float t)
     {
         //return point on curve at distance t

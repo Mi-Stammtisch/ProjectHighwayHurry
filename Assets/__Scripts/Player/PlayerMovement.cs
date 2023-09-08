@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(-2, 1f)]
     [SerializeField] private float ChangeToForWardPatjDistance = 1f;
 
-   
+    [SerializeField] private float DontChangeRecoverLaneTpRecorverSpeed = 5f;
 
 
 
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float distanceTravelled;
     [SerializeField] GameObject middleLaneCamRef;
-    
+
     private GameObject playerModel;
 
     SpawnTileV2 spawnTileV2;
@@ -203,16 +203,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 tempCurrentModelPosition = playerModel.transform.position;
 
             if (middleLaneCamRef != null)
-            {              
-                //only get local x distance
-                float distanceToMiddleLane = Vector3.Distance(transform.position, CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position));
-                float distanceToMiddleLaneX = Mathf.Abs(CurrentPathBatch.middlePath.path.GetClosestPointOnPath(transform.position).x - transform.position.x);
-
-                //offset middleLaneCamRef.transform.position.x by distanceToMiddleLaneX                
-                middleLaneCamRef.transform.position = new Vector3(transform.position.x + distanceToMiddleLaneX, transform.position.y, transform.position.z);
-                
-                
-                
+            {
+                middleLaneCamRef.transform.position = CurrentPathBatch.middlePath.path.GetPointAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
                 middleLaneCamRef.transform.rotation = CurrentPathBatch.middlePath.path.GetRotationAtDistance(Currentpath.path.GetClosestDistanceAlongPath(transform.position));
             }
 
@@ -346,7 +338,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            
+            //TODO: debug.logwarning ist commented right now
             /*
             if (Vector3.Distance(transform.position, tempCurrentPosition) > 0.45f && Vector3.Distance(transform.position, tempCurrentPosition) < 5f)
             {
@@ -358,7 +350,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.LogWarning("PlayerModel moved: " + Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition));
             }
             */
-           
             yield return null;
         }
 
