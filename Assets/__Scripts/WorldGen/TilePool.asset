@@ -20,6 +20,7 @@ MonoBehaviour:
   - {fileID: 2091638568948375565, guid: 7691218b8d1b57b4693c6aac9ab7504e, type: 3}
   specialTiles:
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
+  - {fileID: 8225489620772765178, guid: c7a0abe2bf6c44985910638eae0ecbf0, type: 3}
   specialTileSpawning: 4
   time: 0
   tile: 5
