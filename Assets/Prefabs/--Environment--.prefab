@@ -49,6 +49,37 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
+--- !u!1 &1654609325494267642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536567385776222980}
+  m_Layer: 0
+  m_Name: CarCache
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1536567385776222980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654609325494267642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3200389574280666991}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763431347487909892
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,10 +261,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePool: {fileID: 11400000, guid: 539906843a119324491b246455f7fc20, type: 2}
-  tileCount: 5
+  tileCount: 8
   tiles: []
   turnSpawnCooldownMax: 5
-  maxDistanceFromSpawn: 10000
+  maxDistanceFromSpawn: 2000
   numberOfStraightTilesInTurns: 5
   spawnTurnChance:
     serializedVersion: 2
@@ -274,6 +305,26 @@ MonoBehaviour:
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
+  enableCarSpawning: 0
+  carCacheParent: {fileID: 1654609325494267642}
+  cars:
+  - {fileID: 324075200823789674, guid: 40e6f23ea0e674e4594ec13469bc7a65, type: 3}
+  - {fileID: 3428065445126339956, guid: e173a433f7548bc4296a95f70657084e, type: 3}
+  - {fileID: 3746738075619778842, guid: a27f5cd4ff38d6f488ef710abf42f9cc, type: 3}
+  - {fileID: 4180177651721403027, guid: 40760c568b932cb408c90e651223ce72, type: 3}
+  minNumberOfCars: 1
+  maxNumberOfCars: 1
+  carCooldownBegin: 3
+  tileCacheParent: {fileID: 6970177303693759805}
+  minCachedTiles:
+  - tileType: 0
+    minTiles: 20
+  - tileType: 1
+    minTiles: 10
+  - tileType: 2
+    minTiles: 10
+  - tileType: 3
+    minTiles: 10
 --- !u!1 &7111454593069549839
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +359,7 @@ Transform:
   - {fileID: 2365636156809793186}
   - {fileID: 2114635145898511403}
   - {fileID: 8919390500760300596}
+  - {fileID: 1536567385776222980}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &775576696254246966

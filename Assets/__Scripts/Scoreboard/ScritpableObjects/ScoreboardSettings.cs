@@ -9,6 +9,8 @@ public class ScoreboardSettings : ScriptableObject
 
     [Header("Scoreboard Settings")]
     [SerializeField] public int coinValue = 1;
+    [SerializeField] public float coinBonusDuration = 1f;
+    [SerializeField] public int coinBonusValue = 2;
     [SerializeField] public List<CloseCallLevels> closeCallLevels;
 }
 
