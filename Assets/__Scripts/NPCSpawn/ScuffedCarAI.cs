@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ScuffedCarAI : MonoBehaviour
 {
-    Coroutine moveCoroutine;
-    [SerializeField] private float minSpeed = 3f;
-    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private CarSettingsScriptable carSettings;
     //[SerializeField] private GameObject tile;
     [SerializeField] private PathCreator previousSpline;
     [SerializeField] private float distanceTravelled;
@@ -14,16 +12,13 @@ public class ScuffedCarAI : MonoBehaviour
     [SerializeField] private bool moving = false;
     [SerializeField] private bool stopMoving = false;
 
-    [Header("Coins")]
-    [SerializeField] private GameObject coinPrefab;
-    [SerializeField] private int numberOfCoins;
-    [Range(0f, 1f)]
-    [SerializeField] private float coinSpawnChance;
-    [SerializeField] private float coinSpawnDistanceCar;
-    [SerializeField] private float coinSpacing;
+
     private CustomSpline pathCreator;
     private bool initialized = false;
     private bool hasStarted = false;
+
+    private float updateCooldown;
+    private Coroutine moveCoroutine;
 
 
     public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
@@ -48,7 +43,8 @@ public class ScuffedCarAI : MonoBehaviour
 
         transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
-        transform.rotation *= Quaternion.Euler(0, -90, 0);
+        //transform.rotation *= Quaternion.Euler(0, -90, 0);
+        transform.rotation *= Quaternion.Euler(0, 180, 0);
         transform.position += new Vector3(0, 0.5f, 0);
 
 
@@ -60,21 +56,23 @@ public class ScuffedCarAI : MonoBehaviour
         }
         
         initialized = true;
+
+        updateCooldown = Random.Range(0.01f, 0.1f);
     }
 
-    void OnTriggerStay(Collider other) {
-        if (other.gameObject.tag == "Player" && initialized && !hasStarted) {
+    public void triggerStayOld() {
+        if (initialized && !hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
-            speed = Random.Range(minSpeed, maxSpeed);
+            speed = Random.Range(carSettings.minSpeed, carSettings.maxSpeed);
             moving = true;
 
             //spawn coins
-            if (Random.Range(0f, 1f) <= coinSpawnChance) {
-                for (int i = 0; i < numberOfCoins; i++) {
-                    GameObject coin = Instantiate(coinPrefab, transform.position + transform.right * coinSpawnDistanceCar + transform.right * coinSpacing * i, Quaternion.identity);
+            if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
+                for (int i = 0; i < carSettings.numberOfCoins; i++) {
+                    GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coin.transform.position += new Vector3(0, 0.5f, 0);
                     coin.transform.parent = transform;
-                    GameObject coinBehind = Instantiate(coinPrefab, transform.position + -transform.right * coinSpawnDistanceCar + -transform.right * coinSpacing * i, Quaternion.identity);
+                    GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coinBehind.transform.position += new Vector3(0, 0.5f, 0);
                     coinBehind.transform.parent = transform;
                     //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
@@ -84,18 +82,16 @@ public class ScuffedCarAI : MonoBehaviour
             }
 
             hasStarted = true;
+            moveCoroutine ??= StartCoroutine(customUpdate());
         }
     }
 
 
-    private void Update() {
+    private IEnumerator customUpdate() {
 
-
-
-
-        if (moving && !stopMoving && pathCreator.isNull() == false) {
+        while(!stopMoving && pathCreator.isNull() == false) {
+        //if (moving && !stopMoving && pathCreator.isNull() == false) {
             if (distanceTravelled <= pathCreator.path.length && distanceTravelled > 1f) {
-                Debug.Log("Test01");
                 distanceTravelled -= speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
                 transform.position += new Vector3(0, 0.5f, 0);
@@ -106,7 +102,6 @@ public class ScuffedCarAI : MonoBehaviour
                 transform.rotation *= Quaternion.Euler(0, 180, 0);
             }
             else {
-                Debug.Log("Test02");
                 //TODO: move onto next spline
                 //set distanceTravelled to spline.length
                 if (pathCreator.previous() != null && pathCreator.previous().isNull() == false) {
@@ -121,18 +116,20 @@ public class ScuffedCarAI : MonoBehaviour
                     Destroy(gameObject);
                 }
             } 
-        }
-        else if(pathCreator == null || pathCreator.isNull() == true && !stopMoving) {
-            Debug.Log("Test03");
-            stopMoving = true;
+        //else if(pathCreator == null || pathCreator.isNull() == true && !stopMoving) {
+        //    stopMoving = true;
+        //}
+            yield return new WaitForSeconds(updateCooldown);
         }
     }
 
     public void Reset() {
+        StopCoroutine(moveCoroutine);
         initialized = false;
         hasStarted = false;
         stopMoving = false;
         moving = false;
+        moveCoroutine = null;
         //pathCreator = null;
     }
     
@@ -202,7 +199,7 @@ public class CustomSpline {
         return spline == null;
     }
 
-    public void reset() {
+    public void Reset() {
         //spline = null;
         nextSpline = null;
         previousSpline = null;

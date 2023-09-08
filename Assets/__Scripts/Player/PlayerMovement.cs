@@ -338,6 +338,8 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
+            //TODO: debug.logwarning ist commented right now
+            /*
             if (Vector3.Distance(transform.position, tempCurrentPosition) > 0.45f && Vector3.Distance(transform.position, tempCurrentPosition) < 5f)
             {
                 Debug.LogWarning("Player moved: " + Vector3.Distance(transform.position, tempCurrentPosition));
@@ -347,6 +349,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.LogWarning("PlayerModel moved: " + Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition));
             }
+            */
             yield return null;
         }
 

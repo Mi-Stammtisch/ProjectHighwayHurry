@@ -32,11 +32,14 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] private PathCreator previousSpline;
 
     private List<GameObject> cars = new List<GameObject>();
+    private SpawnTileV2 spawnTileV2;
 
     void Awake() {
         leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
         middleSpline = new CustomSpline(middlePath.GetComponent<PathCreator>());
         rightSpline = new CustomSpline(rightPath.GetComponent<PathCreator>());
+
+        spawnTileV2 = GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>();
     }
 
     void Update() {
@@ -112,9 +115,29 @@ public class ExitPointDirection : MonoBehaviour
     }
 
     public void Reset() {
-        nextSpline = null;
-        previousSpline = null;
-        GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>().resetCars(cars);
+        if (leftSpline.nextSpline != null) {
+            leftSpline.nextSpline.previousSpline = null;
+            middleSpline.nextSpline.previousSpline = null;
+            rightSpline.nextSpline.previousSpline = null;
+
+            leftSpline.Reset();
+            middleSpline.Reset();
+            rightSpline.Reset();
+
+            if (leftSpline.next() != null && leftSpline.next().isNull() == false) {
+                nextSpline = leftSpline.next().spline;
+            }
+            else{
+                nextSpline = null;
+            }
+            if (leftSpline.previous() != null && leftSpline.previous().isNull() == false) {
+                previousSpline = leftSpline.previous().spline;
+            }
+            else{
+                previousSpline = null;
+            }            
+        }
+        spawnTileV2.resetCars(cars);
         cars.Clear();
     }
 
