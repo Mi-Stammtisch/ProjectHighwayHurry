@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7336768723258584678}
   - component: {fileID: 4686273066307278140}
   - component: {fileID: 3676272050159075563}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,9 @@ MonoBehaviour:
   leftPath: {fileID: 4978516973403051850}
   middlePath: {fileID: 2093478110332669691}
   rightPath: {fileID: 1022074720269977661}
-  spawnPointParent: {fileID: 0}
+  spawnPointsLeftParent: {fileID: 0}
+  spawnPointsMiddleParent: {fileID: 0}
+  spawnPointsRightParent: {fileID: 0}
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
