@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6617140197691017018}
-  - component: {fileID: 6342242981443537482}
   - component: {fileID: 7633309350064656761}
   - component: {fileID: 5915622683858892724}
   m_Layer: 0
@@ -35,27 +34,6 @@ Transform:
   - {fileID: 1494230327453803481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6342242981443537482
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3428065445126339956}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 150
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7633309350064656761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,19 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1d2a356d1a9964ab2c3a5b69597d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 3
-  maxSpeed: 5
+  carSettings: {fileID: 11400000, guid: a61529a28baf0d047b8c9e9a841eafed, type: 2}
   previousSpline: {fileID: 0}
   distanceTravelled: 0
   speed: 0
   moving: 0
   stopMoving: 0
-  coinPrefab: {fileID: 1380776303194083014, guid: d507bff8ae0abe54d9f5ed6f2892f243,
-    type: 3}
-  numberOfCoins: 0
-  coinSpawnChance: 0
-  coinSpawnDistanceCar: 0
-  coinSpacing: 0
 --- !u!65 &5915622683858892724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100,7 +71,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2313905, y: 0.98306143, z: 2.777024}
+  m_Size: {x: 2.4841428, y: 0.98306143, z: 5.220917}
   m_Center: {x: -0.0031449795, y: 0.45709187, z: -0.026812673}
 --- !u!1001 &1384342234899579954
 PrefabInstance:

@@ -134,7 +134,8 @@ public class SpawnTileV2 : MonoBehaviour
         GameObject exitPoint;
 
         newTile = tileCache.getTile(tile.GetComponent<ExitPointDirection>().getTileType());
-        newTile.GetComponent<ExitPointDirection>().Reset();
+        ExitPointDirection newExitPointDirection = newTile.GetComponent<ExitPointDirection>();
+        //newTile.GetComponent<ExitPointDirection>().Reset();
         if (carCooldownBegin > 0) carCooldownBegin -= 1;
 
         if (tiles.Count > 0) {
@@ -143,15 +144,16 @@ public class SpawnTileV2 : MonoBehaviour
             newTile.transform.position = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position;
             tileBasedCounter++;
             GameObject lastTile = tiles[tiles.Count - 1];
+            ExitPointDirection lastExitPointDirection = lastTile.GetComponent<ExitPointDirection>();
 
-            lastTile.GetComponent<ExitPointDirection>().leftSpline.setNext(newTile.GetComponent<ExitPointDirection>().leftSpline);
-            lastTile.GetComponent<ExitPointDirection>().middleSpline.setNext(newTile.GetComponent<ExitPointDirection>().middleSpline);
-            lastTile.GetComponent<ExitPointDirection>().rightSpline.setNext(newTile.GetComponent<ExitPointDirection>().rightSpline);
+            lastExitPointDirection.leftSpline.setNext(newExitPointDirection.leftSpline);
+            lastExitPointDirection.middleSpline.setNext(newExitPointDirection.middleSpline);
+            lastExitPointDirection.rightSpline.setNext(newExitPointDirection.rightSpline);
 
 
-            newTile.GetComponent<ExitPointDirection>().leftSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().leftSpline);
-            newTile.GetComponent<ExitPointDirection>().middleSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().middleSpline);
-            newTile.GetComponent<ExitPointDirection>().rightSpline.setPrevious(lastTile.GetComponent<ExitPointDirection>().rightSpline);
+            newExitPointDirection.leftSpline.setPrevious(lastExitPointDirection.leftSpline);
+            newExitPointDirection.middleSpline.setPrevious(lastExitPointDirection.middleSpline);
+            newExitPointDirection.rightSpline.setPrevious(lastExitPointDirection.rightSpline);
 
             exitPoint = tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint();
         }
@@ -178,19 +180,23 @@ public class SpawnTileV2 : MonoBehaviour
 
         newTile.transform.parent = transform;
         tiles.Add(newTile);
-        int numSpawnCars;
-        if (carCooldownBegin > 0) {
-            numSpawnCars = 0;
+
+        if (enableCarSpawning) {
+            int numSpawnCars;
+            if (carCooldownBegin > 0) {
+                numSpawnCars = 0;
+            }
+            else {
+                numSpawnCars = UnityEngine.Random.Range(minNumberOfCars, maxNumberOfCars + 1);
+            }
+            List<GameObject> spawnCars = new List<GameObject>();
+            for (int i = 0; i < numSpawnCars; i++) {
+                GameObject car = carCache.getCar();
+                spawnCars.Add(car);
+            }
+            newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
         }
-        else {
-            numSpawnCars = UnityEngine.Random.Range(minNumberOfCars, maxNumberOfCars + 1);
-        }
-        List<GameObject> spawnCars = new List<GameObject>();
-        for (int i = 0; i < numSpawnCars; i++) {
-            GameObject car = carCache.getCar();
-            spawnCars.Add(car);
-        }
-        newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
+
         if (tiles.Count > tileCount) {
             //Destroy(tiles[0], 1f);
             tileCache.add(tiles[0]);
@@ -293,14 +299,18 @@ public class TileCache {
 
 
     public void add(GameObject tile) {
-        if (tileTypeIndex.ContainsKey(tile.GetComponent<ExitPointDirection>().getTileType())) {
-            cachedTiles[tileTypeIndex[tile.GetComponent<ExitPointDirection>().getTileType()]].Add(tile);
+        ExitPointDirection exitPointDirection = tile.GetComponent<ExitPointDirection>();
+        TileType tileType = exitPointDirection.getTileType();
+        exitPointDirection.Reset();
+
+        if (tileTypeIndex.ContainsKey(tileType)) {
+            cachedTiles[tileTypeIndex[tileType]].Add(tile);
             tile.SetActive(false);
         }
         else {
             cachedTiles.Add(new List<GameObject>());
             cachedTiles[cachedTiles.Count - 1].Add(tile);
-            tileTypeIndex.Add(tile.GetComponent<ExitPointDirection>().getTileType(), cachedTiles.Count - 1);
+            tileTypeIndex.Add(tileType, cachedTiles.Count - 1);
             tile.SetActive(false);
         }
     }
