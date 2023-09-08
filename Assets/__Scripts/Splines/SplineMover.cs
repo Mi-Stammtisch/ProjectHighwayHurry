@@ -6,7 +6,7 @@ public class SplineMover : MonoBehaviour
 {
     public Spline spline;
     public float speed = 1;
-    public float angle = 0;
+    
     float distance = 0;
 
 
@@ -19,6 +19,8 @@ public class SplineMover : MonoBehaviour
         if (spline.NodeCount() < 2) return;
 
         transform.position = spline.GetPointInDistance(distance);
+        Vector3 rot = spline.GetRotationInDistance(distance);
+        transform.rotation = Quaternion.Euler(rot);
         distance += speed * Time.deltaTime;
         
         if (distance > spline.Length())

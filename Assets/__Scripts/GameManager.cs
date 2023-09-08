@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     [Range(0, 1)]
     [SerializeField] float TimeScale = 1;
+    [SerializeField] GameObject Slider;
 
 
     public static GameManager Instance;
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }   
+    }
+
+    public void UpdateTimeScale() {
+        TimeScale = Slider.GetComponent<UnityEngine.UI.Slider>().value;
     }
 
 
