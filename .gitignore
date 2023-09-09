@@ -62,8 +62,7 @@ sysinfo.txt
 *.app
 
 #blenderShit
-*.blend1
-*.blend1.meta
+
 
 
 # Crashlytics generated file
@@ -75,61 +74,4 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-Assets/Modles3D/Atlanten/EmissionAtlas.psd.meta
-Assets/Modles3D/Atlanten/ColorAtlas_character.psd.meta
-Assets/Modles3D/Atlanten/ColorAtlas_character.psd.meta
-Assets/Modles3D/Atlanten/ColorAtlas_character.psd.meta
-Assets/Modles3D/Atlanten/EmissionAtlas_character.psd.meta
-Assets/Modles3D/Character.meta
-Assets/Modles3D/Character/chara.blend.meta
-Assets/Modles3D/Character/chara.blend1.meta
-Assets/Modles3D/Environment/Baum01.blend.meta
-Assets/Modles3D/Environment/Baum01.blend1.meta
-Assets/Modles3D/Environment/Baum02.blend.meta
-Assets/Modles3D/Environment/Baum02.blend1.meta
-Assets/Modles3D/Environment/Baum03.blend.meta
-Assets/Modles3D/Environment/Baum03.blend1.meta
-Assets/Modles3D/Environment/Baum04.blend.meta
-Assets/Modles3D/Environment/Baum04.blend1.meta
-Assets/Modles3D/Environment/Leitplange.blend.meta
-Assets/Modles3D/Environment/Leitplange.blend1.meta
-Assets/Modles3D/Environment/Verkehrskegel.blend.meta
-Assets/Modles3D/Environment/Verkehrskegel.blend1.meta
-Assets/Modles3D/Atlanten/new_color_atlas.psd.meta
-Assets/Modles3D/Atlanten/new_emission_atlas.psd.meta
-Assets/Modles3D/Environment/Lantern.blend.meta
-Assets/Modles3D/Environment/Lantern.blend1.meta
-Assets/Modles3D/Atlanten/new_color_atlas.psd.meta
-Assets/Modles3D/Atlanten/new_color_atlas.psd.meta
-Assets/Modles3D/Atlanten/new_emission_atlas.psd.meta
-Assets/Modles3D/Atlanten/new_color_atlas.psd.meta
-Assets/Modles3D/Environment/Lantern.blend.meta
-Assets/Modles3D/Environment/Lantern.blend1.meta
-Assets/Modles3D/Environment/BarrierBeton.blend.meta
-Assets/Modles3D/Environment/BarrierBeton.blend1.meta
-Assets/Modles3D/Environment/BaustelleLarge.blend.meta
-Assets/Modles3D/Environment/BaustelleLargeFuß.blend.meta
-Assets/Modles3D/Environment/BaustelleLargeFuß.blend1.meta
-Assets/Modles3D/Environment/BaustelleSmall.blend.meta
-Assets/Modles3D/Environment/BaustelleSmall.blend1.meta
-Assets/Modles3D/Environment/BaustelleSmallFuß.blend.meta
-Assets/Modles3D/Environment/BaustelleSmallFuß.blend1.meta
-Assets/Modles3D/Environment/Pinguin.blend.meta
-Assets/Modles3D/Environment/Pinguin.blend1.meta
-Assets/Modles3D/Environment/skybox.meta
-Assets/Modles3D/Environment/skybox/skybox.png.meta
-Assets/Modles3D/Environment/skybox/skybox.psd.meta
-Assets/Modles3D/Environment/skybox/skybox_back.png.meta
-Assets/Modles3D/Environment/skybox/skybox_top.png.meta
-Assets/Modles3D/Environment/skybox/skybox_right.png.meta
-Assets/Modles3D/Environment/skybox/skybox_left.png.meta
-Assets/Modles3D/Environment/skybox/skybox_front.png.meta
-Assets/Modles3D/Environment/skybox/skybox_down.png.meta
-Assets/Modles3D/Environment/skybox/skybox_bottom.png.meta
-Assets/Modles3D/Tiles.meta
-Assets/Modles3D/Tiles/CurveLeft.blend.meta
-Assets/Modles3D/Tiles/CurveLeft.blend1.meta
-Assets/Modles3D/Tiles/CurveRight.blend.meta
-Assets/Modles3D/Tiles/CurveRight.blend1.meta
-Assets/Modles3D/Tiles/Straight.blend.meta
-Assets/Modles3D/Tiles/Straight.blend1.meta
+
