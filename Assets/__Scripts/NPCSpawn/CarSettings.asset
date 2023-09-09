@@ -17,6 +17,6 @@ MonoBehaviour:
   coinPrefab: {fileID: 1380776303194083014, guid: d507bff8ae0abe54d9f5ed6f2892f243,
     type: 3}
   numberOfCoins: 3
-  coinSpawnChance: 1
+  coinSpawnChance: 0
   coinSpawnDistanceCar: 10
   coinSpacing: 5

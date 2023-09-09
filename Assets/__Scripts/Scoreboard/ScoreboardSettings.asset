@@ -17,8 +17,6 @@ MonoBehaviour:
   coinBonusValue: 2
   closeCallLevels:
   - range: 4
-    value: 5
+    value: 10
     color: {r: 1, g: 0, b: 0, a: 1}
-  - range: 10
-    value: 1
-    color: {r: 0, g: 0.034409046, b: 1, a: 1}
+  closeCallBonusValue: 100

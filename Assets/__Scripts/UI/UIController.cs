@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     {
         //GameManager.PlayerDeath += onPlayerDeath;
 
+        scoreText.text = "0";
 
         Scoreboard.Instance.updateScore += (score) =>
         {

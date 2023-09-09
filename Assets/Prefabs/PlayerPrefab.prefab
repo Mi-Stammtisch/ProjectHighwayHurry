@@ -1660,7 +1660,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3309498912681726940}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0455276, y: -0.41347995, z: 0.02070614, w: 0.90913856}
+  m_LocalRotation: {x: 0.045527592, y: -0.41347995, z: 0.02070614, w: 0.90913856}
   m_LocalPosition: {x: 5.7799993, y: 4.77, z: -5.0399995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4547,7 +4547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   "f\xFChlerPosition": {fileID: 5282761172881610407}
   scoreboardSettings: {fileID: 11400000, guid: d3315668aa725ac45bfdf89d054d32c5, type: 2}
-  numberOfSavesCars: 100
+  numberOfSavedCars: 4
 --- !u!114 &7789982626767295983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,7 +4610,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8442410882159909758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11721817, y: 0.2547733, z: -0.031128973, w: 0.9593652}
+  m_LocalRotation: {x: 0.117218174, y: 0.2547733, z: -0.03112898, w: 0.9593652}
   m_LocalPosition: {x: -3.9999998, y: 3, z: -3.9999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
