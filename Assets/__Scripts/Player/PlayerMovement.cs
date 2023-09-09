@@ -90,7 +90,13 @@ public class PlayerMovement : MonoBehaviour
     private bool tilesCached = false;
 
     
-
+    private void PlayerDeath() 
+    {
+        currentPlayerSpeed = 0f;
+        currentStraveSpeed = 0f;
+        StopAllCoroutines();
+        
+    }
 
     private Vector3 moveDirection;
     public void OnStrave(InputValue value)
@@ -121,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Start()
     {
-
+        GameManager.PlayerDeath += PlayerDeath;
 
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
