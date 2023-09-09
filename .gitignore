@@ -64,7 +64,7 @@ sysinfo.txt
 #blenderShit
 *.blend1
 *.blend1.meta
-*.blend.meta
+
 
 # Crashlytics generated file
 crashlytics-build.properties
