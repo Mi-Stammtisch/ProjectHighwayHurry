@@ -10,7 +10,7 @@ public class ScuffedCarAI : MonoBehaviour
     [SerializeField] private PathCreator previousSpline;
     [SerializeField] private float distanceTravelled;
     [SerializeField] private float speed;
-    [SerializeField] private bool moving = false;
+    
     [SerializeField] private bool stopMoving = false;
 
 
@@ -66,7 +66,7 @@ public class ScuffedCarAI : MonoBehaviour
         if (initialized && !hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
             speed = Random.Range(carSettings.minSpeed, carSettings.maxSpeed);
-            moving = true;
+            
 
             //spawn coins
             if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
@@ -132,7 +132,7 @@ public class ScuffedCarAI : MonoBehaviour
         initialized = false;
         hasStarted = false;
         stopMoving = false;
-        moving = false;
+       
         moveCoroutine = null;
         //pathCreator = null;
         foreach (GameObject coin in coins) {

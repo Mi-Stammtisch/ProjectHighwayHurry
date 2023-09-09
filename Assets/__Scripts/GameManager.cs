@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         //Todo: Play death Ragdoll
         //Todo: Play
         Time.timeScale = 0.2f;
-        yield return new WaitForSeconds(3f); //wait for ragdoll to fall
+        yield return new WaitForSeconds(1.5f); //wait for ragdoll to fall
 
         Time.timeScale = 1f;                 
 

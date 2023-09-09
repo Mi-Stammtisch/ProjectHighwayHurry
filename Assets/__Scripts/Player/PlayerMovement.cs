@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         currentPlayerSpeed = 0f;
         currentStraveSpeed = 0f;
         StopAllCoroutines();
-        
+
     }
 
     private Vector3 moveDirection;
@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
-        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
+        //Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
 
         //yield return new WaitForSeconds(1f);
         //wait unit onTileCached event is fired
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
+       // Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
 
         if (spawnTileV2.tiles[1] != null)

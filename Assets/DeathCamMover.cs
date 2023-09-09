@@ -10,7 +10,7 @@ public class DeathCamMover : MonoBehaviour
     {
         startPosition = transform.position;
         //move cam forward 1
-        Vector3 endPosition = startPosition + Vector3.forward;
+        Vector3 endPosition = startPosition + Vector3.right;
         LeanTween.move(gameObject, endPosition, 10f).setLoopPingPong().setEaseInOutSine();
        
     }
