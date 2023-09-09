@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StartCarMovement : MonoBehaviour
@@ -18,7 +17,7 @@ public class StartCarMovement : MonoBehaviour
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
             foreach (Collider collider in colliders) {
                 if (collider.gameObject.CompareTag("Car")) {
-                    Debug.Log("Car found");
+                    //Debug.Log("Car found");
                     collider.gameObject.GetComponent<ScuffedCarAI>().triggerStayOld();
                 }
             }
