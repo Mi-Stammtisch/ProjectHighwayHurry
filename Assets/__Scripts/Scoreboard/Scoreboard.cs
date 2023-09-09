@@ -31,6 +31,8 @@ public class Scoreboard : MonoBehaviour
 
 
     public void coinCollect() {
+        //collect coins
+        //when coins are collected during the threshold, the bonus is multiplied for every coin collected during the threshold
         coinsCollected++;
         if (coinsCollected == 1) {
             time = Time.time;

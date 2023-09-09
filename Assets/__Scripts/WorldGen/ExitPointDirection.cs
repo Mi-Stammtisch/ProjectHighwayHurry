@@ -90,29 +90,45 @@ public class ExitPointDirection : MonoBehaviour
 
     public void spawnCars(List<GameObject> spawnCars) {
         if (tileType != TileType.straight) return;
+
+        List<int> usedSpawnPointsLeft = new List<int>();
+        List<int> usedSpawnPointsMiddle = new List<int>();
+        List<int> usedSpawnPointsRight = new List<int>();
         
-        int track = Random.Range(0, 3);
+        int track;
         GameObject spawnPoint;
         foreach (GameObject car in spawnCars) {
+            track = Random.Range(0, 3);
             ScuffedCarAI scuffedCarAI = car.GetComponent<ScuffedCarAI>();
             switch(track) {
                 case 0:
-                    spawnPoint = spawnPointsLeftParent.transform.GetChild(Random.Range(0, spawnPointsLeftParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPointsLeftParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsLeft, spawnPointsLeftParent.transform.childCount)).gameObject;
                     scuffedCarAI.init(TrackType.left, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
                 case 1:
-                    spawnPoint = spawnPointsMiddleParent.transform.GetChild(Random.Range(0, spawnPointsMiddleParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPointsMiddleParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsMiddle, spawnPointsMiddleParent.transform.childCount)).gameObject;
                     scuffedCarAI.init(TrackType.middle, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
                 case 2:
-                    spawnPoint = spawnPointsRightParent.transform.GetChild(Random.Range(0, spawnPointsRightParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPointsRightParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsRight, spawnPointsRightParent.transform.childCount)).gameObject;
                     scuffedCarAI.init(TrackType.right, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
             }
         }
+    }
+
+    private int getRandomSpawnIndex(List<int> usedSpawnPoints, int spawnPoints) {
+        if (usedSpawnPoints.Count == spawnPoints) {
+            Debug.LogError("All spawnpoints are used");
+        }
+        int index = Random.Range(0, spawnPoints);
+        while (usedSpawnPoints.Contains(index)) {
+            index = Random.Range(0, spawnPoints);
+        }
+        return index;
     }
 
     public void Reset() {
