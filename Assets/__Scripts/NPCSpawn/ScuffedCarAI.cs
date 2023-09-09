@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using PathCreation;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class ScuffedCarAI : MonoBehaviour
 
     private float updateCooldown;
     private Coroutine moveCoroutine;
+    private List<GameObject> coins = new List<GameObject>();
 
 
     public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
@@ -72,9 +74,11 @@ public class ScuffedCarAI : MonoBehaviour
                     GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coin.transform.position += new Vector3(0, 0.5f, 0);
                     coin.transform.parent = transform;
+                    coins.Add(coin);
                     GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coinBehind.transform.position += new Vector3(0, 0.5f, 0);
                     coinBehind.transform.parent = transform;
+                    coins.Add(coinBehind);
                     //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
                     //coin.GetComponent<CoinController>().initializeData(pathCreator, distanceTravelled, speed);
                     //coin.GetComponent<CoinController>().startMoving();
@@ -124,13 +128,16 @@ public class ScuffedCarAI : MonoBehaviour
     }
 
     public void Reset() {
-        StopCoroutine(moveCoroutine);
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         initialized = false;
         hasStarted = false;
         stopMoving = false;
         moving = false;
         moveCoroutine = null;
         //pathCreator = null;
+        foreach (GameObject coin in coins) {
+            Destroy(coin);
+        }
     }
     
 }

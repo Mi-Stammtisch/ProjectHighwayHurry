@@ -340,6 +340,7 @@ public class CarCache {
     private List<GameObject> cachedCars = new List<GameObject>();
 
     public void add(GameObject car) {
+        car.GetComponent<ScuffedCarAI>().Reset();
         cachedCars.Add(car);
         car.SetActive(false);
     }
