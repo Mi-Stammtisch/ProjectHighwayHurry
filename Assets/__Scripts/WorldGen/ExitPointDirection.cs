@@ -94,20 +94,21 @@ public class ExitPointDirection : MonoBehaviour
         int track = Random.Range(0, 3);
         GameObject spawnPoint;
         foreach (GameObject car in spawnCars) {
+            ScuffedCarAI scuffedCarAI = car.GetComponent<ScuffedCarAI>();
             switch(track) {
                 case 0:
                     spawnPoint = spawnPointsLeftParent.transform.GetChild(Random.Range(0, spawnPointsLeftParent.transform.childCount)).gameObject;
-                    car.GetComponent<ScuffedCarAI>().init(TrackType.left, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.left, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
                 case 1:
                     spawnPoint = spawnPointsMiddleParent.transform.GetChild(Random.Range(0, spawnPointsMiddleParent.transform.childCount)).gameObject;
-                    car.GetComponent<ScuffedCarAI>().init(TrackType.middle, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.middle, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
                 case 2:
                     spawnPoint = spawnPointsRightParent.transform.GetChild(Random.Range(0, spawnPointsRightParent.transform.childCount)).gameObject;
-                    car.GetComponent<ScuffedCarAI>().init(TrackType.right, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.right, gameObject, spawnPoint);
                     cars.Add(car);
                     break;
             }

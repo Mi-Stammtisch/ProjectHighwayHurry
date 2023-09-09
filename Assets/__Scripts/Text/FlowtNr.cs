@@ -13,7 +13,7 @@ public class FlowtNr : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
 
         //move the text up
-        LeanTween.moveLocalY(gameObject, 1.5f, 0.5f).setOnComplete(() =>
+        LeanTween.moveLocalY(gameObject, 3f, 0.5f).setOnComplete(() =>
         {
             //destroy the text
             Destroy(gameObject);
