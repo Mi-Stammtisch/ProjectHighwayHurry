@@ -15,14 +15,16 @@ public class EnviDestroyer : MonoBehaviour
             
             if (other.gameObject.CompareTag("Destructible"))
             {
+                Debug.Log("Destroying " + other.gameObject.name);
                 if(other.gameObject.GetComponent<Rigidbody>() == null)
                 {
                     other.gameObject.AddComponent<Rigidbody>();
                 }
                 
                 
-                //bost force away from the player camera
-                other.gameObject.GetComponent<Rigidbody>().AddForce((other.transform.position - Camera.main.transform.position) * 200f);
+                //boost force away and upward from the player camera
+                other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 40 + (other.gameObject.transform.position - Camera.main.transform.position) * 4, ForceMode.Impulse);
+                
                 
             }
         }

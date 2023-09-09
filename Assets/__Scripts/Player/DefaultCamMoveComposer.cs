@@ -21,7 +21,9 @@ public class DefaultCamMoveComposer : MonoBehaviour
     
 
     // Update is called once per frame
-    void FixedUpdate()
+   
+        
+    private void LateUpdate()
     {
         //find average position of all objects in lane
         Vector3 avgPos = Vector3.zero;
@@ -35,6 +37,17 @@ public class DefaultCamMoveComposer : MonoBehaviour
 
         //move this object to average position
         transform.position = avgPos; 
+
+        //look avrage forward direction of all objects in lane
+        Vector3 avgForward = Vector3.zero;
+        foreach (Obj obj in ComposerObjs)
+        {
+            avgForward += obj.ComposerObj.transform.forward * obj.Weight;
+        }
+        avgForward /= totalWeight;
+
+        //look in average forward direction
+        transform.forward = avgForward;
         
     }
 

@@ -7,7 +7,7 @@ public class UnparentMePapi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.parent = null;
+        transform.SetParent(null);
     }
 
     
