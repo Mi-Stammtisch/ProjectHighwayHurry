@@ -64,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
     [Range(-2, 1f)]
     [SerializeField] private float ChangeToForWardPatjDistance = 1f;
 
-    [SerializeField] private float DontChangeRecoverLaneTpRecorverSpeed = 5f;
 
 
 
