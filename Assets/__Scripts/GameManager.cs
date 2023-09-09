@@ -11,9 +11,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject DeathScreen;
     [SerializeField] GameObject Player;
 
+    [SerializeField] private GameObject PlayerCollider;
+
 
     public static GameManager Instance;
     public static event Action PlayerDeath;
+
+    public int Health = 1;
 
     void Awake() {
         Instance = this;
@@ -38,17 +42,30 @@ public class GameManager : MonoBehaviour
 
 
     public void playerDeath() {
-        TimeScale = 0.2f;
+
+        if (Health > 0) {
+            StartCoroutine(TakeDamage());
+            Health--;
+            return;
+        }
+        
         PlayerDeath?.Invoke();
         StartCoroutine(PlayerDied());
 
         
     }
+    IEnumerator TakeDamage() 
+    {
+        TimeScale = 0.6f;
+        PlayerCollider.GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        PlayerCollider.GetComponent<Collider>().enabled = true;
+        TimeScale = 1f;        
+    }
 
     IEnumerator PlayerDied() {
 
-        //Todo: Play death Ragdoll
-        //Todo: Play
+        
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(1.5f); //wait for ragdoll to fall
 
