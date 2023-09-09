@@ -38,31 +38,31 @@ public class Scoreboard : MonoBehaviour
         if (coinsCollected == 1) {
             time = Time.time;
             score += scoreboardSettings.coinValue;
-            createPopup(scoreboardSettings.coinValue);
+            createPopup(scoreboardSettings.coinValue, new string("+" + coinsCollected.ToString()));
         }
         else if (coinsCollected > 1) {
             if (Time.time - time < scoreboardSettings.coinBonusDuration) {
                 int bonus = scoreboardSettings.coinBonusValue * (coinsCollected - 1);
                 score += bonus;
-                createPopup(bonus);
+                createPopup(bonus, new string("+" + coinsCollected.ToString()));
             }
             else {
                 time = Time.time;
                 coinsCollected = 1;
                 score += scoreboardSettings.coinValue;
-                createPopup(scoreboardSettings.coinValue);
+                createPopup(scoreboardSettings.coinValue, new string("+" + coinsCollected.ToString()));
             }
         }
         updateScore?.Invoke(score);
     }
 
 
-    private void createPopup(int value) {
+    private void createPopup(int value, string text) {
         GameObject nr = Instantiate(Resources.Load<GameObject>("Nr/FN").gameObject);
         //spawn popup in front of player relative to player position 6, 1, 0
         nr.transform.position = player.transform.position + playerModle.transform.forward * 6 + transform.up * 3;
         nr.transform.SetParent(player.transform);
-        nr.GetComponent<FlowtNr>().SetTextAndRotation("+" + value);
+        nr.GetComponent<FlowtNr>().SetTextAndRotation(text);
     }
 
     
@@ -76,6 +76,31 @@ public class Scoreboard : MonoBehaviour
 
     public void closeCall(int value) {
         score += value;
+        createPopup(value, new string("close call +" + value.ToString()));
+        updateScore?.Invoke(score);
+    }
+
+    public void jumpBonus() {
+        score += scoreboardSettings.jumpBonusValue;
+        createPopup(scoreboardSettings.jumpBonusValue, new string("jump +" + scoreboardSettings.jumpBonusValue.ToString()));
+        updateScore?.Invoke(score);
+    }
+
+    public void timeBonus(int value) {
+        score += value;
+        createPopup(value, new string("time bonus +" + value.ToString()));
+        updateScore?.Invoke(score);
+    }
+
+    public void speedMilestoneBonus(int value) {
+        score += value;
+        createPopup(value, new string("speed bonus +" + value.ToString()));
+        updateScore?.Invoke(score);
+    }
+
+    public void stuntBonus(int value) {
+        score += value;
+        createPopup(value, new string("stunt bonus +" + value.ToString()));
         updateScore?.Invoke(score);
     }
 }

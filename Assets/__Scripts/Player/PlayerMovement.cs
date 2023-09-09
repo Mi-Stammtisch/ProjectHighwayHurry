@@ -89,6 +89,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool tilesCached = false;
 
+
+    //speed milestone variables
+    [Header("ScoreboardShit")]
+    [SerializeField] private ScoreboardSettings scoreboardSettings;
+    bool hasMoreSpeedBoni = true;
+    int speedBonusIndex = 0;
+
     
     private void PlayerDeath() 
     {
@@ -372,6 +379,17 @@ public class PlayerMovement : MonoBehaviour
                 Debug.LogWarning("PlayerModel moved: " + Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition));
             }
             */
+
+
+            //speed milestones bonus check for scoreboard
+            if (hasMoreSpeedBoni && currentPlayerSpeed > scoreboardSettings.speedMilestoneLevels[speedBonusIndex].speed) {
+                Scoreboard.Instance.speedMilestoneBonus(scoreboardSettings.speedMilestoneLevels[speedBonusIndex].value);
+                if (scoreboardSettings.speedMilestoneLevels.Count - 1 <= speedBonusIndex) hasMoreSpeedBoni = false;
+                speedBonusIndex++;
+            }
+
+
+
             yield return null;
         }
 

@@ -15,7 +15,13 @@ public class PlayerScoreHandler : MonoBehaviour
     private List<int> alreadyHitCars = new List<int>();
     private int addedScore = 0;
 
+    private int timeBonusIndex = 0;
+    private bool hasMoreTimeBoni = true;
 
+
+    void Start() {
+        hasMoreTimeBoni = scoreboardSettings.timeBonusLevels.Count > 0;
+    }
 
     void Update() {
         //raycast from fühlerPosition to the left and to the right
@@ -30,39 +36,6 @@ public class PlayerScoreHandler : MonoBehaviour
 
         addedScore = 0;
 
-        /*
-        foreach (CloseCallLevels closeCallLevel in scoreboardSettings.closeCallLevels) {
-            if (Physics.Raycast(rayLeft, out hitLeft, closeCallLevel.range)) {
-                if (hitLeft.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitLeft.transform.gameObject) == false) {
-                    Debug.Log("HitLeft: " + hitLeft.transform.gameObject.name);
-                    //Scoreboard.Instance.closeCall(closeCallLevel.value);
-                    if (addedScore < closeCallLevel.value) {
-                        addedScore = closeCallLevel.value;
-                    }
-                    alreadyHitCars.Add(hitLeft.transform.gameObject);
-                    if (alreadyHitCars.Count > numberOfSavedCars) {
-                        alreadyHitCars.RemoveAt(0);
-                    }
-
-                }
-            }
-            if (Physics.Raycast(rayRight, out hitRight, closeCallLevel.range)) {
-                if (hitRight.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitRight.transform.gameObject) == false) {
-                    Debug.Log("HitRight: " + hitRight.transform.gameObject.name);
-                    //Scoreboard.Instance.closeCall(closeCallLevel.value);
-                    if (addedScore < closeCallLevel.value) {
-                        addedScore = closeCallLevel.value;
-                    }
-                    alreadyHitCars.Add(hitRight.transform.gameObject);
-                    if (alreadyHitCars.Count > numberOfSavedCars) {
-                        alreadyHitCars.RemoveAt(0);
-                    }
-                }
-            }
-        }
-        Scoreboard.Instance.closeCall(addedScore);
-        */
-
         bool hitLeftBool;
         bool hitRightBool;
 
@@ -72,8 +45,7 @@ public class PlayerScoreHandler : MonoBehaviour
         if (hitLeftBool || hitRightBool) {
             if (hitLeftBool) {
                 if (hitLeft.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitLeft.transform.gameObject.GetHashCode()) == false) {
-                    Debug.Log("HitLeft: " + hitLeft.transform.gameObject.name);
-                    //Scoreboard.Instance.closeCall(closeCallLevel.value);
+                    //Debug.Log("HitLeft: " + hitLeft.transform.gameObject.name);
                     addedScore = scoreboardSettings.closeCallLevels[0].value;
                     alreadyHitCars.Add(hitLeft.transform.gameObject.GetHashCode());
                     if (alreadyHitCars.Count > numberOfSavedCars) {
@@ -81,15 +53,14 @@ public class PlayerScoreHandler : MonoBehaviour
                     }
                     hitRightBool = Physics.Raycast(rayRight, out hitRight, scoreboardSettings.closeCallLevels[0].range);
                     if (hitRightBool && hasHitCar(hitRight)) {
-                        Debug.Log("CloseCallBonus");
+                        //Debug.Log("CloseCallBonus");
                         addedScore += scoreboardSettings.closeCallBonusValue;
                     }
                 }
             }
             if (hitRightBool) {
                 if (hitRight.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitRight.transform.gameObject.GetHashCode()) == false) {
-                    Debug.Log("HitRight: " + hitRight.transform.gameObject.name);
-                    //Scoreboard.Instance.closeCall(closeCallLevel.value);
+                    //Debug.Log("HitRight: " + hitRight.transform.gameObject.name);
                     addedScore = scoreboardSettings.closeCallLevels[0].value;
                     alreadyHitCars.Add(hitRight.transform.gameObject.GetHashCode());
                     if (alreadyHitCars.Count > numberOfSavedCars) {
@@ -97,7 +68,7 @@ public class PlayerScoreHandler : MonoBehaviour
                     }
                     hitLeftBool = Physics.Raycast(rayLeft, out hitLeft, scoreboardSettings.closeCallLevels[0].range);
                     if (hitLeftBool && hasHitCar(hitLeft)) {
-                        Debug.Log("CloseCallBonus");
+                        //Debug.Log("CloseCallBonus");
                         addedScore += scoreboardSettings.closeCallBonusValue;
                     }
                 }
@@ -107,7 +78,12 @@ public class PlayerScoreHandler : MonoBehaviour
             }
         }
 
-        
+        //check for timebonus
+        if (hasMoreTimeBoni && Time.time > scoreboardSettings.timeBonusLevels[timeBonusIndex].time) {
+            Scoreboard.Instance.timeBonus(scoreboardSettings.timeBonusLevels[timeBonusIndex].value);
+            if (scoreboardSettings.timeBonusLevels.Count - 1 <= timeBonusIndex) hasMoreTimeBoni = false;
+            timeBonusIndex++;
+        }
     }
 
     private bool hasHitCar(RaycastHit hit) {
@@ -123,6 +99,12 @@ public class PlayerScoreHandler : MonoBehaviour
             Gizmos.DrawRay(fühlerPosition.transform.position, fühlerPosition.transform.TransformDirection(Vector3.left) * closeCallLevel.range + new Vector3(0, i * 0.1f, 0));
             Gizmos.DrawRay(fühlerPosition.transform.position, fühlerPosition.transform.TransformDirection(Vector3.right) * closeCallLevel.range + new Vector3(0, i * 0.1f, 0));
             i++;
+        }
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("JumpStartAirtime")) {
+            Scoreboard.Instance.jumpBonus();
         }
     }
 }

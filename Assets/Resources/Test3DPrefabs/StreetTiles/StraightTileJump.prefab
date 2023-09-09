@@ -136,6 +136,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8593812367967650420}
+  - {fileID: 8035731738368792735}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3212445987983048472
@@ -156,7 +157,9 @@ MonoBehaviour:
   leftPath: {fileID: 3127015594832636231}
   middlePath: {fileID: 7521319178413307271}
   rightPath: {fileID: 6699292598952959797}
-  spawnPointParent: {fileID: 0}
+  spawnPointsLeftParent: {fileID: 0}
+  spawnPointsMiddleParent: {fileID: 0}
+  spawnPointsRightParent: {fileID: 0}
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
@@ -165,6 +168,59 @@ MonoBehaviour:
     spline: {fileID: 0}
   nextSpline: {fileID: 0}
   previousSpline: {fileID: 0}
+--- !u!1 &3618448202097632983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8035731738368792735}
+  - component: {fileID: 4006086734071781975}
+  m_Layer: 0
+  m_Name: JumpStart
+  m_TagString: JumpStartAirtime
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8035731738368792735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618448202097632983}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 168.3, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1537623991509426012}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4006086734071781975
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3618448202097632983}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 15.973648, y: 20.670567, z: 28.044952}
+  m_Center: {x: 7.486824, y: 3.2872772, z: 0.76542854}
 --- !u!1 &3976084079891446609
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +880,7 @@ PrefabInstance:
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
       propertyPath: editorData.vertexPathUpToDate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
@@ -2707,6 +2763,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2680031624040479045, guid: 525ea85bfe8aa4947b6b1273d222bf04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6145869422917792585, guid: 525ea85bfe8aa4947b6b1273d222bf04,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2953,7 +3014,7 @@ PrefabInstance:
     - target: {fileID: 2680031624040479045, guid: 525ea85bfe8aa4947b6b1273d222bf04,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2838708952248947323, guid: 525ea85bfe8aa4947b6b1273d222bf04,
         type: 3}
