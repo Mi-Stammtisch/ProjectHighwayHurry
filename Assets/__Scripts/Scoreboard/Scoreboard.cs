@@ -17,7 +17,7 @@ public class Scoreboard : MonoBehaviour
     public event Action<int> updateScore;
 
     private GameObject player;
-
+    private GameObject playerModle;
 
 
     void Awake() {
@@ -26,6 +26,7 @@ public class Scoreboard : MonoBehaviour
 
     void Start() {
         player = GameObject.Find("CoinPopupParent");
+        playerModle = GameObject.Find("PlayerModel");
     }
 
 
@@ -56,9 +57,18 @@ public class Scoreboard : MonoBehaviour
 
     private void createPopup(int value) {
         GameObject nr = Instantiate(Resources.Load<GameObject>("Nr/FN").gameObject);
-        nr.transform.position = player.transform.position + new Vector3(6, 1, 0);
-        nr.transform.parent = player.transform;
+        //spawn popup in front of player relative to player position 6, 1, 0
+        nr.transform.position = player.transform.position + playerModle.transform.forward * 6 + transform.up * 3;
+        nr.transform.SetParent(player.transform);
         nr.GetComponent<FlowtNr>().SetTextAndRotation("+" + value);
+    }
+
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if(player != null)
+        Gizmos.DrawWireCube(player.transform.position + playerModle.transform.forward * 6 + transform.up * 3, new Vector3(0.3f, 0.3f, 0.3f));
     }
 
 

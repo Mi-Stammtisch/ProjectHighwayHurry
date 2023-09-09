@@ -17,11 +17,11 @@ public class PlayerDeath : MonoBehaviour
     {
         Player.SetActive(false);
         PlayerMoped.transform.SetParent(null);
-        PlayerMoped.AddComponent<Rigidbody>();
+        //PlayerMoped.AddComponent<Rigidbody>();
         PlayerMoped.GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
         PlayerRagdoll.transform.SetParent(null);
         PlayerRagdoll.SetActive(true);
-        PlayerRagdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up * 100);
+        PlayerRagdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up * 10000);
         
     }
 }

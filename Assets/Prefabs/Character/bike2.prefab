@@ -10,38 +10,53 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.772247
+      value: -0.0000166893
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.388477
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.828037
+      value: 5.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.5000007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.5000008
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.49999923
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.4999993
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
@@ -58,11 +73,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
+    - target: {fileID: -2715633895569699593, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c88259c8303c804b83eae2bed5eef4f, type: 2}
     - target: {fileID: 919132149155446097, guid: 8526e486ae680da4cabe5d038d4b99f5,
         type: 3}
       propertyPath: m_Name
       value: bike2
       objectReference: {fileID: 0}
+    - target: {fileID: 2942431128080285218, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c88259c8303c804b83eae2bed5eef4f, type: 2}
+    - target: {fileID: 2942431128080285218, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
+    - target: {fileID: 6736188526214894357, guid: 8526e486ae680da4cabe5d038d4b99f5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c88259c8303c804b83eae2bed5eef4f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -341,6 +381,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8921350943113478681, guid: 55b2190a8e765ae4e9ab4ed07aab8821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c88259c8303c804b83eae2bed5eef4f, type: 2}
+    - target: {fileID: 8921350943113478681, guid: 55b2190a8e765ae4e9ab4ed07aab8821,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
