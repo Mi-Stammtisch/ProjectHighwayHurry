@@ -117,7 +117,6 @@ public class ExitPointDirection : MonoBehaviour
         for(int i = 0; i < spawnCars.Count; i++) {
             car = spawnCars[i];
             spawnIndex = getRandomSpawnIndex();
-            Debug.Log("SpawnIndex: " + spawnIndex.Item1 + " " + spawnIndex.Item2);
             ScuffedCarAI scuffedCarAI = car.GetComponent<ScuffedCarAI>();
             switch(spawnIndex.Item1) {
                 case 0:
@@ -246,9 +245,9 @@ public class ExitPointDirection : MonoBehaviour
         spawnTileV2.resetCars(cars);
         cars.Clear();
         usedSpawnPointsInt = 0;
-        if (initialized) {
-            for (int i = 0; i < usedSpawnPoints.Count; i++) {
-                for (int j = 0; j < usedSpawnPoints[i].Count; j++) {
+        if (initialized && tileType == TileType.straight) {
+            for (int i = 0; i < usedSpawnPoints.Count(); i++) {
+                for (int j = 0; j < usedSpawnPoints[i].Count(); j++) {
                     usedSpawnPoints[i][j] = 0;
                 }
             }

@@ -190,21 +190,9 @@ public class SpawnTileV2 : MonoBehaviour
             else {
                 numSpawnCars = UnityEngine.Random.Range(minNumberOfCars, maxNumberOfCars + 1);
             }
-
-            if (carCooldownBegin > 0) {
-                Debug.Log("carCooldownBegin: " + carCooldownBegin);
-            }
-            else {
-                Debug.Log("numSpawnCars: " + numSpawnCars);
-            }
             
-
             List<GameObject> spawnCars = carCache.getCarsAsList(numSpawnCars);
-            Debug.Log("cachedCarListSize: " + spawnCars.Count);
-
             List<GameObject> carsToCache = newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
-            Debug.Log("carsToCache: " + carsToCache.Count);
-            Debug.Log(" ");
             if (carsToCache != null) {
                 carCache.add(carsToCache);
             }
