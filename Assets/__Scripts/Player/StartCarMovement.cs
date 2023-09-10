@@ -18,7 +18,10 @@ public class StartCarMovement : MonoBehaviour
             foreach (Collider collider in colliders) {
                 if (collider.gameObject.CompareTag("Car")) {
                     //Debug.Log("Car found");
-                    collider.gameObject.GetComponent<ScuffedCarAI>().triggerStayOld();
+                    if(TryGetComponent<ScuffedCarAI>(out ScuffedCarAI scuffedCarAI)) scuffedCarAI.GetComponent<ScuffedCarAI>().triggerStayOld();
+                        
+                    
+                    
                 }
             }
             yield return new WaitForSeconds(cooldown);

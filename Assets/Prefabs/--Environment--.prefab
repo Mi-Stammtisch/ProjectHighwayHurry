@@ -1359,6 +1359,7 @@ GameObject:
   - component: {fileID: 7936834880474052150}
   - component: {fileID: 2638579901783300296}
   - component: {fileID: 1858976471902324745}
+  - component: {fileID: 4111755602932740335}
   m_Layer: 0
   m_Name: Numberdisplay
   m_TagString: Untagged
@@ -1599,6 +1600,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.35, y: 0.2, z: 0.17}
   m_Center: {x: -0.61, y: 0, z: 0}
+--- !u!111 &4111755602932740335
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743452218220607493}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 6a19445412bdf79478d9318cbe46e549, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 6a19445412bdf79478d9318cbe46e549, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4026109211052472457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1758,7 @@ GameObject:
   - component: {fileID: 8100154079476530895}
   - component: {fileID: 7889174609745500999}
   - component: {fileID: 8360164312674650668}
+  - component: {fileID: 721618771116794578}
   m_Layer: 0
   m_Name: bike2
   m_TagString: Untagged
@@ -1939,6 +1957,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!111 &721618771116794578
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529771074398283245}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 949a4d9121aa7db4d8b5e53505af6596, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 6a19445412bdf79478d9318cbe46e549, type: 2}
+  - {fileID: 7400000, guid: 949a4d9121aa7db4d8b5e53505af6596, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4637692400687388262
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9063608213440213854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.046834346, y: 0.35048217, z: -0.01755135, w: 0.935233}
+  m_LocalRotation: {x: 0.046834353, y: 0.35048217, z: -0.017551355, w: 0.935233}
   m_LocalPosition: {x: -5.0399995, y: 4.77, z: -0.000014019013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4510,6 +4545,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5626698066916798372}
+    - targetCorrespondingSourceObject: {fileID: 1805651483164276, guid: 6ba76c4202b1fd847b2edc6c16958251,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3890327032911948235}
   m_SourcePrefab: {fileID: 100100000, guid: 6ba76c4202b1fd847b2edc6c16958251, type: 3}
 --- !u!1 &5606232644669847357 stripped
 GameObject:
@@ -4605,6 +4644,22 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   scalethis: 1
+--- !u!111 &3890327032911948235
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606232644669847357}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0401f1c6cf00f5c42b7afe6c3b01fb52, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0401f1c6cf00f5c42b7afe6c3b01fb52, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &5609808689233678099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4846227374933594, guid: 6ba76c4202b1fd847b2edc6c16958251,
