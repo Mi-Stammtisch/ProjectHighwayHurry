@@ -21,6 +21,7 @@ public class ScuffedCarAI : MonoBehaviour
     private float updateCooldown;
     private Coroutine moveCoroutine;
     private List<GameObject> coins = new List<GameObject>();
+    float offset = 0;
 
 
     public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
@@ -31,9 +32,11 @@ public class ScuffedCarAI : MonoBehaviour
                 break;
             case TrackType.left:
                 pathCreator = tile.GetComponent<ExitPointDirection>().leftSpline;
+                offset = 1.5f;
                 break;
             case TrackType.right:
                 pathCreator = tile.GetComponent<ExitPointDirection>().rightSpline;
+                offset = -1.5f;
                 break;
         }
 
@@ -48,6 +51,15 @@ public class ScuffedCarAI : MonoBehaviour
         //transform.rotation *= Quaternion.Euler(0, -90, 0);
         transform.rotation *= Quaternion.Euler(0, 180, 0);
         transform.position += new Vector3(0, 0.5f, 0);
+        
+        //get offset to place car 1m to the right, based on the cars rotation
+        Debug.Log("Offset: " + offset);
+        //transform.position += offset;
+        transform.position += transform.right * offset;
+
+        
+
+        
 
 
         if (pathCreator.previous() != null && pathCreator.previous().isNull() == false) {
@@ -101,11 +113,14 @@ public class ScuffedCarAI : MonoBehaviour
                 distanceTravelled -= speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
                 transform.position += new Vector3(0, 0.5f, 0);
+                
 
                 //then rotate
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
 
                 transform.rotation *= Quaternion.Euler(0, 180, 0);
+                transform.position += transform.right * offset;
+                
             }
             else {
                 //TODO: move onto next spline
@@ -134,7 +149,7 @@ public class ScuffedCarAI : MonoBehaviour
         initialized = false;
         hasStarted = false;
         stopMoving = false;
-       
+        offset = 0;
         moveCoroutine = null;
         //pathCreator = null;
         foreach (GameObject coin in coins) {
