@@ -72,11 +72,11 @@ public class ScuffedCarAI : MonoBehaviour
             if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
                 for (int i = 0; i < carSettings.numberOfCoins; i++) {
                     GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coin.transform.position += new Vector3(0, 0.5f, 0);
+                    coin.transform.position += new Vector3(0, 1f, 0);
                     coin.transform.parent = transform;
                     coins.Add(coin);
                     GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coinBehind.transform.position += new Vector3(0, 0.5f, 0);
+                    coinBehind.transform.position += new Vector3(0, 1f, 0);
                     coinBehind.transform.parent = transform;
                     coins.Add(coinBehind);
                     //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
