@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using System.Linq;
+using System;
 
 public class ExitPointDirection : MonoBehaviour
 {
@@ -20,9 +22,10 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] public GameObject rightPath;
 
     [Header("Car Spawning")]
-    [SerializeField] private GameObject spawnPointsLeftParent;
-    [SerializeField] private GameObject spawnPointsMiddleParent;
-    [SerializeField] private GameObject spawnPointsRightParent;
+    [SerializeField] private GameObject carSpawnPoints;
+    private List<List<GameObject>> spawnPoints;
+    private List<List<int>> usedSpawnPoints;
+    private int usedSpawnPointsInt = 0;
 
     public CustomSpline leftSpline;
     public CustomSpline middleSpline;
@@ -33,6 +36,7 @@ public class ExitPointDirection : MonoBehaviour
 
     private List<GameObject> cars = new List<GameObject>();
     private SpawnTileV2 spawnTileV2;
+    private bool initialized = false;
 
     void Awake() {
         leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
@@ -40,7 +44,21 @@ public class ExitPointDirection : MonoBehaviour
         rightSpline = new CustomSpline(rightPath.GetComponent<PathCreator>());
 
         spawnTileV2 = GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>();
+
+        if (tileType == TileType.straight) {
+            spawnPoints = new List<List<GameObject>>();
+            usedSpawnPoints = new List<List<int>>();
+            for (int i = 0; i < carSpawnPoints.transform.childCount; i++) {
+                spawnPoints.Add(new List<GameObject>());
+                usedSpawnPoints.Add(new List<int>());
+                for (int j = 0; j < carSpawnPoints.transform.GetChild(i).childCount; j++) {
+                    spawnPoints[i].Add(carSpawnPoints.transform.GetChild(i).GetChild(j).gameObject);
+                    usedSpawnPoints[i].Add(0);
+                }
+            }
+        }
     }
+
 
     void Update() {
         if (leftSpline.next() != null && leftSpline.next().isNull() == false) {
@@ -88,47 +106,118 @@ public class ExitPointDirection : MonoBehaviour
         return tileType;
     }
 
-    public void spawnCars(List<GameObject> spawnCars) {
-        if (tileType != TileType.straight) return;
+    public List<GameObject> spawnCars(List<GameObject> spawnCars) {
+        initialized = true;
+        if (tileType != TileType.straight) return spawnCars;
 
-        List<int> usedSpawnPointsLeft = new List<int>();
-        List<int> usedSpawnPointsMiddle = new List<int>();
-        List<int> usedSpawnPointsRight = new List<int>();
-        
-        int track;
         GameObject spawnPoint;
-        foreach (GameObject car in spawnCars) {
-            track = Random.Range(0, 3);
+        Tuple<int, int> spawnIndex;
+        GameObject car;
+        List<GameObject> carHashesToRemove = new List<GameObject>();
+        for(int i = 0; i < spawnCars.Count; i++) {
+            car = spawnCars[i];
+            spawnIndex = getRandomSpawnIndex();
+            Debug.Log("SpawnIndex: " + spawnIndex.Item1 + " " + spawnIndex.Item2);
             ScuffedCarAI scuffedCarAI = car.GetComponent<ScuffedCarAI>();
-            switch(track) {
+            switch(spawnIndex.Item1) {
                 case 0:
-                    spawnPoint = spawnPointsLeftParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsLeft, spawnPointsLeftParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPoints[0][spawnIndex.Item2];
                     scuffedCarAI.init(TrackType.left, gameObject, spawnPoint);
                     cars.Add(car);
+                    carHashesToRemove.Add(car);
                     break;
                 case 1:
-                    spawnPoint = spawnPointsMiddleParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsMiddle, spawnPointsMiddleParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPoints[1][spawnIndex.Item2];
                     scuffedCarAI.init(TrackType.middle, gameObject, spawnPoint);
                     cars.Add(car);
+                    carHashesToRemove.Add(car);
                     break;
                 case 2:
-                    spawnPoint = spawnPointsRightParent.transform.GetChild(getRandomSpawnIndex(usedSpawnPointsRight, spawnPointsRightParent.transform.childCount)).gameObject;
+                    spawnPoint = spawnPoints[2][spawnIndex.Item2];
                     scuffedCarAI.init(TrackType.right, gameObject, spawnPoint);
                     cars.Add(car);
+                    carHashesToRemove.Add(car);
                     break;
+                case -1:
+                    Debug.LogWarning("No more spawnpoints available");
+                    foreach(GameObject carHash in carHashesToRemove) {
+                        spawnCars.Remove(carHash);
+                    }
+                    return spawnCars;
             }
         }
+        foreach(GameObject carHash in carHashesToRemove) {
+            spawnCars.Remove(carHash);
+        }
+        return spawnCars;
     }
 
-    private int getRandomSpawnIndex(List<int> usedSpawnPoints, int spawnPoints) {
-        if (usedSpawnPoints.Count == spawnPoints) {
-            Debug.LogError("All spawnpoints are used");
+    private Tuple<int, int> getRandomSpawnIndex() {
+        int totalSpawnPoints = spawnPoints.SelectMany(list => list).Count();
+
+        if (totalSpawnPoints / 2 <= usedSpawnPointsInt) {
+            Debug.LogWarning("No more spawnpoints available");
+            return new Tuple<int, int>(-1, -1);
         }
-        int index = Random.Range(0, spawnPoints);
-        while (usedSpawnPoints.Contains(index)) {
-            index = Random.Range(0, spawnPoints);
+
+
+        bool notFound = true;
+        int index = 0;
+        int lane = 0;
+        int iterations = 0;
+        int neighboursFound = 0;
+
+        while (notFound && iterations <= totalSpawnPoints * 3) {
+            lane = UnityEngine.Random.Range(0, 3);
+            index = UnityEngine.Random.Range(0, spawnPoints[lane].Count);
+            if (usedSpawnPoints[lane][index] == 0) {
+                //top
+                if (index - 1 >= 0) {
+                    if (usedSpawnPoints[lane][index - 1] == 1) {
+                        neighboursFound++;
+                    }
+                }
+                //bottom
+                if (index + 1 < spawnPoints[lane].Count) {
+                    if (usedSpawnPoints[lane][index + 1] == 1) {
+                        neighboursFound++;
+                    }
+                }
+                //left
+                if (lane - 1 >= 0) {
+                    if (usedSpawnPoints[lane - 1][index] == 1) {
+                        neighboursFound++;
+                    }
+                }
+                //right
+                if (lane + 1 < spawnPoints.Count) {
+                    if (usedSpawnPoints[lane + 1][index] == 1) {
+                        neighboursFound++;
+                    }
+                }
+
+                if (neighboursFound == 0) {
+                    notFound = false;
+                    usedSpawnPoints[lane][index] = 1;
+                    usedSpawnPointsInt++;
+                }
+                else {
+                    neighboursFound = 0;
+                    iterations++;
+                }
+            }
+            else {
+                iterations++;              
+            }
         }
-        return index;
+
+
+        if (notFound) {
+            lane = -1;
+            Debug.LogWarning("No spawnpoints found");
+        }
+
+        return new Tuple<int, int>(lane, index);
     }
 
     public void Reset() {
@@ -156,6 +245,14 @@ public class ExitPointDirection : MonoBehaviour
         }
         spawnTileV2.resetCars(cars);
         cars.Clear();
+        usedSpawnPointsInt = 0;
+        if (initialized) {
+            for (int i = 0; i < usedSpawnPoints.Count; i++) {
+                for (int j = 0; j < usedSpawnPoints[i].Count; j++) {
+                    usedSpawnPoints[i][j] = 0;
+                }
+            }
+        }
     }
 
     public void addCars(GameObject car) {
