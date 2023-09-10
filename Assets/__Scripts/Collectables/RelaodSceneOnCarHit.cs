@@ -16,7 +16,7 @@ public class RelaodSceneOnCarHit : MonoBehaviour
             explo.transform.localScale = 5 * Vector3.one;
             Destroy(explo, 5);
             GameManager.Instance.playerDeath();
-            Debug.Log("Car Hit");            
+            //Debug.Log("Car Hit");            
         }
     }
 

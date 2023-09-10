@@ -50,7 +50,6 @@ MonoBehaviour:
   previousSpline: {fileID: 0}
   distanceTravelled: 0
   speed: 0
-  moving: 0
   stopMoving: 0
 --- !u!65 &7402483162022094796
 BoxCollider:
@@ -71,8 +70,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.157233, y: 2.4749122, z: 6.5596843}
-  m_Center: {x: -0.086782336, y: 1.2271059, z: -0.0081374645}
+  m_Size: {x: 2.546795, y: 2.4749122, z: 5.361881}
+  m_Center: {x: -0.04025638, y: 1.2271059, z: 0.07711816}
 --- !u!1001 &5118664138793922076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135,6 +134,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: -5648699444994374578, guid: 9710879ff25a25a46b55bf3c24bd4490,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5648699444994374578, guid: 9710879ff25a25a46b55bf3c24bd4490,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5648699444994374578, guid: 9710879ff25a25a46b55bf3c24bd4490,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5648699444994374578, guid: 9710879ff25a25a46b55bf3c24bd4490,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9710879ff25a25a46b55bf3c24bd4490,
         type: 3}

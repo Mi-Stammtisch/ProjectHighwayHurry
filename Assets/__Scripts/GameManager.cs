@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] float TimeScale = 1;
     [SerializeField] GameObject DeathScreen;
     [SerializeField] GameObject Player;
+    [SerializeField] GameObject PlayerHud;
+    [SerializeField] GameObject EndScoreDisplay;
+    [SerializeField] GameObject BikeBlinker;
+
+    
 
     [SerializeField] private GameObject PlayerCollider;
 
@@ -27,6 +32,12 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 120;
         DeathScreen.SetActive(false);
+        //hide cursor
+        Cursor.visible = false;
+    }
+    [EButton("Add Health")]
+    public void AddHealth() {
+        Health++;
     }
 
     // Update is called once per frame
@@ -40,7 +51,7 @@ public class GameManager : MonoBehaviour
         }   
     }
 
-
+    [EButton("Player Damage")]
     public void playerDeath() {
 
         if (Health > 0) {
@@ -58,7 +69,14 @@ public class GameManager : MonoBehaviour
     {
         TimeScale = 0.6f;
         PlayerCollider.GetComponent<Collider>().enabled = false;
-        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < 3; i++)
+        {
+            BikeBlinker.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            BikeBlinker.SetActive(false);
+            yield return new WaitForSeconds(0.1f);            
+        }
+        
         PlayerCollider.GetComponent<Collider>().enabled = true;
         TimeScale = 1f;        
     }
@@ -68,8 +86,11 @@ public class GameManager : MonoBehaviour
         
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(1.5f); //wait for ragdoll to fall
-
-        Time.timeScale = 1f;                 
+        PlayerHud.SetActive(false);
+        Time.timeScale = 1f;    
+        //display cursor
+        Cursor.visible = true;
+        EndScoreDisplay.GetComponent<Text3D>().SetText(Scoreboard.Instance.score.ToString());          
 
         DeathScreen.transform.SetParent(null);
         DeathScreen.SetActive(true);

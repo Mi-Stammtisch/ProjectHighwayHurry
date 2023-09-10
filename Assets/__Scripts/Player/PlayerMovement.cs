@@ -190,6 +190,12 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void OnDestroy() 
+    {
+        GameManager.PlayerDeath -= PlayerDeath;
+        
+    }
+
 
     IEnumerator WheleSpinner()
     {

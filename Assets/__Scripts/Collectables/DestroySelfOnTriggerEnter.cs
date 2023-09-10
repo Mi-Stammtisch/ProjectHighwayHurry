@@ -9,7 +9,7 @@ public class DestroySelfOnTriggerEnter : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //if the other object is the player
-        if (other.CompareTag("Player"))
+        if (other.gameObject.name == "PlayerModel")
         {
             //destroy this object
             //Debug.Log("Collected Coin");
