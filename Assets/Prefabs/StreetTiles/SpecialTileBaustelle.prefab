@@ -270,12 +270,30 @@ MonoBehaviour:
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
   carSpawnPoints: {fileID: 0}
+  canSpawnCars: 0
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
     spline: {fileID: 0}
   rightSpline:
     spline: {fileID: 0}
+  functionList:
+  - SelectEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8875474228876525816}
+          m_TargetAssemblyTypeName: BaggerController, Assembly-CSharp
+          m_MethodName: resetBagger
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    functionName: 
   nextSpline: {fileID: 0}
   previousSpline: {fileID: 0}
 --- !u!1001 &1307055593454055202
@@ -1128,6 +1146,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4856226734893853230}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8875474228876525816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4055716542666222294, guid: 6c11e5c0c5be547968b1bb19e187a887,
+    type: 3}
+  m_PrefabInstance: {fileID: 4856226734893853230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1f24d9db1e047eeb2492ea0699cf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5050253933330202372
 PrefabInstance:
   m_ObjectHideFlags: 0

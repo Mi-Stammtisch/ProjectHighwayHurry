@@ -98,11 +98,13 @@ public class SpawnTileV2 : MonoBehaviour
                 carCache.add(car);
             }
         }
+
+        CustomStart();
     }
 
 
 
-    void Start() {
+    void CustomStart() {
         switch (tilePool.specialTileSpawning) {
             case SpecialTileSpawning.TimeBased:
                 specialTile += timeBased;

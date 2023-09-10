@@ -4,6 +4,7 @@ using UnityEngine;
 using PathCreation;
 using System.Linq;
 using System;
+using UnityEngine.Events;
 
 public class ExitPointDirection : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class ExitPointDirection : MonoBehaviour
     public CustomSpline leftSpline;
     public CustomSpline middleSpline;
     public CustomSpline rightSpline;
+
+    [Header("Reseting")]
+    [SerializeField] private List<FunctionReference> functionList;
 
     [SerializeField] private PathCreator nextSpline;
     [SerializeField] private PathCreator previousSpline;
@@ -258,6 +262,10 @@ public class ExitPointDirection : MonoBehaviour
                 }
             }
         }
+        foreach (FunctionReference function in functionList) {
+            //function.targetScript.Invoke(function.functionName, 0);
+            function.SelectEvent.Invoke();
+        }
     }
 
     public void addCars(GameObject car) {
@@ -282,4 +290,16 @@ public enum TileType {
     leftTurn,
     rightTurn,
     special
+}
+
+[System.Serializable]
+public class FunctionReference
+{
+    [SerializeField] public UnityEvent SelectEvent;
+
+    // Constructor to initialize the FunctionReference
+    public FunctionReference(UnityEvent script)
+    {
+        SelectEvent = script;
+    }
 }
