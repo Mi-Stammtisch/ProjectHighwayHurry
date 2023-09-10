@@ -266,6 +266,7 @@ MonoBehaviour:
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
   carSpawnPoints: {fileID: 0}
+  canSpawnCars: 0
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
