@@ -288,7 +288,10 @@ public class PlayerMovement : MonoBehaviour
             //move player model left and right smooth clamp to max distance
             straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
 
-            straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+            //straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+            //if on left or right path clamp straveDistanceTravelled to maxStraveDistance
+            if(currentPathType == PathType.Left && straveDistanceTravelled < -MaxStraveDistance) straveDistanceTravelled = -MaxStraveDistance;
+            if(currentPathType == PathType.Right && straveDistanceTravelled > MaxStraveDistance) straveDistanceTravelled = MaxStraveDistance;
             
             if((straveDistanceTravelled <= -MaxStraveDistance || straveDistanceTravelled >= MaxStraveDistance) && resetSraveSpeedOnMaxStraveDistance)currentStraveSpeed = 0f;
             
