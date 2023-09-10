@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float TimeScale = 1;
     [SerializeField] GameObject DeathScreen;
     [SerializeField] GameObject Player;
+    [SerializeField] GameObject PlayerHud;
+    [SerializeField] GameObject EndScoreDisplay;
+
+    
 
     [SerializeField] private GameObject PlayerCollider;
 
@@ -68,8 +72,9 @@ public class GameManager : MonoBehaviour
         
         Time.timeScale = 0.2f;
         yield return new WaitForSeconds(1.5f); //wait for ragdoll to fall
-
-        Time.timeScale = 1f;                 
+        PlayerHud.SetActive(false);
+        Time.timeScale = 1f;    
+        EndScoreDisplay.GetComponent<Text3D>().SetText(Scoreboard.Instance.score.ToString());          
 
         DeathScreen.transform.SetParent(null);
         DeathScreen.SetActive(true);
