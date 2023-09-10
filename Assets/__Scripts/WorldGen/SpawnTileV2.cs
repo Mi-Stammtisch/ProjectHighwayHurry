@@ -210,7 +210,6 @@ public class SpawnTileV2 : MonoBehaviour
         if (newExitPointDirection.getTileType() == TileType.straight) {
             buildingSpawner.spawnBuildings(newExitPointDirection);
         }
-        
     }
 
     public void spawnNewTile() {
