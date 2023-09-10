@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Car
   - Destructible
+  - FxTemporaire
+  - JumpStartAirtime
   layers:
   - Default
   - TransparentFX

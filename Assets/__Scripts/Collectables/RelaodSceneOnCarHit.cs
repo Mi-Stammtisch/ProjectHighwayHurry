@@ -11,16 +11,19 @@ public class RelaodSceneOnCarHit : MonoBehaviour
         if(other.gameObject.tag == "Car")
         {
 
-            StartCoroutine(ReloadScene());
+            
+            GameObject explo = Instantiate(Explosion, transform.position, Quaternion.identity);
+            explo.transform.localScale = 5 * Vector3.one;
+            Destroy(explo, 5);
             GameManager.Instance.playerDeath();
-            Debug.Log("Car Hit");            
+            //Debug.Log("Car Hit");            
         }
     }
 
     IEnumerator ReloadScene()
     {
-        GameObject explo = Instantiate(Explosion, transform.position, Quaternion.identity);
-        explo.transform.localScale = 5 * Vector3.one;
+        
+        
 
         yield return new WaitForSeconds(0.5f);
         //Scene scene = SceneManager.GetActiveScene();

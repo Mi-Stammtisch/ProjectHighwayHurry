@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MainMenuButtons : MonoBehaviour
 {
     //Instance of the MainMenuButtons
     public static MainMenuButtons Instance;
+    [SerializeField] GameObject MainMenuCamera;
+    [SerializeField] GameObject CreditsCamera;
+    [SerializeField] GameObject OptionsCamera;
+    [SerializeField] GameObject PlayCreditsAnim;
 
     
     private void Awake()
@@ -34,14 +39,26 @@ public class MainMenuButtons : MonoBehaviour
 
     public void CreditsButton()
     {
+        CreditsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 15;
+        PlayCreditsAnim.GetComponent<Animation>().Play();
         //Load the credits scene
-        Debug.Log("Credits");
+        //Debug.Log("Credits");
     }
 
     public void OptionsButton()
     {
+        OptionsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 15;
         //Load the options scene
-        Debug.Log("Options");
+       // Debug.Log("Options");
+    }
+
+[EButton("Back")]
+    public void BackButton()
+    {
+        OptionsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+        CreditsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+        //Load the main menu scene
+        //Debug.Log("Back");
     }
 
     

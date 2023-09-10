@@ -13,10 +13,17 @@ MonoBehaviour:
   m_Name: ScoreboardSettings
   m_EditorClassIdentifier: 
   coinValue: 1
+  coinBonusDuration: 1
+  coinBonusValue: 2
   closeCallLevels:
   - range: 4
-    value: 5
+    value: 10
     color: {r: 1, g: 0, b: 0, a: 1}
-  - range: 10
-    value: 1
-    color: {r: 0, g: 0.034409046, b: 1, a: 1}
+  closeCallBonusValue: 100
+  jumpBonusValue: 15
+  timeBonusLevels:
+  - time: 10
+    value: 1000
+  speedMilestoneLevels:
+  - speed: 40
+    value: 1000

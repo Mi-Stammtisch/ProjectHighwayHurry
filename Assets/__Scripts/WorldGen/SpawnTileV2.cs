@@ -45,12 +45,16 @@ public class SpawnTileV2 : MonoBehaviour
     public static event Action onTilesCached;
 
     private CarCache carCache = new CarCache();
+
+    //[Header("Building Spawning")]
+    private BuildingSpawner buildingSpawner;
     
 
    
     private void Awake()
     {
         Instance = this;
+        buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
         //cache tiles
         GameObject obj;
@@ -136,7 +140,6 @@ public class SpawnTileV2 : MonoBehaviour
         newTile = tileCache.getTile(tile.GetComponent<ExitPointDirection>().getTileType());
         ExitPointDirection newExitPointDirection = newTile.GetComponent<ExitPointDirection>();
         //newTile.GetComponent<ExitPointDirection>().Reset();
-        if (carCooldownBegin > 0) carCooldownBegin -= 1;
 
         if (tiles.Count > 0) {
             //newTile = Instantiate(tile, tiles[tiles.Count - 1].GetComponent<ExitPointDirection>().getExitPoint().transform.position, Quaternion.identity);
@@ -183,24 +186,29 @@ public class SpawnTileV2 : MonoBehaviour
 
         if (enableCarSpawning) {
             int numSpawnCars;
-            if (carCooldownBegin > 0) {
+            if (carCooldownBegin > 0 || !newExitPointDirection.canSpawnCars) {
                 numSpawnCars = 0;
+                carCooldownBegin -= 1;
             }
             else {
                 numSpawnCars = UnityEngine.Random.Range(minNumberOfCars, maxNumberOfCars + 1);
             }
-            List<GameObject> spawnCars = new List<GameObject>();
-            for (int i = 0; i < numSpawnCars; i++) {
-                GameObject car = carCache.getCar();
-                spawnCars.Add(car);
+            
+            List<GameObject> spawnCars = carCache.getCarsAsList(numSpawnCars);
+            List<GameObject> carsToCache = newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
+            if (carsToCache != null) {
+                carCache.add(carsToCache);
             }
-            newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
         }
 
         if (tiles.Count > tileCount) {
             //Destroy(tiles[0], 1f);
             tileCache.add(tiles[0]);
             tiles.RemoveAt(0);
+        }
+
+        if (newExitPointDirection.canSpawnCars) {
+            buildingSpawner.spawnBuildings(newExitPointDirection);
         }
     }
 
@@ -340,8 +348,16 @@ public class CarCache {
     private List<GameObject> cachedCars = new List<GameObject>();
 
     public void add(GameObject car) {
+        car.GetComponent<ScuffedCarAI>().Reset();
         cachedCars.Add(car);
         car.SetActive(false);
+        //Debug.Log("ADDED: " + cachedCars.Count);
+    }
+
+    public void add(List<GameObject> cars) {
+        foreach(GameObject car in cars) {
+            add(car);
+        }
     }
 
     public GameObject getCar() {
@@ -349,11 +365,20 @@ public class CarCache {
             GameObject car = cachedCars[0];
             cachedCars.RemoveAt(0);
             car.SetActive(true);
+            //Debug.Log("REMOVED: " + cachedCars.Count);
             return car;
         }
         else {
             Debug.LogError("No cars in cache");
             return null;
         }
+    }
+
+    public List<GameObject> getCarsAsList(int numCars) {
+        List<GameObject> cars = new List<GameObject>();
+        for(int i = 0; i < numCars; i++) {
+            cars.Add(getCar());
+        }
+        return cars;
     }
 }

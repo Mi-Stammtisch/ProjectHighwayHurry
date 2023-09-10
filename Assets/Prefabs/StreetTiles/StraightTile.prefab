@@ -605,9 +605,8 @@ MonoBehaviour:
   leftPath: {fileID: 3835060810851342810}
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
-  spawnPointsLeftParent: {fileID: 4899405688290661672}
-  spawnPointsMiddleParent: {fileID: 6683547287362370343}
-  spawnPointsRightParent: {fileID: 2934179296663179304}
+  carSpawnPoints: {fileID: 1235862290584460595}
+  canSpawnCars: 1
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
@@ -821,7 +820,7 @@ PrefabInstance:
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}
       propertyPath: editorData.vertexPathUpToDate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3931653712491710050, guid: 2e59770064205ac458dd5a7e5bbe644a,
         type: 3}

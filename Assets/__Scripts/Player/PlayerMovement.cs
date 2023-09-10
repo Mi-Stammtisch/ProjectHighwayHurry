@@ -88,9 +88,23 @@ public class PlayerMovement : MonoBehaviour
     SpawnTileV2 spawnTileV2;
 
     private bool tilesCached = false;
+    private bool buildingsCached = false;
+
+
+    //speed milestone variables
+    [Header("ScoreboardShit")]
+    [SerializeField] private ScoreboardSettings scoreboardSettings;
+    bool hasMoreSpeedBoni = true;
+    int speedBonusIndex = 0;
 
     
+    private void PlayerDeath() 
+    {
+        currentPlayerSpeed = 0f;
+        currentStraveSpeed = 0f;
+        StopAllCoroutines();
 
+    }
 
     private Vector3 moveDirection;
     public void OnStrave(InputValue value)
@@ -117,11 +131,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake() {
         SpawnTileV2.onTilesCached += () => { tilesCached = true; };
+        BuildingSpawner.onBuildingsCached += () => { buildingsCached = true; };
     }
 
     IEnumerator Start()
     {
-
+        GameManager.PlayerDeath += PlayerDeath;
 
         playerModel = transform.GetChild(0).gameObject;
         playerModel.transform.localPosition = Vector3.zero;
@@ -133,18 +148,18 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
-        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
+        //Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
 
         //yield return new WaitForSeconds(1f);
         //wait unit onTileCached event is fired
-        while (!tilesCached) {
+        while (!tilesCached && !buildingsCached) {
             yield return null;
         }
 
-        Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
+       // Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
 
-        if (spawnTileV2.tiles[1] != null)
+        if (spawnTileV2.tiles[2] != null)
         {
             GameObject tile = spawnTileV2.tiles[1];
             MiddlePath = tile.GetComponent<ExitPointDirection>().middleSpline;
@@ -175,6 +190,12 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(WheleSpinner());
 
 
+    }
+
+    void OnDestroy() 
+    {
+        GameManager.PlayerDeath -= PlayerDeath;
+        
     }
 
 
@@ -366,6 +387,17 @@ public class PlayerMovement : MonoBehaviour
                 Debug.LogWarning("PlayerModel moved: " + Vector3.Distance(playerModel.transform.position, tempCurrentModelPosition));
             }
             */
+
+
+            //speed milestones bonus check for scoreboard
+            if (hasMoreSpeedBoni && currentPlayerSpeed > scoreboardSettings.speedMilestoneLevels[speedBonusIndex].speed) {
+                Scoreboard.Instance.speedMilestoneBonus(scoreboardSettings.speedMilestoneLevels[speedBonusIndex].value);
+                if (scoreboardSettings.speedMilestoneLevels.Count - 1 <= speedBonusIndex) hasMoreSpeedBoni = false;
+                speedBonusIndex++;
+            }
+
+
+
             yield return null;
         }
 

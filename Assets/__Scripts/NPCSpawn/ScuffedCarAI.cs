@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using PathCreation;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class ScuffedCarAI : MonoBehaviour
     [SerializeField] private PathCreator previousSpline;
     [SerializeField] private float distanceTravelled;
     [SerializeField] private float speed;
-    [SerializeField] private bool moving = false;
+    
     [SerializeField] private bool stopMoving = false;
 
 
@@ -19,6 +20,8 @@ public class ScuffedCarAI : MonoBehaviour
 
     private float updateCooldown;
     private Coroutine moveCoroutine;
+    private List<GameObject> coins = new List<GameObject>();
+    float offset = 0;
 
 
     public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
@@ -29,9 +32,11 @@ public class ScuffedCarAI : MonoBehaviour
                 break;
             case TrackType.left:
                 pathCreator = tile.GetComponent<ExitPointDirection>().leftSpline;
+                offset = 1.5f;
                 break;
             case TrackType.right:
                 pathCreator = tile.GetComponent<ExitPointDirection>().rightSpline;
+                offset = -1.5f;
                 break;
         }
 
@@ -46,6 +51,14 @@ public class ScuffedCarAI : MonoBehaviour
         //transform.rotation *= Quaternion.Euler(0, -90, 0);
         transform.rotation *= Quaternion.Euler(0, 180, 0);
         transform.position += new Vector3(0, 0.5f, 0);
+        
+        //get offset to place car 1m to the right, based on the cars rotation
+        //transform.position += offset;
+        transform.position += transform.right * offset;
+
+        
+
+        
 
 
         if (pathCreator.previous() != null && pathCreator.previous().isNull() == false) {
@@ -57,24 +70,28 @@ public class ScuffedCarAI : MonoBehaviour
         
         initialized = true;
 
-        updateCooldown = Random.Range(0.01f, 0.1f);
+        updateCooldown = Random.Range(0.001f, 0.01f);
     }
 
     public void triggerStayOld() {
         if (initialized && !hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
             speed = Random.Range(carSettings.minSpeed, carSettings.maxSpeed);
-            moving = true;
+            
 
             //spawn coins
             if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
                 for (int i = 0; i < carSettings.numberOfCoins; i++) {
                     GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coin.transform.position += new Vector3(0, 0.5f, 0);
+                    coin.transform.position += new Vector3(0, 1f, 0);
+                    coin.transform.rotation = transform.rotation;
                     coin.transform.parent = transform;
+                    coins.Add(coin);
                     GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coinBehind.transform.position += new Vector3(0, 0.5f, 0);
+                    coinBehind.transform.position += new Vector3(0, 1f, 0);
+                    coinBehind.transform.rotation = transform.rotation;
                     coinBehind.transform.parent = transform;
+                    coins.Add(coinBehind);
                     //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
                     //coin.GetComponent<CoinController>().initializeData(pathCreator, distanceTravelled, speed);
                     //coin.GetComponent<CoinController>().startMoving();
@@ -95,11 +112,14 @@ public class ScuffedCarAI : MonoBehaviour
                 distanceTravelled -= speed * Time.deltaTime;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
                 transform.position += new Vector3(0, 0.5f, 0);
+                
 
                 //then rotate
                 transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
 
                 transform.rotation *= Quaternion.Euler(0, 180, 0);
+                transform.position += transform.right * offset;
+                
             }
             else {
                 //TODO: move onto next spline
@@ -124,13 +144,16 @@ public class ScuffedCarAI : MonoBehaviour
     }
 
     public void Reset() {
-        StopCoroutine(moveCoroutine);
+        if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         initialized = false;
         hasStarted = false;
         stopMoving = false;
-        moving = false;
+        offset = 0;
         moveCoroutine = null;
         //pathCreator = null;
+        foreach (GameObject coin in coins) {
+            Destroy(coin);
+        }
     }
     
 }
