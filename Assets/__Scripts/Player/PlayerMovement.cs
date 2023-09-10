@@ -148,11 +148,12 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
-        //Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
+        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
 
         
         //wait unit onTileCached event is fired
         while (!tilesCached && !buildingsCached) {
+
             yield return null;
         }
        // yield return new WaitForSeconds(0.5f);
