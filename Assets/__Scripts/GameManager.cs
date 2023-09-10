@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 120;
         DeathScreen.SetActive(false);
         //hide cursor
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
     [EButton("Add Health")]
     public void AddHealth() {

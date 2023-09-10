@@ -87,8 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
-    private bool tilesCached = false;
-    private bool buildingsCached = false;
+    public bool tilesCached = false;
+    public bool buildingsCached = false;
 
 
     //speed milestone variables
@@ -130,8 +130,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Awake() {
-        SpawnTileV2.onTilesCached += () => { tilesCached = true; };
-        BuildingSpawner.onBuildingsCached += () => { buildingsCached = true; };
+        //SpawnTileV2.onTilesCached += () => { tilesCached = true; };
+        //BuildingSpawner.onBuildingsCached += () => { buildingsCached = true; };
     }
 
     IEnumerator Start()
