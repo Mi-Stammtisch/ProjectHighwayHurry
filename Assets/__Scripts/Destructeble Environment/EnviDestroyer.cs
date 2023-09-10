@@ -6,6 +6,7 @@ public class EnviDestroyer : MonoBehaviour
 {
     
     [SerializeField] bool DestroyEnv = true;
+    [SerializeField] private PlayerMovement playerMovement;
 
    
     private void OnTriggerEnter(Collider other)
@@ -15,7 +16,6 @@ public class EnviDestroyer : MonoBehaviour
             
             if (other.gameObject.CompareTag("Destructible"))
             {
-                Debug.Log("Destroying " + other.gameObject.name);
                 if(other.gameObject.GetComponent<Rigidbody>() == null)
                 {
                     other.gameObject.AddComponent<Rigidbody>();
@@ -23,7 +23,7 @@ public class EnviDestroyer : MonoBehaviour
                 
                 
                 //boost force away and upward from the player camera
-                other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 40 + (other.gameObject.transform.position - Camera.main.transform.position) * 4, ForceMode.Impulse);
+                other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * playerMovement.currentPlayerSpeed + (other.gameObject.transform.position - Camera.main.transform.position) * (playerMovement.currentPlayerSpeed/10), ForceMode.Impulse);
                 
                 
             }
