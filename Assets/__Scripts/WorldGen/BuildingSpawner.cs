@@ -68,7 +68,8 @@ public class BuildingSpawner : MonoBehaviour
         exitPoint.transform.position = entryExitPointTuple.Item2.transform.position;
         exitPoint.transform.rotation = entryExitPointTuple.Item2.transform.rotation;
 
-        Transform startPoint = new GameObject().transform;
+        GameObject transformObject = new GameObject();
+        Transform startPoint = transformObject.transform;
         startPoint.position = entryPoint.transform.position;
         startPoint.rotation = entryPoint.transform.rotation;
         startPoint.position += entryPoint.transform.up * YOffset;
@@ -81,6 +82,10 @@ public class BuildingSpawner : MonoBehaviour
             generateBuildingLayer(startPoint, entryExitPointTuple.Item2.transform, buildingWidth, i, StreetSide.left, exitPointDirection);
             generateBuildingLayer(startPoint, entryExitPointTuple.Item2.transform, buildingWidth, i, StreetSide.right, exitPointDirection);
         }
+
+        Destroy(entryPoint);
+        Destroy(exitPoint);
+        Destroy(transformObject);
     }
 
 

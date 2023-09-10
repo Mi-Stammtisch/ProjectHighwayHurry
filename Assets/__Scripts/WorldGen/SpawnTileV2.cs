@@ -186,7 +186,7 @@ public class SpawnTileV2 : MonoBehaviour
 
         if (enableCarSpawning) {
             int numSpawnCars;
-            if (carCooldownBegin > 0 || newTile.GetComponent<ExitPointDirection>().getTileType() != TileType.straight) {
+            if (carCooldownBegin > 0 || !newExitPointDirection.canSpawnCars) {
                 numSpawnCars = 0;
                 carCooldownBegin -= 1;
             }
@@ -207,10 +207,9 @@ public class SpawnTileV2 : MonoBehaviour
             tiles.RemoveAt(0);
         }
 
-        if (newExitPointDirection.getTileType() == TileType.straight) {
+        if (newExitPointDirection.canSpawnCars) {
             buildingSpawner.spawnBuildings(newExitPointDirection);
         }
-        
     }
 
     public void spawnNewTile() {

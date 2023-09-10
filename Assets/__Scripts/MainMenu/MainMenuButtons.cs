@@ -10,6 +10,7 @@ public class MainMenuButtons : MonoBehaviour
     [SerializeField] GameObject MainMenuCamera;
     [SerializeField] GameObject CreditsCamera;
     [SerializeField] GameObject OptionsCamera;
+    [SerializeField] GameObject PlayCreditsAnim;
 
     
     private void Awake()
@@ -39,6 +40,7 @@ public class MainMenuButtons : MonoBehaviour
     public void CreditsButton()
     {
         CreditsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 15;
+        PlayCreditsAnim.GetComponent<Animation>().Play();
         //Load the credits scene
         //Debug.Log("Credits");
     }

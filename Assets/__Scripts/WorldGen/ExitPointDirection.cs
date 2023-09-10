@@ -23,6 +23,7 @@ public class ExitPointDirection : MonoBehaviour
 
     [Header("Car Spawning")]
     [SerializeField] private GameObject carSpawnPoints;
+    [SerializeField] public bool canSpawnCars;
     private List<List<GameObject>> spawnPoints;
     private List<List<int>> usedSpawnPoints;
     private int usedSpawnPointsInt = 0;
@@ -48,7 +49,7 @@ public class ExitPointDirection : MonoBehaviour
         spawnTileV2 = GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>();
         buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
-        if (tileType == TileType.straight) {
+        if (canSpawnCars) {
             spawnPoints = new List<List<GameObject>>();
             usedSpawnPoints = new List<List<int>>();
             for (int i = 0; i < carSpawnPoints.transform.childCount; i++) {
@@ -111,7 +112,7 @@ public class ExitPointDirection : MonoBehaviour
 
     public List<GameObject> spawnCars(List<GameObject> spawnCars) {
         initialized = true;
-        if (tileType != TileType.straight) return spawnCars;
+        if (!canSpawnCars) return spawnCars;
 
         GameObject spawnPoint;
         Tuple<int, int> spawnIndex;
@@ -250,7 +251,7 @@ public class ExitPointDirection : MonoBehaviour
         buildingSpawner.resetBuildings(buildings);
         buildings.Clear();
         usedSpawnPointsInt = 0;
-        if (initialized && tileType == TileType.straight) {
+        if (initialized && canSpawnCars) {
             for (int i = 0; i < usedSpawnPoints.Count(); i++) {
                 for (int j = 0; j < usedSpawnPoints[i].Count(); j++) {
                     usedSpawnPoints[i][j] = 0;

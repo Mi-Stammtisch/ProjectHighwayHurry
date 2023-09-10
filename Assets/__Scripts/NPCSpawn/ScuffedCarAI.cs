@@ -53,7 +53,6 @@ public class ScuffedCarAI : MonoBehaviour
         transform.position += new Vector3(0, 0.5f, 0);
         
         //get offset to place car 1m to the right, based on the cars rotation
-        Debug.Log("Offset: " + offset);
         //transform.position += offset;
         transform.position += transform.right * offset;
 
