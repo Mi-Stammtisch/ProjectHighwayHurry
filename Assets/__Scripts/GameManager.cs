@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 120;
         DeathScreen.SetActive(false);
+        //hide cursor
+        Cursor.visible = false;
+    }
+    [EButton("Add Health")]
+    public void AddHealth() {
+        Health++;
     }
 
     // Update is called once per frame
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
         }   
     }
 
-
+    [EButton("Player Damage")]
     public void playerDeath() {
 
         if (Health > 0) {
@@ -74,6 +80,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f); //wait for ragdoll to fall
         PlayerHud.SetActive(false);
         Time.timeScale = 1f;    
+        //display cursor
+        Cursor.visible = true;
         EndScoreDisplay.GetComponent<Text3D>().SetText(Scoreboard.Instance.score.ToString());          
 
         DeathScreen.transform.SetParent(null);

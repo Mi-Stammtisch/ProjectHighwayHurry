@@ -8,15 +8,13 @@ public class wheelspin : MonoBehaviour
     [SerializeField] private GameObject wheel2;
     [SerializeField] private float speed = 1f;
     
-    IEnumerator Start()
+    
+
+   
+    private void Update()
     {
-        while(true)
-        {
-            //rotate wheels on x axis in which speed is multiplied by time and wheel size
-            wheel1.transform.Rotate(speed * Time.deltaTime, 0, 0);
-            wheel2.transform.Rotate(speed * Time.deltaTime, 0, 0);
-            yield return null;
-            
-        }
+        //rotate wheels on x axis in which speed is multiplied by time and wheel size
+        wheel1.transform.Rotate(speed * Time.deltaTime, 0, 0);
+        wheel2.transform.Rotate(speed * Time.deltaTime, 0, 0);
     }
 }

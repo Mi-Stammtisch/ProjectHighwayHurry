@@ -24,4 +24,12 @@ public class PlayerDeath : MonoBehaviour
         PlayerRagdoll.transform.GetChild(0).GetChild(0).GetComponent<Rigidbody>().AddForce(Vector3.up * 10000);
         
     }
+
+    
+    private void OnDestroy()
+    {
+        GameManager.PlayerDeath -= PlayerDeaths;
+    }
+
+
 }
