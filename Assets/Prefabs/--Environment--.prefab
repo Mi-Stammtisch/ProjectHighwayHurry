@@ -1687,8 +1687,8 @@ MonoBehaviour:
   - {fileID: 3746738075619778842, guid: a27f5cd4ff38d6f488ef710abf42f9cc, type: 3}
   - {fileID: 4180177651721403027, guid: 40760c568b932cb408c90e651223ce72, type: 3}
   minNumberOfCars: 1
-  maxNumberOfCars: 4
-  carCooldownBegin: 3
+  maxNumberOfCars: 3
+  carCooldownBegin: 5
   tileCacheParent: {fileID: 6970177303693759805}
   minCachedTiles:
   - tileType: 0

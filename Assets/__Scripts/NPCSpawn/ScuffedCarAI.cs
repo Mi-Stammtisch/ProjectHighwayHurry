@@ -59,7 +59,7 @@ public class ScuffedCarAI : MonoBehaviour
         
         initialized = true;
 
-        updateCooldown = Random.Range(0.01f, 0.1f);
+        updateCooldown = Random.Range(0.001f, 0.01f);
     }
 
     public void triggerStayOld() {
@@ -73,10 +73,12 @@ public class ScuffedCarAI : MonoBehaviour
                 for (int i = 0; i < carSettings.numberOfCoins; i++) {
                     GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coin.transform.position += new Vector3(0, 1f, 0);
+                    coin.transform.rotation = transform.rotation;
                     coin.transform.parent = transform;
                     coins.Add(coin);
                     GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
                     coinBehind.transform.position += new Vector3(0, 1f, 0);
+                    coinBehind.transform.rotation = transform.rotation;
                     coinBehind.transform.parent = transform;
                     coins.Add(coinBehind);
                     //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());

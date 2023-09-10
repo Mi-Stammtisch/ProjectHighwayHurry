@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
        // Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
 
-        if (spawnTileV2.tiles[1] != null)
+        if (spawnTileV2.tiles[2] != null)
         {
             GameObject tile = spawnTileV2.tiles[1];
             MiddlePath = tile.GetComponent<ExitPointDirection>().middleSpline;
