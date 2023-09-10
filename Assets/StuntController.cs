@@ -10,6 +10,7 @@ public class StuntController : MonoBehaviour
 
     public static StuntController Instance;
     public bool canStunt = false;
+    public bool CanAllWaysStunt = true;
 
 
     private void Awake()
@@ -19,7 +20,7 @@ public class StuntController : MonoBehaviour
 
     public void OnStunt()
     {
-        if (canStunt)
+        if (canStunt )
         {
             if (stuntClip != null)
             {
@@ -28,8 +29,30 @@ public class StuntController : MonoBehaviour
             else
             {
                 animationObject.GetComponent<Animation>().Play(stuntClips[Random.Range(0, stuntClips.Count)].name);
+                if(CanAllWaysStunt){
+                    StartCoroutine(StuntTimer());
+                }
+                else{
+                    StartCoroutine(StuntTimer2());
+                }
+
             }
         }
+    }
+
+    IEnumerator StuntTimer()
+    {
+        canStunt = false;
+        yield return new WaitForSeconds(0.5f);
+        Scoreboard.Instance.stuntBonus(5);
+        canStunt = true;        
+    }
+    IEnumerator StuntTimer2()
+    {
+        canStunt = false;
+        yield return new WaitForSeconds(0.5f);
+        Scoreboard.Instance.stuntBonus(5);
+             
     }
 
 

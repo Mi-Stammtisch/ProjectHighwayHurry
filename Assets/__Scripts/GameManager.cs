@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] GameObject PlayerHud;
     [SerializeField] GameObject EndScoreDisplay;
+    [SerializeField] GameObject BikeBlinker;
 
     
 
@@ -68,7 +69,14 @@ public class GameManager : MonoBehaviour
     {
         TimeScale = 0.6f;
         PlayerCollider.GetComponent<Collider>().enabled = false;
-        yield return new WaitForSeconds(0.5f);
+        for (int i = 0; i < 3; i++)
+        {
+            BikeBlinker.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            BikeBlinker.SetActive(false);
+            yield return new WaitForSeconds(0.1f);            
+        }
+        
         PlayerCollider.GetComponent<Collider>().enabled = true;
         TimeScale = 1f;        
     }
