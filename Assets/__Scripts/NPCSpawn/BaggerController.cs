@@ -11,10 +11,16 @@ public class BaggerController : MonoBehaviour
     [SerializeField] private float baggerSpeed = 5f;
     [SerializeField] private float driveLength = 5f;
 
+
+    private Vector3 initialPosition;
+    float initialDriveLength;
+
     // Start is called before the first frame update
     void Start()
     {
         drive = false;
+        initialPosition = transform.localPosition;
+        initialDriveLength = driveLength;
         if(transform.localPosition.x > 0){
             baggerSpeed = -baggerSpeed;
             baggerModel.transform.rotation = Quaternion.Euler(-89.98f, 180, 0);
@@ -31,5 +37,12 @@ public class BaggerController : MonoBehaviour
             transform.Translate(Vector3.right * Time.deltaTime * baggerSpeed);
             driveLength -= Time.deltaTime;
         }
+    }
+
+    public void resetBagger(){
+        drive = false;
+        driveLength = initialDriveLength;
+        transform.localPosition = initialPosition;
+        baggerTrigger.isTriggered = false;
     }
 }

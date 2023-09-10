@@ -69,7 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baggerTrigger: {fileID: 2862859321964152421}
+  baggerModel: {fileID: 6252714944848878530}
   baggerSpeed: 18.97
+  driveLength: 5
 --- !u!1 &7038428540780844186
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +227,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbb45d97b71d3394f831fde506076ed9, type: 3}
+--- !u!1 &6252714944848878530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dbb45d97b71d3394f831fde506076ed9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6487280012330493587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6741268181195555192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dbb45d97b71d3394f831fde506076ed9,
