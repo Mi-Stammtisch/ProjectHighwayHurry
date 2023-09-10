@@ -22,4 +22,4 @@ MonoBehaviour:
   - {fileID: 7458135484179953705, guid: 88a9ec725cf0d53429f892d3448b352b, type: 3}
   - {fileID: 4244371711437796290, guid: a42cb9455a477ba46a27a2d259ad9ee3, type: 3}
   - {fileID: 4378010395572172677, guid: 70a36d8a90cacdc44afa779392dac010, type: 3}
-  poolSize: 100
+  poolSize: 50
