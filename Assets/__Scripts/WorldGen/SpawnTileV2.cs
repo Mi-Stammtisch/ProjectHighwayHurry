@@ -131,7 +131,9 @@ public class SpawnTileV2 : MonoBehaviour
         while (tiles.Count < tileCount) {
             spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
         }
-        onTilesCached?.Invoke();
+        //onTilesCached?.Invoke();
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<PlayerMovement>().tilesCached = true;
     }
 
 
