@@ -16,7 +16,7 @@ public class Settings : MonoBehaviour
 
     private void LoadSettings()
     {
-        volume = PlayerPrefs.GetFloat("volume", 0f);
+        volume = PlayerPrefs.GetFloat("volume", -20f);
         slider.value = volume;
         audioMixer.SetFloat("Master", volume);
     }
