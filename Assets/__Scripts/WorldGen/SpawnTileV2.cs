@@ -45,12 +45,16 @@ public class SpawnTileV2 : MonoBehaviour
     public static event Action onTilesCached;
 
     private CarCache carCache = new CarCache();
+
+    //[Header("Building Spawning")]
+    private BuildingSpawner buildingSpawner;
     
 
    
     private void Awake()
     {
         Instance = this;
+        buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
         //cache tiles
         GameObject obj;
@@ -87,7 +91,6 @@ public class SpawnTileV2 : MonoBehaviour
 
         //cache cars
         if (enableCarSpawning) {
-            Debug.Log("CarCacheSize: " + maxNumberOfCars * 20);
             for (int i = 0; i < maxNumberOfCars * 20; i++) {
                 GameObject car = Instantiate(cars[UnityEngine.Random.Range(0, cars.Count)]);
                 car.SetActive(false);
@@ -203,6 +206,11 @@ public class SpawnTileV2 : MonoBehaviour
             tileCache.add(tiles[0]);
             tiles.RemoveAt(0);
         }
+
+        if (newExitPointDirection.getTileType() == TileType.straight) {
+            buildingSpawner.spawnBuildings(newExitPointDirection);
+        }
+        
     }
 
     public void spawnNewTile() {

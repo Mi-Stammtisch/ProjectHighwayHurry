@@ -1974,6 +1974,59 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!1 &4541462375898501772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54967929694715562}
+  - component: {fileID: 8714371263176779997}
+  m_Layer: 0
+  m_Name: EnvironmentSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &54967929694715562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541462375898501772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3200389574280666991}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8714371263176779997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541462375898501772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce819dba3cd70f846a06db11c8b544bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPool: {fileID: 11400000, guid: ece640ea7178f4c409416870a08ccbb5, type: 2}
+  firstRowOffset: 1
+  startXOffset: 14
+  YOffset: 0.75
+  ZOffset: 0
+  buildingColoumnOffset: 1.4
+  buildingRowOffset: 1
+  rowXOffset: 2.9
+  layers: 2
 --- !u!1 &4637692400687388262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,7 +2980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePool: {fileID: 11400000, guid: 539906843a119324491b246455f7fc20, type: 2}
-  tileCount: 8
+  tileCount: 5
   tiles: []
   turnSpawnCooldownMax: 5
   maxDistanceFromSpawn: 2000
@@ -2971,7 +3024,7 @@ MonoBehaviour:
   - {fileID: 3313120462209718794, guid: 9e3cc20b116ea0642bfc6680599e4e51, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
   - {fileID: 3313120462209718794, guid: 53494bae4d22f6b4aa48056a154971bc, type: 3}
-  enableCarSpawning: 1
+  enableCarSpawning: 0
   carCacheParent: {fileID: 1654609325494267642}
   cars:
   - {fileID: 324075200823789674, guid: 40e6f23ea0e674e4594ec13469bc7a65, type: 3}
@@ -3173,6 +3226,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8985812195043478475}
+  - {fileID: 54967929694715562}
   - {fileID: 2365636156809793186}
   - {fileID: 2114635145898511403}
   - {fileID: 8919390500760300596}
@@ -3197,6 +3251,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   PlayerHud: {fileID: 0}
   EndScoreDisplay: {fileID: 3743452218220607493}
+  BikeBlinker: {fileID: 0}
   PlayerCollider: {fileID: 0}
   Health: 1
 --- !u!1 &7366064555952565065

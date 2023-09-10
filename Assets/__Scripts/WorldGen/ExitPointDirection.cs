@@ -35,7 +35,9 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] private PathCreator previousSpline;
 
     private List<GameObject> cars = new List<GameObject>();
+    private List<GameObject> buildings = new List<GameObject>();
     private SpawnTileV2 spawnTileV2;
+    private BuildingSpawner buildingSpawner;
     private bool initialized = false;
 
     void Awake() {
@@ -44,6 +46,7 @@ public class ExitPointDirection : MonoBehaviour
         rightSpline = new CustomSpline(rightPath.GetComponent<PathCreator>());
 
         spawnTileV2 = GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>();
+        buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
         if (tileType == TileType.straight) {
             spawnPoints = new List<List<GameObject>>();
@@ -244,6 +247,8 @@ public class ExitPointDirection : MonoBehaviour
         }
         spawnTileV2.resetCars(cars);
         cars.Clear();
+        buildingSpawner.resetBuildings(buildings);
+        buildings.Clear();
         usedSpawnPointsInt = 0;
         if (initialized && tileType == TileType.straight) {
             for (int i = 0; i < usedSpawnPoints.Count(); i++) {
@@ -259,6 +264,14 @@ public class ExitPointDirection : MonoBehaviour
     }
     public void addCars(List<GameObject> cars) {
         this.cars.AddRange(cars);
+    }
+
+    public void addBuildings(GameObject building) {
+        buildings.Add(building);
+    }
+
+    public void addBuildings(List<GameObject> buildings) {
+        this.buildings.AddRange(buildings);
     }
 }
 
