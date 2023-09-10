@@ -155,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         while (!tilesCached && !buildingsCached) {
             yield return null;
         }
-        yield return new WaitForSeconds(0.5f);
+       // yield return new WaitForSeconds(0.5f);
 
         Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
