@@ -16,14 +16,22 @@ MonoBehaviour:
   coinBonusDuration: 1
   coinBonusValue: 2
   closeCallLevels:
-  - range: 4
+  - range: 3.75
     value: 10
     color: {r: 1, g: 0, b: 0, a: 1}
-  closeCallBonusValue: 100
+  closeCallBonusValue: 50
   jumpBonusValue: 15
   timeBonusLevels:
-  - time: 10
-    value: 1000
+  - time: 30
+    value: 200
+  - time: 60
+    value: 200
+  - time: 90
+    value: 200
+  - time: 120
+    value: 200
   speedMilestoneLevels:
-  - speed: 40
-    value: 1000
+  - speed: 80
+    value: 500
+  gemValue: 10
+  destroyBonusValue: 5
