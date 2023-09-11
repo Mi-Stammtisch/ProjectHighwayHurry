@@ -33,7 +33,7 @@ public class StuntController : MonoBehaviour
                 int random = Random.Range(0, stuntClips.Count);
                 animationObject.GetComponent<Animation>().Play(stuntClips[random].name);
                 if(random == 2) {
-                    SoundManager.Instance.PlaySound(loopingSound, 0.6f);
+                    SoundManager.Instance.PlaySound(loopingSound, 0.4f);
                 }
                 if(CanAllWaysStunt){
                     StartCoroutine(StuntTimer());
