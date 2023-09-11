@@ -4721,22 +4721,22 @@ PrefabInstance:
     - target: {fileID: 3316280124075172339, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9676019
+      value: 0.96760184
       objectReference: {fileID: 0}
     - target: {fileID: 3316280124075172339, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.01759497
+      value: 0.017594974
       objectReference: {fileID: 0}
     - target: {fileID: 3316280124075172339, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.25182572
+      value: -0.25182566
       objectReference: {fileID: 0}
     - target: {fileID: 3316280124075172339, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.004579224
+      value: 0.0045792256
       objectReference: {fileID: 0}
     - target: {fileID: 4412083233015312523, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
@@ -4751,7 +4751,7 @@ PrefabInstance:
     - target: {fileID: 4752114392879488993, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.025934957
+      value: 0.025934946
       objectReference: {fileID: 0}
     - target: {fileID: 4752114392879488993, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
@@ -4761,7 +4761,7 @@ PrefabInstance:
     - target: {fileID: 4752114392879488993, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.01797294
+      value: -0.017972931
       objectReference: {fileID: 0}
     - target: {fileID: 4956384148034699193, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
@@ -4800,6 +4800,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8834452791134705415, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
+      propertyPath: stuntSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c3c8f41ab6a12cb4e9c62f13641ebbc0, type: 3}
+    - target: {fileID: 8834452791134705415, guid: 2a267aa88741353498f0cca8fb232800,
+        type: 3}
       propertyPath: loopingSound
       value: 
       objectReference: {fileID: 8300000, guid: 618be6bc131035945b1dc1b270c47b04, type: 3}
@@ -4821,12 +4826,12 @@ PrefabInstance:
     - target: {fileID: 8854577738862171480, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.025934966
+      value: 0.025934951
       objectReference: {fileID: 0}
     - target: {fileID: 8854577738862171480, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.017972942
+      value: 0.017972931
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
