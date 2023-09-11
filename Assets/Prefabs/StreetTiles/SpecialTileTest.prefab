@@ -269,15 +269,20 @@ MonoBehaviour:
   leftPath: {fileID: 3835060810851342810}
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
-  carSpawnPoints: {fileID: 0}
+  canSpawnCars: 0
+  initialSpawnDistance: 10
+  spawnOffset: 10
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
     spline: {fileID: 0}
   rightSpline:
     spline: {fileID: 0}
+  functionList: []
   nextSpline: {fileID: 0}
   previousSpline: {fileID: 0}
+  canSpawnBuildings: 0
+  scaleObject: {fileID: 0}
 --- !u!1001 &700934013787542194
 PrefabInstance:
   m_ObjectHideFlags: 0
