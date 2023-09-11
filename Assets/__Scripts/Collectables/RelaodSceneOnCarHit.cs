@@ -19,8 +19,7 @@ public class RelaodSceneOnCarHit : MonoBehaviour
             {
                 imp = gameObject.AddComponent<CinemachineImpulseSource>();
             }
-            else imp = gameObject.GetComponent<CinemachineImpulseSource>();
-            
+            else imp = gameObject.GetComponent<CinemachineImpulseSource>(); 
 
 
 

@@ -19,6 +19,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text Speedtext;
 
 
+
+    [Header("StartGame")]
+    [SerializeField] GameObject StartScreen;
+    [SerializeField] GameObject TileScreen;
+    [SerializeField] GameObject PlayerPrefab;
+    [SerializeField] GameObject EnviSpawner;
+
+
+
+
     
 
     [SerializeField] private GameObject PlayerCollider;
@@ -36,10 +46,31 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 120;
-        DeathScreen.SetActive(false);
+        
         //hide cursor
         //Cursor.visible = false;
+        StartCoroutine(StartGame());
     }
+
+    IEnumerator StartGame() {
+        DeathScreen.SetActive(false);
+        StartScreen.SetActive(true);
+        yield return new WaitForSeconds(6f);  
+        StartScreen.SetActive(false);
+        PlayerPrefab.SetActive(true);
+        TileScreen.SetActive(true);
+        EnviSpawner.SetActive(true);
+        
+        
+        
+        
+       
+    }
+
+
+
+
+
     [EButton("Add Health")]
     public void AddHealth() {
         Health++;
