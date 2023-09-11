@@ -144,6 +144,9 @@ public class BuildingSpawner : MonoBehaviour
             building = buildingCache.getTile(buildings[i]);
             building.transform.position = startPositon + (buildingWidth * stPosRight * i) + (stPosRight * buildingColoumnOffset * i);
             building.transform.rotation = startRotation;
+            Vector3 buildingScale = building.transform.localScale;
+            building.transform.localScale = Vector3.zero;
+            LeanTween.scale(building, new Vector3(buildingScale.x, buildingScale.y, buildingScale.z), 0.5f).setEaseOutBack();
             exitPointDirection.addBuildings(building);
         }
 

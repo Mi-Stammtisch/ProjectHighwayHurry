@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -146,6 +145,7 @@ public class SpawnTileV2 : MonoBehaviour
         GameObject exitPoint;
 
         newTile = tileCache.getTile(tile.GetComponent<ExitPointDirection>().getTileType());
+
         ExitPointDirection newExitPointDirection = newTile.GetComponent<ExitPointDirection>();
         //newTile.GetComponent<ExitPointDirection>().Reset();
 
@@ -189,8 +189,8 @@ public class SpawnTileV2 : MonoBehaviour
         }
         //Debug.Log("--------------------");
 
-
         newTile.transform.parent = transform;
+
         tiles.Add(newTile);
 
 
@@ -222,6 +222,8 @@ public class SpawnTileV2 : MonoBehaviour
         if (newExitPointDirection.canSpawnCars) {
             buildingSpawner.spawnBuildings(newExitPointDirection);
         }
+
+        newExitPointDirection.scaleObjects();
 
     }
 
