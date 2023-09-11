@@ -32,45 +32,59 @@ public class PlayerScoreHandler : MonoBehaviour
         Ray rayLeft = new Ray(fühlerPosition.transform.position, fühlerPosition.transform.TransformDirection(Vector3.left));
         Ray rayRight = new Ray(fühlerPosition.transform.position, fühlerPosition.transform.TransformDirection(Vector3.right));
 
-        RaycastHit hitLeft;
-        RaycastHit hitRight;
+        //RaycastHit hitLeft;
+        //RaycastHit hitRight;
 
         addedScore = 0;
 
         bool hitLeftBool;
         bool hitRightBool;
 
-        hitLeftBool = Physics.Raycast(rayLeft, out hitLeft, scoreboardSettings.closeCallLevels[0].range);
-        hitRightBool = Physics.Raycast(rayRight, out hitRight, scoreboardSettings.closeCallLevels[0].range);
+        //hitLeftBool = Physics.Raycast(rayLeft, out hitLeft, scoreboardSettings.closeCallLevels[0].range);
+        //hitRightBool = Physics.Raycast(rayRight, out hitRight, scoreboardSettings.closeCallLevels[0].range);
+
+        RaycastHit[] hitsLeft = Physics.RaycastAll(rayLeft, scoreboardSettings.closeCallLevels[0].range);
+        RaycastHit[] hitsRight = Physics.RaycastAll(rayRight, scoreboardSettings.closeCallLevels[0].range);
+
+        hitLeftBool = hitsLeft.Length > 0;
+        hitRightBool = hitsLeft.Length > 0;
 
         if (hitLeftBool || hitRightBool) {
             if (hitLeftBool) {
-                if (hitLeft.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitLeft.transform.gameObject.GetHashCode()) == false) {
-                    //Debug.Log("HitLeft: " + hitLeft.transform.gameObject.name);
-                    addedScore = scoreboardSettings.closeCallLevels[0].value;
-                    alreadyHitCars.Add(hitLeft.transform.gameObject.GetHashCode());
-                    if (alreadyHitCars.Count > numberOfSavedCars) {
-                        alreadyHitCars.RemoveAt(0);
-                    }
-                    hitRightBool = Physics.Raycast(rayRight, out hitRight, scoreboardSettings.closeCallLevels[0].range);
-                    if (hitRightBool && hasHitCar(hitRight)) {
-                        //Debug.Log("CloseCallBonus");
-                        addedScore += scoreboardSettings.closeCallBonusValue;
+                foreach(RaycastHit hitLeft in hitsLeft) {
+                    if (hitLeft.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitLeft.transform.gameObject.GetHashCode()) == false) {
+                        //Debug.Log("HitLeft: " + hitLeft.transform.gameObject.name);
+                        addedScore = scoreboardSettings.closeCallLevels[0].value;
+                        alreadyHitCars.Add(hitLeft.transform.gameObject.GetHashCode());
+                        if (alreadyHitCars.Count > numberOfSavedCars) {
+                            alreadyHitCars.RemoveAt(0);
+                        }
+                        hitRightBool = Physics.RaycastAll(rayRight, scoreboardSettings.closeCallLevels[0].range).Length > 0;
+                        foreach (RaycastHit hitRight in hitsRight) {
+                            if (hitRightBool && hasHitCar(hitRight)) {
+                                //Debug.Log("CloseCallBonus");
+                                addedScore += scoreboardSettings.closeCallBonusValue;
+                            }
+                        }
                     }
                 }
             }
             if (hitRightBool) {
-                if (hitRight.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitRight.transform.gameObject.GetHashCode()) == false) {
-                    //Debug.Log("HitRight: " + hitRight.transform.gameObject.name);
-                    addedScore = scoreboardSettings.closeCallLevels[0].value;
-                    alreadyHitCars.Add(hitRight.transform.gameObject.GetHashCode());
-                    if (alreadyHitCars.Count > numberOfSavedCars) {
-                        alreadyHitCars.RemoveAt(0);
-                    }
-                    hitLeftBool = Physics.Raycast(rayLeft, out hitLeft, scoreboardSettings.closeCallLevels[0].range);
-                    if (hitLeftBool && hasHitCar(hitLeft)) {
-                        //Debug.Log("CloseCallBonus");
-                        addedScore += scoreboardSettings.closeCallBonusValue;
+                foreach (RaycastHit hitRight in hitsRight) {
+                    if (hitRight.transform.gameObject.CompareTag("Car") && alreadyHitCars.Contains(hitRight.transform.gameObject.GetHashCode()) == false) {
+                        //Debug.Log("HitRight: " + hitRight.transform.gameObject.name);
+                        addedScore = scoreboardSettings.closeCallLevels[0].value;
+                        alreadyHitCars.Add(hitRight.transform.gameObject.GetHashCode());
+                        if (alreadyHitCars.Count > numberOfSavedCars) {
+                            alreadyHitCars.RemoveAt(0);
+                        }
+                        hitLeftBool = Physics.RaycastAll(rayLeft, scoreboardSettings.closeCallLevels[0].range).Length > 0;
+                        foreach (RaycastHit hitLeft in hitsLeft) {
+                            if (hitLeftBool && hasHitCar(hitLeft)) {
+                                //Debug.Log("CloseCallBonus");
+                                addedScore += scoreboardSettings.closeCallBonusValue;
+                            }
+                        }
                     }
                 }
             }
