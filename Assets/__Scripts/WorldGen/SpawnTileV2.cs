@@ -304,6 +304,16 @@ public class SpawnTileV2 : MonoBehaviour
             Debug.Log("Spawned special tile");
         }
     }
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    private void OnDestroy()
+    {
+        specialTile -= timeBased;
+        specialTile -= tileBased;
+        specialTile -= diffBased;
+        specialTile -= randomBased;
+    }
 }
 
 
@@ -343,7 +353,11 @@ public class TileCache {
             if (cachedTiles[tileTypeIndex[type]].Count > 0) {
                 GameObject tile = cachedTiles[tileTypeIndex[type]][0];
                 cachedTiles[tileTypeIndex[type]].RemoveAt(0);
-                tile.SetActive(true);
+                if(tile != null) tile.SetActive(true);
+                else Debug.LogWarning("Tile is null");
+                    
+                
+                
                 return tile;
             }
             else {
