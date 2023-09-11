@@ -39,8 +39,11 @@ public class MainMenuButtons : MonoBehaviour
 
     public void CreditsButton()
     {
+        PlayCreditsAnim.GetComponent<Animation>().Rewind();
         CreditsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 15;
+        
         PlayCreditsAnim.GetComponent<Animation>().Play();
+
         //Load the credits scene
         //Debug.Log("Credits");
     }
@@ -55,6 +58,7 @@ public class MainMenuButtons : MonoBehaviour
 [EButton("Back")]
     public void BackButton()
     {
+        PlayCreditsAnim.GetComponent<Animation>().Rewind();
         OptionsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
         CreditsCamera.GetComponent<CinemachineVirtualCamera>().Priority = 5;
         //Load the main menu scene

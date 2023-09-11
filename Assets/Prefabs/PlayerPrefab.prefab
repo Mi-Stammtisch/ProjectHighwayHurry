@@ -721,7 +721,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269184585306101608}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02593495, y: 0.5693112, z: -0.017972933, w: 0.8215163}
+  m_LocalRotation: {x: 0.025934972, y: 0.5693112, z: -0.017972948, w: 0.8215163}
   m_LocalPosition: {x: -7.9999995, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyEnv: 1
+  playerMovement: {fileID: 0}
 --- !u!1 &2415334755383109699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,7 +2702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4696882034849875591}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11721818, y: -0.25477326, z: 0.031128982, w: 0.9593651}
+  m_LocalRotation: {x: 0.11721815, y: -0.2547733, z: 0.03112898, w: 0.9593651}
   m_LocalPosition: {x: 3.9999998, y: 3, z: -3.9999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4477,7 +4478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8152571020040887422}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02593496, y: -0.5693112, z: 0.017972937, w: 0.8215163}
+  m_LocalRotation: {x: 0.025934955, y: -0.5693112, z: 0.017972933, w: 0.8215163}
   m_LocalPosition: {x: 7.9999995, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4541,6 +4542,7 @@ GameObject:
   - component: {fileID: 7789982626767295983}
   - component: {fileID: 4008371711795546614}
   - component: {fileID: 8834452791134705415}
+  - component: {fileID: 2367339100325491790}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -4616,13 +4618,13 @@ MonoBehaviour:
   Currentpath: {fileID: 0}
   currentPathType: 2
   PlayerConstantStartingSpeed: 30
-  PlayerConstantMaxSpeed: 100
+  PlayerConstantMaxSpeed: 130
   currentPlayerSpeed: 0
   PlayerSpeedIncreaseOver100Meters: 1.01
   TotaldistanceTravelledInMeters: 0
   currentSpeedInceses: 0
-  PlayerStraveSpeed: 40
-  PlayerStraveAcceleration: 100
+  PlayerStraveSpeed: 37
+  PlayerStraveAcceleration: 80
   PlayerSraveTilt: 15
   switchPathDistance: 3
   canStraveSwitchPath: 1
@@ -4638,6 +4640,8 @@ MonoBehaviour:
   saveBeforeTeleport: []
   distanceTravelled: 0
   middleLaneCamRef: {fileID: 7838190407422676744}
+  tilesCached: 0
+  buildingsCached: 0
   scoreboardSettings: {fileID: 11400000, guid: d3315668aa725ac45bfdf89d054d32c5, type: 2}
 --- !u!54 &6411260320622963467
 Rigidbody:
@@ -4759,6 +4763,20 @@ MonoBehaviour:
   stuntClip: {fileID: 0}
   canStunt: 1
   CanAllWaysStunt: 1
+--- !u!114 &2367339100325491790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393228855397534052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e5909dc53b5d34ea75aee97a78500d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyEnv: 1
+  playerMovement: {fileID: 7748477161180103991}
 --- !u!1 &8442410882159909758
 GameObject:
   m_ObjectHideFlags: 0
@@ -4784,7 +4802,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8442410882159909758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11721817, y: 0.2547733, z: -0.031128973, w: 0.9593652}
+  m_LocalRotation: {x: 0.117218174, y: 0.2547733, z: -0.03112898, w: 0.9593652}
   m_LocalPosition: {x: -3.9999998, y: 3, z: -3.9999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -49,7 +49,9 @@ public class BuildingSpawner : MonoBehaviour
             }
         }
 
-        onBuildingsCached?.Invoke();
+        //onBuildingsCached?.Invoke();
+        GameObject player = GameObject.Find("Player");
+        player.GetComponent<PlayerMovement>().buildingsCached = true;
     }
 
 

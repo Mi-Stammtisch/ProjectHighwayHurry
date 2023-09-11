@@ -87,8 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
     SpawnTileV2 spawnTileV2;
 
-    private bool tilesCached = false;
-    private bool buildingsCached = false;
+    public bool tilesCached = false;
+    public bool buildingsCached = false;
 
 
     //speed milestone variables
@@ -130,8 +130,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Awake() {
-        SpawnTileV2.onTilesCached += () => { tilesCached = true; };
-        BuildingSpawner.onBuildingsCached += () => { buildingsCached = true; };
+        //SpawnTileV2.onTilesCached += () => { tilesCached = true; };
+        //BuildingSpawner.onBuildingsCached += () => { buildingsCached = true; };
     }
 
     IEnumerator Start()
@@ -148,17 +148,19 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
-        //Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
+        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
 
-        //yield return new WaitForSeconds(1f);
+        
         //wait unit onTileCached event is fired
         while (!tilesCached && !buildingsCached) {
+
             yield return null;
         }
+       // yield return new WaitForSeconds(0.5f);
 
-       // Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
+        Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
 
-
+        
         if (spawnTileV2.tiles[2] != null)
         {
             GameObject tile = spawnTileV2.tiles[1];
@@ -288,7 +290,10 @@ public class PlayerMovement : MonoBehaviour
             //move player model left and right smooth clamp to max distance
             straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
 
-            straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+            //straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
+            //if on left or right path clamp straveDistanceTravelled to maxStraveDistance
+            if(currentPathType == PathType.Left && straveDistanceTravelled < -MaxStraveDistance) straveDistanceTravelled = -MaxStraveDistance;
+            if(currentPathType == PathType.Right && straveDistanceTravelled > MaxStraveDistance) straveDistanceTravelled = MaxStraveDistance;
             
             if((straveDistanceTravelled <= -MaxStraveDistance || straveDistanceTravelled >= MaxStraveDistance) && resetSraveSpeedOnMaxStraveDistance)currentStraveSpeed = 0f;
             
