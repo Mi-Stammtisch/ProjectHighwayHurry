@@ -246,10 +246,16 @@ public class PlayerMovement : MonoBehaviour
 
             
 
-
-
+            float distanceIncrease = currentPlayerSpeed * Time.deltaTime * GameManager.DerBessereTimeScale;
+            
+            if(distanceIncrease + distanceTravelled > Currentpath.path.length) distanceIncrease = Currentpath.path.length -0.1f;
+            
             //Forward Movement
-            distanceTravelled += currentPlayerSpeed * Time.deltaTime * GameManager.DerBessereTimeScale;
+            distanceTravelled += distanceIncrease;
+            
+            
+            
+
             transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
             transform.rotation = Currentpath.path.GetRotationAtDistance(distanceTravelled);
 
