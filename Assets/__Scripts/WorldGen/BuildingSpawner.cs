@@ -12,7 +12,7 @@ public class BuildingSpawner : MonoBehaviour
 
     [Header("Building Pool")]
     [SerializeField] private BuildingPool buildingPool;
-    [SerializeField] private float firstRowOffset = 1f;
+    //[SerializeField] private float firstRowOffset = 1f;
     [SerializeField] private float startXOffset = 14f;
     [SerializeField] private float YOffset = 0.75f;
     [SerializeField] private float ZOffset = 7f;
