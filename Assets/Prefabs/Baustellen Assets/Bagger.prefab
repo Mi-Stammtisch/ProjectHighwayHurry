@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baggerTrigger: {fileID: 2862859321964152421}
   baggerModel: {fileID: 6252714944848878530}
-  baggerSpeed: 18.97
+  baggerSpeed: 18
   driveLength: 5
 --- !u!1 &7038428540780844186
 GameObject:
@@ -99,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 7038428540780844186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.1, y: 0, z: -270}
+  m_LocalPosition: {x: 0, y: 0, z: -199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -120,11 +120,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 23.335705, y: 8.717049, z: 15.868641}
+  m_Size: {x: 265.17426, y: 8.717049, z: 15.868641}
   m_Center: {x: 0, y: 3.8585243, z: 0}
 --- !u!114 &2862859321964152421
 MonoBehaviour:
