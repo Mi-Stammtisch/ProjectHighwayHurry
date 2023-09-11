@@ -23,7 +23,7 @@ public class BaggerController : MonoBehaviour
         initialDriveLength = driveLength;
         if(transform.localPosition.x > 0){
             baggerSpeed = -baggerSpeed;
-            baggerModel.transform.rotation = Quaternion.Euler(-89.98f, 180, 0);
+            baggerModel.transform.rotation = Quaternion.Euler(0, 270, 0);
         }
     }
 
