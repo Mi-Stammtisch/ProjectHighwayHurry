@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject PlayerHud;
     [SerializeField] GameObject EndScoreDisplay;
     [SerializeField] GameObject BikeBlinker;
+    [SerializeField] AudioClip PlayerHit;
 
     
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     [EButton("Player Damage")]
     public void playerDeath() {
 
+        SoundManager.Instance.PlaySound(PlayerHit);
         if (Health > 0) {
             StartCoroutine(TakeDamage());
             Health--;
@@ -67,8 +69,10 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator TakeDamage() 
     {
+        
         TimeScale = 0.6f;
         PlayerCollider.GetComponent<Collider>().enabled = false;
+        
         for (int i = 0; i < 3; i++)
         {
             BikeBlinker.SetActive(true);
@@ -76,6 +80,8 @@ public class GameManager : MonoBehaviour
             BikeBlinker.SetActive(false);
             yield return new WaitForSeconds(0.1f);            
         }
+
+        
         
         PlayerCollider.GetComponent<Collider>().enabled = true;
         TimeScale = 1f;        

@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 public class RelaodSceneOnCarHit : MonoBehaviour
 {
     [SerializeField] private GameObject Explosion;
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Car")
