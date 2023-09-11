@@ -9,6 +9,7 @@ public class PlayerScoreHandler : MonoBehaviour
     [SerializeField] private GameObject fühlerPosition;
     [SerializeField] private ScoreboardSettings scoreboardSettings;
     [SerializeField] private int numberOfSavedCars = 0;
+    [SerializeField] AudioClip CloseCallSound;
 
 
 
@@ -75,6 +76,7 @@ public class PlayerScoreHandler : MonoBehaviour
             }
             if (addedScore > 0) {
                 Scoreboard.Instance.closeCall(addedScore);
+                SoundManager.Instance.PlaySound(CloseCallSound);
             }
         }
 

@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd63f43ec029fad4090710ab8a87d4d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CoinCollectSound: {fileID: 8300000, guid: 96d56440c9a3eaa4c808f85750214b11, type: 3}
 --- !u!114 &-6816442136152681100
 MonoBehaviour:
   m_ObjectHideFlags: 0
