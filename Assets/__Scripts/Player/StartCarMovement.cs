@@ -17,11 +17,11 @@ public class StartCarMovement : MonoBehaviour
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
             foreach (Collider collider in colliders) {
                 if (collider.gameObject.CompareTag("Car")) {
-                    //Debug.Log("Car found");
-                    if(TryGetComponent<ScuffedCarAI>(out ScuffedCarAI scuffedCarAI)) scuffedCarAI.GetComponent<ScuffedCarAI>().triggerStayOld();
-                        
-                    
-                    
+                    try {
+                        collider.gameObject.GetComponent<ScuffedCarAI>().triggerStayOld();
+                    }
+                    catch {
+                    }
                 }
             }
             yield return new WaitForSeconds(cooldown);

@@ -67,6 +67,25 @@ public class ScuffedCarAI : MonoBehaviour
         else {
             speed = 0;
         }
+
+        //spawn coins
+        if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
+            for (int i = 0; i < carSettings.numberOfCoins; i++) {
+                GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
+                coin.transform.position += new Vector3(0, 1f, 0);
+                coin.transform.rotation = transform.rotation;
+                coin.transform.parent = transform;
+                coins.Add(coin);
+                GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
+                coinBehind.transform.position += new Vector3(0, 1f, 0);
+                coinBehind.transform.rotation = transform.rotation;
+                coinBehind.transform.parent = transform;
+                coins.Add(coinBehind);
+                //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
+                //coin.GetComponent<CoinController>().initializeData(pathCreator, distanceTravelled, speed);
+                //coin.GetComponent<CoinController>().startMoving();
+            }
+        }
         
         initialized = true;
 
@@ -77,27 +96,6 @@ public class ScuffedCarAI : MonoBehaviour
         if (initialized && !hasStarted) {
             //moveCoroutine ??= StartCoroutine(moveCar(Random.Range(minSpeed, maxSpeed)));
             speed = Random.Range(carSettings.minSpeed, carSettings.maxSpeed);
-            
-
-            //spawn coins
-            if (Random.Range(0f, 1f) <= carSettings.coinSpawnChance) {
-                for (int i = 0; i < carSettings.numberOfCoins; i++) {
-                    GameObject coin = Instantiate(carSettings.coinPrefab, transform.position + transform.forward * carSettings.coinSpawnDistanceCar + transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coin.transform.position += new Vector3(0, 1f, 0);
-                    coin.transform.rotation = transform.rotation;
-                    coin.transform.parent = transform;
-                    coins.Add(coin);
-                    GameObject coinBehind = Instantiate(carSettings.coinPrefab, transform.position + -transform.forward * carSettings.coinSpawnDistanceCar + -transform.forward * carSettings.coinSpacing * i, Quaternion.identity);
-                    coinBehind.transform.position += new Vector3(0, 1f, 0);
-                    coinBehind.transform.rotation = transform.rotation;
-                    coinBehind.transform.parent = transform;
-                    coins.Add(coinBehind);
-                    //Debug.Log("pathCreatorIsNullBeforeInitializeData: " + (pathCreator == null).ToString());
-                    //coin.GetComponent<CoinController>().initializeData(pathCreator, distanceTravelled, speed);
-                    //coin.GetComponent<CoinController>().startMoving();
-                }
-            }
-
             hasStarted = true;
             moveCoroutine ??= StartCoroutine(customUpdate());
         }
