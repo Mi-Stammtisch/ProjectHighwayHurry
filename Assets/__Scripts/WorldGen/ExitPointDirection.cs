@@ -4,6 +4,8 @@ using PathCreation;
 using System.Linq;
 using System;
 using UnityEngine.Events;
+using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 public class ExitPointDirection : MonoBehaviour
 {
@@ -22,9 +24,11 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] public GameObject rightPath;
 
     [Header("Car Spawning")]
-    [SerializeField] private GameObject carSpawnPoints;
+    //[SerializeField] private GameObject carSpawnPoints;
     [SerializeField] public bool canSpawnCars;
-    private List<List<GameObject>> spawnPoints;
+    [SerializeField] private float initialSpawnDistance = 10f;
+    [SerializeField] private float spawnOffset = 10f;
+    private List<List<CarSpawnData>> spawnPoints;
     private List<List<int>> usedSpawnPoints;
     private int usedSpawnPointsInt = 0;
 
@@ -38,6 +42,9 @@ public class ExitPointDirection : MonoBehaviour
     [SerializeField] private PathCreator nextSpline;
     [SerializeField] private PathCreator previousSpline;
 
+    [Header("Building Spawning")]
+    [SerializeField] public bool canSpawnBuildings = false;
+
     [Header("Scaling in Distance")]
     [SerializeField] public GameObject scaleObject;
 
@@ -46,6 +53,8 @@ public class ExitPointDirection : MonoBehaviour
     private SpawnTileV2 spawnTileV2;
     private BuildingSpawner buildingSpawner;
     private bool initialized = false;
+    private int totalCarSpawnPoints = 0;
+    public int carSpawnFactor = 0;
 
     void Awake() {
         leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
@@ -55,6 +64,7 @@ public class ExitPointDirection : MonoBehaviour
         spawnTileV2 = GameObject.Find("TileSpawner").GetComponent<SpawnTileV2>();
         buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
+        /*
         if (canSpawnCars) {
             spawnPoints = new List<List<GameObject>>();
             usedSpawnPoints = new List<List<int>>();
@@ -67,8 +77,40 @@ public class ExitPointDirection : MonoBehaviour
                 }
             }
         }
+        */
     }
 
+    public void setSpawnPositions() {
+        if (canSpawnCars) {
+            spawnPoints = new List<List<CarSpawnData>>();
+            usedSpawnPoints = new List<List<int>>();
+
+            float distance = Vector3.Distance(entryPoint.transform.position, exitPoint.transform.position);
+            distance -= initialSpawnDistance * 2;
+
+            int spawnPointsPerLane = Mathf.FloorToInt(distance / spawnOffset);
+
+            for (int i = 0; i < 3; i++) {
+                spawnPoints.Add(new List<CarSpawnData>());
+                usedSpawnPoints.Add(new List<int>());
+                for (int j = 0; j < spawnPointsPerLane; j++) {
+                    CarSpawnData spawnPointData = new CarSpawnData
+                    {
+                        position = entryPoint.transform.position + entryPoint.transform.forward * initialSpawnDistance + entryPoint.transform.forward * spawnOffset * j,
+                        rotation = entryPoint.transform.rotation
+                    };
+
+                    spawnPointData.position += entryPoint.transform.right * (i - 1) * 5.5f;
+
+                    spawnPoints[i].Add(spawnPointData);
+                    usedSpawnPoints[i].Add(0);
+                    totalCarSpawnPoints++;
+                }
+            }
+
+            carSpawnFactor = Mathf.FloorToInt(totalCarSpawnPoints / 9);
+        }
+    }
 
     void Update() {
         if (leftSpline.next() != null && leftSpline.next().isNull() == false) {
@@ -82,10 +124,6 @@ public class ExitPointDirection : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        //draw arrow from exitPoint following the direction of the exitPoint
-        //arrow is 10 units long
-        //arrow has an arrow shape at the top
-        //arrow is 3 unit wide
         Gizmos.DrawRay(exitPoint.transform.position, exitPoint.transform.forward * 10);
         Gizmos.DrawRay(exitPoint.transform.position + exitPoint.transform.forward * 10, (exitPoint.transform.forward * -1) + (exitPoint.transform.right * 0.5f));
         Gizmos.DrawRay(exitPoint.transform.position + exitPoint.transform.forward * 10, (exitPoint.transform.forward * -1) + (exitPoint.transform.right * -0.5f));
@@ -120,39 +158,44 @@ public class ExitPointDirection : MonoBehaviour
         initialized = true;
         if (!canSpawnCars) return spawnCars;
 
-        GameObject spawnPoint;
+        int totalNumberOfCarsToSpawn = spawnCars.Count();
+
+        //Debug.Log("spawnPointsCount: " + spawnPoints.Count());
+
         Tuple<int, int> spawnIndex;
         GameObject car;
         List<GameObject> carHashesToRemove = new List<GameObject>();
         for(int i = 0; i < spawnCars.Count; i++) {
             car = spawnCars[i];
-            spawnIndex = getRandomSpawnIndex();
+            spawnIndex = getRandomSpawnIndex(totalNumberOfCarsToSpawn);
+            if (spawnIndex.Item1 == 0 && spawnIndex.Item2 == 0) {
+                car.name = "TestCar";
+            }
+
             ScuffedCarAI scuffedCarAI = car.GetComponent<ScuffedCarAI>();
             switch(spawnIndex.Item1) {
                 case 0:
-                    spawnPoint = spawnPoints[0][spawnIndex.Item2];
-                    scuffedCarAI.init(TrackType.left, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.left, gameObject, spawnPoints[0][spawnIndex.Item2].position);
                     cars.Add(car);
                     carHashesToRemove.Add(car);
                     break;
                 case 1:
-                    spawnPoint = spawnPoints[1][spawnIndex.Item2];
-                    scuffedCarAI.init(TrackType.middle, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.middle, gameObject, spawnPoints[1][spawnIndex.Item2].position);
                     cars.Add(car);
                     carHashesToRemove.Add(car);
                     break;
                 case 2:
-                    spawnPoint = spawnPoints[2][spawnIndex.Item2];
-                    scuffedCarAI.init(TrackType.right, gameObject, spawnPoint);
+                    scuffedCarAI.init(TrackType.right, gameObject, spawnPoints[2][spawnIndex.Item2].position);
                     cars.Add(car);
                     carHashesToRemove.Add(car);
                     break;
                 case -1:
-                    Debug.LogWarning("No more spawnpoints available");
-                    foreach(GameObject carHash in carHashesToRemove) {
-                        spawnCars.Remove(carHash);
-                    }
-                    return spawnCars;
+                    //Debug.LogWarning("No more spawnpoints available");
+                    //foreach(GameObject carHash in carHashesToRemove) {
+                    //    spawnCars.Remove(carHash);
+                    //}
+                    //return spawnCars;
+                    break;
             }
         }
         foreach(GameObject carHash in carHashesToRemove) {
@@ -161,11 +204,10 @@ public class ExitPointDirection : MonoBehaviour
         return spawnCars;
     }
 
-    private Tuple<int, int> getRandomSpawnIndex() {
+    private Tuple<int, int> getRandomSpawnIndex(int totalNumberOfCarsToSpawn) {
         int totalSpawnPoints = spawnPoints.SelectMany(list => list).Count();
 
         if (totalSpawnPoints / 2 <= usedSpawnPointsInt) {
-            Debug.LogWarning("No more spawnpoints available");
             return new Tuple<int, int>(-1, -1);
         }
 
@@ -179,6 +221,24 @@ public class ExitPointDirection : MonoBehaviour
         while (notFound && iterations <= totalSpawnPoints * 3) {
             lane = UnityEngine.Random.Range(0, 3);
             index = UnityEngine.Random.Range(0, spawnPoints[lane].Count);
+
+            if (usedSpawnPointsInt == 0) {
+                index = 0;
+            }
+
+            
+            /*
+            index = iterations;
+            if (index >= spawnPoints[lane].Count) {
+                index = index % spawnPoints[lane].Count;
+            }
+            */
+
+
+
+
+
+
             if (usedSpawnPoints[lane][index] == 0) {
                 //top
                 if (index - 1 >= 0) {
@@ -326,4 +386,10 @@ public class FunctionReference
     {
         SelectEvent = script;
     }
+}
+
+[System.Serializable]
+public struct CarSpawnData {
+    public Vector3 position;
+    public Quaternion rotation;
 }

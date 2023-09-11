@@ -644,8 +644,9 @@ MonoBehaviour:
   leftPath: {fileID: 3835060810851342810}
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
-  carSpawnPoints: {fileID: 1235862290584460595}
   canSpawnCars: 1
+  initialSpawnDistance: 10
+  spawnOffset: 10
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
@@ -655,6 +656,7 @@ MonoBehaviour:
   functionList: []
   nextSpline: {fileID: 0}
   previousSpline: {fileID: 0}
+  canSpawnBuildings: 1
   scaleObject: {fileID: 8993611564679502333}
 --- !u!1 &8353149640309404525
 GameObject:

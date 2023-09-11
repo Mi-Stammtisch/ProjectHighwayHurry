@@ -24,7 +24,7 @@ public class ScuffedCarAI : MonoBehaviour
     float offset = 0;
 
 
-    public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
+    public void init(TrackType trackType, GameObject tile, Vector3 spawnPosition) {
         //pathCreator = new CustomSpline(spline.GetComponent<PathCreator>());
         switch (trackType) {
             case TrackType.middle:
@@ -40,7 +40,7 @@ public class ScuffedCarAI : MonoBehaviour
                 break;
         }
 
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPosition;
 
         if (pathCreator == null) Debug.LogError("pathCreator is null");
         distanceTravelled = Vector3.Magnitude(transform.position - pathCreator.path.GetPointAtDistance(0f));
