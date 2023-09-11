@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     [Range(0, 1)]
     [SerializeField] float TimeScale = 1;
+    [SerializeField] public static float DerBessereTimeScale = 0f;
     [SerializeField] GameObject DeathScreen;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject PlayerHud;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 120;
+        DerBessereTimeScale = 0f;
         
         //hide cursor
         //Cursor.visible = false;
@@ -55,11 +57,12 @@ public class GameManager : MonoBehaviour
     IEnumerator StartGame() {
         DeathScreen.SetActive(false);
         StartScreen.SetActive(true);
-        yield return new WaitForSeconds(6f);  
+        yield return new WaitForSeconds(6f);
+        DerBessereTimeScale = 1f;  
         StartScreen.SetActive(false);
-        PlayerPrefab.SetActive(true);
-        TileScreen.SetActive(true);
-        EnviSpawner.SetActive(true);
+        //PlayerPrefab.SetActive(true);
+        //TileScreen.SetActive(true);
+        //EnviSpawner.SetActive(true);
         
         
         

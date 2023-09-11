@@ -34,8 +34,8 @@ public class BaggerController : MonoBehaviour
             drive = baggerTrigger.getTriggered();
         }
         else if(driveLength > 0){
-            transform.Translate(Vector3.right * Time.deltaTime * baggerSpeed);
-            driveLength -= Time.deltaTime;
+            transform.Translate(Vector3.right * Time.deltaTime * GameManager.DerBessereTimeScale * baggerSpeed);
+            driveLength -= Time.deltaTime * GameManager.DerBessereTimeScale;
         }
     }
 

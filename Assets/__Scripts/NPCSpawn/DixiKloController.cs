@@ -28,8 +28,8 @@ public class DixiKloController : MonoBehaviour
             drive = dixiTrigger.getTriggered();
         }
         else if(driveLength > 0){
-            transform.Translate(Vector3.forward * Time.deltaTime * dixiSpeed);
-            driveLength -= Time.deltaTime;
+            transform.Translate(Vector3.forward * Time.deltaTime * GameManager.DerBessereTimeScale * dixiSpeed);
+            driveLength -= Time.deltaTime * GameManager.DerBessereTimeScale;
         }
     }
 

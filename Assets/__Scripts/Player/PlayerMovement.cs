@@ -209,8 +209,8 @@ public class PlayerMovement : MonoBehaviour
         {
             //calculate new rotation speed based on player speed and wheleRadius
             float newRotationSpeed = currentPlayerSpeed / (2 * Mathf.PI * wheleRadius);
-            wheleFront.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
-            wheleBack.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * wheleSpinSpeed, 0, 0));
+            wheleFront.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * GameManager.DerBessereTimeScale * wheleSpinSpeed, 0, 0));
+            wheleBack.transform.Rotate(new Vector3(newRotationSpeed * Time.deltaTime * GameManager.DerBessereTimeScale * wheleSpinSpeed, 0, 0));
             yield return null;
         }
     }
@@ -249,12 +249,12 @@ public class PlayerMovement : MonoBehaviour
 
 
             //Forward Movement
-            distanceTravelled += currentPlayerSpeed * Time.deltaTime;
+            distanceTravelled += currentPlayerSpeed * Time.deltaTime * GameManager.DerBessereTimeScale;
             transform.position = Currentpath.path.GetPointAtDistance(distanceTravelled);
             transform.rotation = Currentpath.path.GetRotationAtDistance(distanceTravelled);
 
             //update distanceTravelledInMeters
-            currentMeter += currentPlayerSpeed * Time.deltaTime;
+            currentMeter += currentPlayerSpeed * Time.deltaTime * GameManager.DerBessereTimeScale;
 
             if (currentMeter >= 1f)
             {
@@ -279,22 +279,22 @@ public class PlayerMovement : MonoBehaviour
             if (moveDirection.x != 0 && !isStunting)
             {
                 //calculate new strave speed increase with acceleration
-                currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * moveDirection.x;
+                currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * GameManager.DerBessereTimeScale * moveDirection.x;
                 currentStraveSpeed = Mathf.Clamp(currentStraveSpeed, -PlayerStraveSpeed, PlayerStraveSpeed);
 
                 //tilt player model in direction of movedirection.x 
-                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.Euler(0, 0, -moveDirection.x * PlayerSraveTilt), Time.deltaTime * 5f);
+                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.Euler(0, 0, -moveDirection.x * PlayerSraveTilt), Time.deltaTime * GameManager.DerBessereTimeScale * 5f);
             }
             else
             {
                 //decrease strave speed
-                currentStraveSpeed = Mathf.Lerp(currentStraveSpeed, 0f, Time.deltaTime * overShootRecoverSpeed);
+                currentStraveSpeed = Mathf.Lerp(currentStraveSpeed, 0f, Time.deltaTime * GameManager.DerBessereTimeScale * overShootRecoverSpeed);
                 //undo tilt when not straving            
-                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, Time.deltaTime * 5f);
+                playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, Time.deltaTime * GameManager.DerBessereTimeScale * 5f);
             }
 
             //move player model left and right smooth clamp to max distance
-            straveDistanceTravelled += currentStraveSpeed * Time.deltaTime;
+            straveDistanceTravelled += currentStraveSpeed * Time.deltaTime * GameManager.DerBessereTimeScale;
 
             //straveDistanceTravelled = Mathf.Clamp(straveDistanceTravelled, -MaxStraveDistance, MaxStraveDistance);
             //if on left or right path clamp straveDistanceTravelled to maxStraveDistance

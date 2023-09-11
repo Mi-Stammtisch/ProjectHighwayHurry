@@ -50,7 +50,7 @@ public class ScuffedCarAI : MonoBehaviour
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
         //transform.rotation *= Quaternion.Euler(0, -90, 0);
         transform.rotation *= Quaternion.Euler(0, 180, 0);
-        transform.position += new Vector3(0, 2.5f, 0);
+        transform.position += new Vector3(0, 0.5f, 0);
         
         //get offset to place car 1m to the right, based on the cars rotation
         //transform.position += offset;
@@ -107,7 +107,7 @@ public class ScuffedCarAI : MonoBehaviour
         while(!stopMoving && pathCreator.isNull() == false) {
         //if (moving && !stopMoving && pathCreator.isNull() == false) {
             if (distanceTravelled <= pathCreator.path.length && distanceTravelled > 1f) {
-                distanceTravelled -= speed * Time.deltaTime;
+                distanceTravelled -= speed * Time.deltaTime * GameManager.DerBessereTimeScale;
                 transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
                 transform.position += new Vector3(0, 0.5f, 0);
                 
