@@ -42,7 +42,7 @@ public class SpawnTileV2 : MonoBehaviour
     private float startTime;
     private int tileBasedCounter = 0;
 
-    public static event Action onTilesCached;
+    //public static event Action onTilesCached;
 
     private CarCache carCache = new CarCache();
 

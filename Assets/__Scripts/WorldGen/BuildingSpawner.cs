@@ -21,7 +21,7 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private int layers = 1;
 
 
-    public static event Action onBuildingsCached;
+    //public static event Action onBuildingsCached;
 
     private BuildingCache buildingCache = new BuildingCache();
     List<GameObject> sortedBuildings;
