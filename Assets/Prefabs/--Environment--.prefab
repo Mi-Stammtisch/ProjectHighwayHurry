@@ -339,6 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AcellerateSource: {fileID: 6054389439378468502}
   PlayMusic: 1
+  SoundSourece: {fileID: 444977823438588036, guid: 7f538c795d5813a4193b45e5c68dff96,
+    type: 3}
   MusicSource: {fileID: 8157021381848780648}
   MusciIntroClip: {fileID: 8300000, guid: 8a690efc9b1f93347840ed48ad39c466, type: 3}
   MusicLoopClip: {fileID: 8300000, guid: 89f4fc683eab1b946ad0f271c97b420a, type: 3}
@@ -3728,6 +3730,7 @@ MonoBehaviour:
   PlayerHud: {fileID: 5557818754469296209}
   EndScoreDisplay: {fileID: 3743452218220607493}
   BikeBlinker: {fileID: 774803573738902881}
+  PlayerHit: {fileID: 8300000, guid: 48fa4d423df05cf4b92dadd9d3a4f6f2, type: 3}
   PlayerCollider: {fileID: 4412746062331989331}
   Health: 1
 --- !u!114 &8343117308912698718
@@ -5193,6 +5196,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1931235269101916639, guid: 2a267aa88741353498f0cca8fb232800,
+        type: 3}
+      propertyPath: CloseCallSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a8acf5ee604b5a24594d14b7981bfe09, type: 3}
     - target: {fileID: 2168546576640666044, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_Name
@@ -5201,17 +5209,17 @@ PrefabInstance:
     - target: {fileID: 2355423639312244885, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11721818
+      value: 0.11721815
       objectReference: {fileID: 0}
     - target: {fileID: 2355423639312244885, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.25477326
+      value: -0.2547733
       objectReference: {fileID: 0}
     - target: {fileID: 2355423639312244885, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.031128982
+      value: 0.03112898
       objectReference: {fileID: 0}
     - target: {fileID: 2807469903952575760, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
@@ -5251,27 +5259,32 @@ PrefabInstance:
     - target: {fileID: 4752114392879488993, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.025934972
+      value: 0.02593495
       objectReference: {fileID: 0}
     - target: {fileID: 4752114392879488993, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.017972948
+      value: -0.017972931
       objectReference: {fileID: 0}
     - target: {fileID: 7454432801331254067, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.0455276
       objectReference: {fileID: 0}
+    - target: {fileID: 8834452791134705415, guid: 2a267aa88741353498f0cca8fb232800,
+        type: 3}
+      propertyPath: loopingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 618be6bc131035945b1dc1b270c47b04, type: 3}
     - target: {fileID: 8854577738862171480, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.02593496
+      value: 0.025934955
       objectReference: {fileID: 0}
     - target: {fileID: 8854577738862171480, guid: 2a267aa88741353498f0cca8fb232800,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.017972937
+      value: 0.017972933
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
