@@ -1,7 +1,8 @@
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 
 public class SpawnTileV2 : MonoBehaviour
@@ -93,10 +94,18 @@ public class SpawnTileV2 : MonoBehaviour
                         tileCache.add(obj);
                         break;
                     case TileType.special:
+                        for(int j = 0; j < tilePool.specialTiles.Count; j++) {
+                            obj = Instantiate(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
+                            obj.SetActive(false);
+                            obj.transform.parent = tileCacheParent.transform;
+                            tileCache.add(obj);
+                        }
+                        /*
                         obj = Instantiate(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
                         obj.SetActive(false);
                         obj.transform.parent = tileCacheParent.transform;
                         tileCache.add(obj);
+                        */
                         break;
                 }
             }
