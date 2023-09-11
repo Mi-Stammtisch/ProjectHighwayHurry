@@ -95,7 +95,7 @@ public class SpawnTileV2 : MonoBehaviour
                         break;
                     case TileType.special:
                         for(int j = 0; j < tilePool.specialTiles.Count; j++) {
-                            obj = Instantiate(tilePool.specialTiles[UnityEngine.Random.Range(0, tilePool.specialTiles.Count)]);
+                            obj = Instantiate(tilePool.specialTiles[j]);
                             obj.SetActive(false);
                             obj.transform.parent = tileCacheParent.transform;
                             tileCache.add(obj);

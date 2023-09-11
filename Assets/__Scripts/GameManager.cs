@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject PlayerPrefab;
     [SerializeField] GameObject EnviSpawner;
 
+    [SerializeField] private bool immortality = false;
+
 
 
 
@@ -100,6 +102,8 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PlaySound(PlayerHit);
         if (Health > 0) {
             StartCoroutine(TakeDamage());
+
+            if (immortality) return;
             Health--;
             
             return;

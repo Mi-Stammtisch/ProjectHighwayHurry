@@ -76,6 +76,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7367964375460257229}
+  - component: {fileID: 1344496237339932489}
   m_Layer: 0
   m_Name: DekoBaustelle04
   m_TagString: Untagged
@@ -99,6 +100,21 @@ Transform:
   - {fileID: 7747381045229506859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344496237339932489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8672376945019096096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1337c54f3fed7840bcac2cba0037ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 300
+  ckeckRate: 0.5
+  ScaleTimeToComplete: 0.5
 --- !u!1001 &55492067562177984
 PrefabInstance:
   m_ObjectHideFlags: 0
