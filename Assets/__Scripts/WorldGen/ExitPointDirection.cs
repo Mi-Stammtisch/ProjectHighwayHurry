@@ -56,6 +56,10 @@ public class ExitPointDirection : MonoBehaviour
     private int totalCarSpawnPoints = 0;
     public int carSpawnFactor = 0;
 
+    public event Action onReset;
+    
+
+
     void Awake() {
         leftSpline = new CustomSpline(leftPath.GetComponent<PathCreator>());
         middleSpline = new CustomSpline(middlePath.GetComponent<PathCreator>());
@@ -110,6 +114,8 @@ public class ExitPointDirection : MonoBehaviour
 
             carSpawnFactor = Mathf.FloorToInt(totalCarSpawnPoints / 9);
         }
+
+        onReset?.Invoke();
     }
 
     void Update() {
@@ -208,10 +214,6 @@ public class ExitPointDirection : MonoBehaviour
         int totalSpawnPoints = spawnPoints.SelectMany(list => list).Count();
 
         if (totalSpawnPoints / 2 <= usedSpawnPointsInt) {
-            Debug.Log("GameObjectName: " + gameObject.name);
-            Debug.LogWarning("No more spawnpoints available");
-            Debug.Log("totalSpawnPoints: " + totalSpawnPoints);
-            Debug.Log("usedSpawnPointsInt: " + usedSpawnPointsInt);
             return new Tuple<int, int>(-1, -1);
         }
 
@@ -332,6 +334,8 @@ public class ExitPointDirection : MonoBehaviour
             //function.targetScript.Invoke(function.functionName, 0);
             function.SelectEvent.Invoke();
         }
+
+        
     }
 
     public void addCars(GameObject car) {
