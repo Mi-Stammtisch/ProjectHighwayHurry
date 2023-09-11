@@ -16,7 +16,8 @@ public class SoundManager : MonoBehaviour
 
     //AudioSource
     public AudioSource AcellerateSource;
-[SerializeField] bool PlayMusic = true; 
+    [SerializeField] bool PlayMusic = true; 
+    [SerializeField] GameObject SoundSourece;
     //AudioSource
     public AudioSource MusicSource;
 
@@ -55,6 +56,14 @@ public class SoundManager : MonoBehaviour
         MusicSource.Play();
         MusicSource.loop = false;
         return MusicIntroFinishClip.length;
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        GameObject SoundSoureces = Instantiate(SoundSourece, transform.position, Quaternion.identity);
+        SoundSoureces.GetComponent<AudioSource>().clip = clip;
+        SoundSoureces.GetComponent<AudioSource>().Play();
+        Destroy(SoundSoureces, clip.length + 1);
     }
 
     
