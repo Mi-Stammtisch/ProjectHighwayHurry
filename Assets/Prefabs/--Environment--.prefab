@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 4884931739528027644}
   - component: {fileID: 5085281240593676213}
   - component: {fileID: 1146542291549260042}
+  - component: {fileID: 8470036740973087977}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -609,6 +610,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d564d1ec5c3880e40be8853a1fa92494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8470036740973087977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763431347487909892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304f93e5e85564946a614c0e04baa960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1913884103750390936
@@ -1607,7 +1620,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3743452218220607493}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 6a19445412bdf79478d9318cbe46e549, type: 2}
   m_Animations:
@@ -1965,7 +1978,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4529771074398283245}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 949a4d9121aa7db4d8b5e53505af6596, type: 2}
   m_Animations:
@@ -5199,7 +5212,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5606232644669847357}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 0401f1c6cf00f5c42b7afe6c3b01fb52, type: 2}
   m_Animations:
