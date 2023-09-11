@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 1, g: 0.5615012, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.005
+  m_FogDensity: 0.001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
@@ -227,11 +227,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5791041936991754701, guid: 7f07de2e5eea36c46b982396a1e74211,
-        type: 3}
-      propertyPath: m_Antialiasing
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6257544098831301929, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -257,11 +252,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: --Environment--
       objectReference: {fileID: 0}
-    - target: {fileID: 7165213112610439208, guid: 7f07de2e5eea36c46b982396a1e74211,
-        type: 3}
-      propertyPath: m_Antialiasing
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7909555022076196752, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -272,24 +262,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.017972942
       objectReference: {fileID: 0}
-    - target: {fileID: 8609354723380994873, guid: 7f07de2e5eea36c46b982396a1e74211,
-        type: 3}
-      propertyPath: MusicLoopClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0fcc3af668319544d8a867bb24cd3216, type: 3}
-    - target: {fileID: 8609354723380994873, guid: 7f07de2e5eea36c46b982396a1e74211,
-        type: 3}
-      propertyPath: MusciIntroClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9a1ffce821d87bc49a009e899df100a8, type: 3}
-    - target: {fileID: 8609354723380994873, guid: 7f07de2e5eea36c46b982396a1e74211,
-        type: 3}
-      propertyPath: MusicIntroFinishClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0fcc3af668319544d8a867bb24cd3216, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 887406699355262113, guid: 7f07de2e5eea36c46b982396a1e74211, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f07de2e5eea36c46b982396a1e74211, type: 3}
