@@ -24,7 +24,7 @@ public class ScuffedCarAI : MonoBehaviour
     float offset = 0;
 
 
-    public void init(TrackType trackType, GameObject tile, GameObject spawnPoint) {
+    public void init(TrackType trackType, GameObject tile, Vector3 spawnPosition) {
         //pathCreator = new CustomSpline(spline.GetComponent<PathCreator>());
         switch (trackType) {
             case TrackType.middle:
@@ -40,7 +40,7 @@ public class ScuffedCarAI : MonoBehaviour
                 break;
         }
 
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPosition;
 
         if (pathCreator == null) Debug.LogError("pathCreator is null");
         distanceTravelled = Vector3.Magnitude(transform.position - pathCreator.path.GetPointAtDistance(0f));
@@ -50,7 +50,7 @@ public class ScuffedCarAI : MonoBehaviour
         transform.rotation = pathCreator.path.GetRotationAtDistance(distanceTravelled);
         //transform.rotation *= Quaternion.Euler(0, -90, 0);
         transform.rotation *= Quaternion.Euler(0, 180, 0);
-        transform.position += new Vector3(0, 0.5f, 0);
+        transform.position += new Vector3(0, 2.5f, 0);
         
         //get offset to place car 1m to the right, based on the cars rotation
         //transform.position += offset;

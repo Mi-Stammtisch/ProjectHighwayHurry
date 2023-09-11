@@ -210,6 +210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaustelleSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 8954842037056689257, guid: 2df2b7ed1f81a8941885bf41c5ce625e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

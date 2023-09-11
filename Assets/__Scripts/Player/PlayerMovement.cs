@@ -111,6 +111,14 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDirection = value.Get<Vector2>();
     }
+    bool isStunting = false;
+    public IEnumerator StuntTimer(float time)
+    {
+        isStunting = true;
+        yield return new WaitForSeconds(time);
+        isStunting = false;
+        
+    }
 
 
     private void OnDrawGizmosSelected()
@@ -214,6 +222,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
+        GameManager.Instance.UpdateSpeed(currentPlayerSpeed);
         while (true)
         {
             Vector3 tempCurrentPosition = transform.position;
@@ -261,11 +270,13 @@ public class PlayerMovement : MonoBehaviour
                     currentPlayerSpeed += boost;
                     currentPlayerSpeed = Mathf.Clamp(currentPlayerSpeed, PlayerConstantStartingSpeed, PlayerConstantMaxSpeed);
 
+                    GameManager.Instance.UpdateSpeed(currentPlayerSpeed);
+
                 }
             }
 
             //Left and Right Strave
-            if (moveDirection.x != 0)
+            if (moveDirection.x != 0 && !isStunting)
             {
                 //calculate new strave speed increase with acceleration
                 currentStraveSpeed += PlayerStraveAcceleration * Time.deltaTime * moveDirection.x;

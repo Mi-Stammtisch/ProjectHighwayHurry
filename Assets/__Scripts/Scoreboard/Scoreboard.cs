@@ -8,7 +8,7 @@ public class Scoreboard : MonoBehaviour
 {
     
     public static Scoreboard Instance;
-    [SerializeField] private ScoreboardSettings scoreboardSettings;
+    [SerializeField] public ScoreboardSettings scoreboardSettings;
     private float time;
     private int coinsCollected = 0;
     
@@ -113,6 +113,12 @@ public class Scoreboard : MonoBehaviour
     public void stuntBonus(int value) {
         score += value;
         createPopup(value, new string("stunt bonus +" + value.ToString()));
+        updateScore?.Invoke(score);
+    }
+
+    public void destroyBonus(int value) {
+        score += value;
+        createPopup(value, new string("destroy bonus +" + value.ToString()));
         updateScore?.Invoke(score);
     }
 }

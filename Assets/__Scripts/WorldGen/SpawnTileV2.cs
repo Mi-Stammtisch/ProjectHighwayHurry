@@ -24,6 +24,7 @@ public class SpawnTileV2 : MonoBehaviour
     [SerializeField] private bool enableCarSpawning = true;
     [SerializeField] private GameObject carCacheParent;
     [SerializeField] private List<GameObject> cars;
+    [SerializeField] private int carCacheSize;
     [SerializeField] private int minNumberOfCars = 1;
     [SerializeField] private int maxNumberOfCars = 3;
     [SerializeField] private int carCooldownBegin = 3;
@@ -103,7 +104,7 @@ public class SpawnTileV2 : MonoBehaviour
 
         //cache cars
         if (enableCarSpawning) {
-            for (int i = 0; i < maxNumberOfCars * 20; i++) {
+            for (int i = 0; i < carCacheSize; i++) {
                 GameObject car = Instantiate(cars[UnityEngine.Random.Range(0, cars.Count)]);
                 car.SetActive(false);
                 car.transform.parent = carCacheParent.transform;
@@ -203,6 +204,8 @@ public class SpawnTileV2 : MonoBehaviour
 
         newTile.transform.parent = transform;
 
+        newExitPointDirection.setSpawnPositions();
+
         tiles.Add(newTile);
 
 
@@ -212,12 +215,15 @@ public class SpawnTileV2 : MonoBehaviour
                 numSpawnCars = 0;
                 carCooldownBegin -= 1;
             }
+            else if (newExitPointDirection.carSpawnFactor <= 3) {
+                numSpawnCars = UnityEngine.Random.Range(minNumberOfCars * newExitPointDirection.carSpawnFactor, maxNumberOfCars * newExitPointDirection.carSpawnFactor + 1);
+            }
             else {
-                numSpawnCars = UnityEngine.Random.Range(minNumberOfCars, maxNumberOfCars + 1);
+                numSpawnCars = UnityEngine.Random.Range(minNumberOfCars * newExitPointDirection.carSpawnFactor * 1, maxNumberOfCars * newExitPointDirection.carSpawnFactor + 1);
             }
             
             List<GameObject> spawnCars = carCache.getCarsAsList(numSpawnCars);
-            List<GameObject> carsToCache = newTile.GetComponent<ExitPointDirection>().spawnCars(spawnCars);
+            List<GameObject> carsToCache = newExitPointDirection.spawnCars(spawnCars);
             if (carsToCache != null) {
                 carCache.add(carsToCache);
             }
@@ -231,7 +237,7 @@ public class SpawnTileV2 : MonoBehaviour
         }
 
 
-        if (newExitPointDirection.canSpawnCars) {
+        if (newExitPointDirection.canSpawnBuildings) {
             buildingSpawner.spawnBuildings(newExitPointDirection);
         }
 
