@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: b68ab0232aa787641a17dadb2d8deb80, type: 2}
@@ -20785,6 +20785,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sound
       objectReference: {fileID: 0}
+    - target: {fileID: 444977823438588036, guid: 7f538c795d5813a4193b45e5c68dff96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1086991853987695516, guid: 7f538c795d5813a4193b45e5c68dff96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20838,6 +20843,11 @@ PrefabInstance:
     - target: {fileID: 7197887006696755976, guid: 7f538c795d5813a4193b45e5c68dff96,
         type: 3}
       propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197887006696755976, guid: 7f538c795d5813a4193b45e5c68dff96,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7197887006696755976, guid: 7f538c795d5813a4193b45e5c68dff96,
@@ -20848,13 +20858,48 @@ PrefabInstance:
     - target: {fileID: 7197887006696755976, guid: 7f538c795d5813a4193b45e5c68dff96,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 444977823438588036, guid: 7f538c795d5813a4193b45e5c68dff96,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 40725266095204693}
   m_SourcePrefab: {fileID: 100100000, guid: 7f538c795d5813a4193b45e5c68dff96, type: 3}
+--- !u!1 &40725266095204691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 444977823438588036, guid: 7f538c795d5813a4193b45e5c68dff96,
+    type: 3}
+  m_PrefabInstance: {fileID: 40725266095204690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &40725266095204692 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7197887006696755976, guid: 7f538c795d5813a4193b45e5c68dff96,
+    type: 3}
+  m_PrefabInstance: {fileID: 40725266095204690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &40725266095204693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40725266095204691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddeef2c9f93df6849ae96c21958d4e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AcellerateSource: {fileID: 0}
+  PlayMusic: 1
+  MusicSource: {fileID: 40725266095204692}
+  MusciIntroClip: {fileID: 8300000, guid: 8a690efc9b1f93347840ed48ad39c466, type: 3}
+  MusicLoopClip: {fileID: 8300000, guid: 89f4fc683eab1b946ad0f271c97b420a, type: 3}
+  MusicIntroFinishClip: {fileID: 8300000, guid: 89f4fc683eab1b946ad0f271c97b420a,
+    type: 3}
 --- !u!4 &185518498953459411
 Transform:
   m_ObjectHideFlags: 0

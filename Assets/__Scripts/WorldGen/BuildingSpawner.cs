@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BuildingSpawner : MonoBehaviour
@@ -21,7 +22,7 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private int layers = 1;
 
 
-    public static event Action onBuildingsCached;
+    //public static event Action onBuildingsCached;
 
     private BuildingCache buildingCache = new BuildingCache();
     List<GameObject> sortedBuildings;
@@ -29,12 +30,15 @@ public class BuildingSpawner : MonoBehaviour
 
     private void Awake()
     {
+        /*
         sortedBuildings = new List<GameObject>();
         foreach(GameObject building in buildingPool.buildings) {
             sortedBuildings.Add(building);
         }
+        Debug.Log("sortedBuildings.Count before sort: " + sortedBuildings.Count());
         sortedBuildings.Sort((x, y) => x.GetComponent<BuildingParams>().getBuildingHeight().CompareTo(y.GetComponent<BuildingParams>().getBuildingHeight()));
-
+        Debug.Log("sortedBuildings.Count after sort: " + sortedBuildings.Count());
+        */
 
 
         //cache buildings
@@ -52,6 +56,15 @@ public class BuildingSpawner : MonoBehaviour
         //onBuildingsCached?.Invoke();
         GameObject player = GameObject.Find("Player");
         player.GetComponent<PlayerMovement>().buildingsCached = true;
+    }
+
+    public async Task sortBuildingList() {
+        sortedBuildings = new List<GameObject>();
+        foreach(GameObject building in buildingPool.buildings) {
+            sortedBuildings.Add(building);
+        }
+        sortedBuildings.Sort((x, y) => x.GetComponent<BuildingParams>().getBuildingHeight().CompareTo(y.GetComponent<BuildingParams>().getBuildingHeight()));
+        await Task.Yield();
     }
 
 
@@ -78,6 +91,7 @@ public class BuildingSpawner : MonoBehaviour
         startPoint.position += entryPoint.transform.forward * ZOffset;
 
 
+
         float buildingWidth = buildingPool.buildings[0].GetComponent<BuildingParams>().getBuildingWidth();
         for (int i = 0; i < layers; i++)
         {
@@ -85,9 +99,12 @@ public class BuildingSpawner : MonoBehaviour
             generateBuildingLayer(startPoint, entryExitPointTuple.Item2.transform, buildingWidth, i, StreetSide.right, exitPointDirection);
         }
 
+
         Destroy(entryPoint);
         Destroy(exitPoint);
         Destroy(transformObject);
+
+
     }
 
 
@@ -114,7 +131,7 @@ public class BuildingSpawner : MonoBehaviour
             startRotation *= Quaternion.Euler(0, -90, 0);
         }
 
-        
+
         int numberOfBuildings = calculateNumberOfBuildings(tileWidth, buildingWidth);
         string[] buildings = getBuildingsToSpawn(numberOfBuildings, row);
         //Vector3 stPosRight = startPosRight * (int)side;
@@ -139,9 +156,8 @@ public class BuildingSpawner : MonoBehaviour
     }
 
     private string[] getBuildingsToSpawn(int numberOfBuildings, int row) {
-        
-
         string[] buildingsToSpawn = new string[numberOfBuildings];
+
         for(int i = 0; i < numberOfBuildings; i++) {
             if (row == 0) {
                 buildingsToSpawn[i] = sortedBuildings[UnityEngine.Random.Range(0, sortedBuildings.Count() / 2)].name;
@@ -150,7 +166,6 @@ public class BuildingSpawner : MonoBehaviour
                 buildingsToSpawn[i] = sortedBuildings[UnityEngine.Random.Range(sortedBuildings.Count() / 2, sortedBuildings.Count())].name;
             }
         }
-
         return buildingsToSpawn;
     }
 

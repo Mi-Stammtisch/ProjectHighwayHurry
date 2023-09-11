@@ -148,18 +148,12 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug Time to wait for SpawnTileV2 to spawn tiles
         float time = Time.time;
-        Debug.Log("Waiting for SpawnTileV2 to spawn tiles");
-
         
         //wait unit onTileCached event is fired
-        while (!tilesCached && !buildingsCached) {
-
+        while (!tilesCached || !buildingsCached) {
             yield return null;
         }
        // yield return new WaitForSeconds(0.5f);
-
-        Debug.Log("SpawnTileV2 finished spawning tiles after " + (Time.time - time) + " seconds");
-
         
         if (spawnTileV2.tiles[2] != null)
         {
@@ -261,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
                 //update player speed
                 if (TotaldistanceTravelledInMeters / 100 > currentSpeedInceses)
                 {
+                    SoundManager.Instance.PlayAcellerateSound();
                     currentSpeedInceses++;
                     float boost = PlayerSpeedIncreaseOver100Meters * PlayerConstantStartingSpeed - PlayerConstantStartingSpeed;
                     currentPlayerSpeed += boost;
@@ -380,7 +375,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            //TODO: debug.logwarning ist commented right now
+            
             /*
             if (Vector3.Distance(transform.position, tempCurrentPosition) > 0.45f && Vector3.Distance(transform.position, tempCurrentPosition) < 5f)
             {

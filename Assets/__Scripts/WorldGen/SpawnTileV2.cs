@@ -42,7 +42,7 @@ public class SpawnTileV2 : MonoBehaviour
     private float startTime;
     private int tileBasedCounter = 0;
 
-    public static event Action onTilesCached;
+    //public static event Action onTilesCached;
 
     private CarCache carCache = new CarCache();
 
@@ -104,7 +104,7 @@ public class SpawnTileV2 : MonoBehaviour
 
 
 
-    void CustomStart() {
+    async void CustomStart() {
         switch (tilePool.specialTileSpawning) {
             case SpecialTileSpawning.TimeBased:
                 specialTile += timeBased;
@@ -128,8 +128,12 @@ public class SpawnTileV2 : MonoBehaviour
             }
             spawnNewTile();
         }
+
+        await buildingSpawner.sortBuildingList();
+
+
         while (tiles.Count < tileCount) {
-            spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count)]);
+            spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count())]);
         }
         //onTilesCached?.Invoke();
         GameObject player = GameObject.Find("Player");
@@ -185,8 +189,10 @@ public class SpawnTileV2 : MonoBehaviour
         }
         //Debug.Log("--------------------");
 
+
         newTile.transform.parent = transform;
         tiles.Add(newTile);
+
 
         if (enableCarSpawning) {
             int numSpawnCars;
@@ -205,15 +211,18 @@ public class SpawnTileV2 : MonoBehaviour
             }
         }
 
+
         if (tiles.Count > tileCount) {
             //Destroy(tiles[0], 1f);
             tileCache.add(tiles[0]);
             tiles.RemoveAt(0);
         }
 
+
         if (newExitPointDirection.canSpawnCars) {
             buildingSpawner.spawnBuildings(newExitPointDirection);
         }
+
     }
 
     public void spawnNewTile() {
