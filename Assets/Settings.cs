@@ -13,6 +13,16 @@ public class Settings : MonoBehaviour
     {
         LoadSettings();
     }
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 
     private void LoadSettings()
     {

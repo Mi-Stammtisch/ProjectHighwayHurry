@@ -15,6 +15,17 @@ public class EndScreenButtons : MonoBehaviour
         //UnityEngine.SceneManagement.SceneManager.LoadScene(scene.buildIndex);
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     public void LoadMainMenu()
     {
         //SpawnTileV2.Instance.ResetInstance();
