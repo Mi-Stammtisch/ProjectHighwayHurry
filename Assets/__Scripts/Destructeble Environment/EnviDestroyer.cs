@@ -25,6 +25,7 @@ public class EnviDestroyer : MonoBehaviour
                 //boost force away and upward from the player camera
                 other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * playerMovement.currentPlayerSpeed + (other.gameObject.transform.position - Camera.main.transform.position) * (playerMovement.currentPlayerSpeed/10), ForceMode.Impulse);
                 
+                Scoreboard.Instance.destroyBonus(Scoreboard.Instance.scoreboardSettings.destroyBonusValue);
                 
             }
         }
