@@ -677,6 +677,7 @@ MonoBehaviour:
   previousSpline: {fileID: 0}
   canSpawnBuildings: 0
   scaleObject: {fileID: 6468913348755778682}
+  carSpawnFactor: 0
 --- !u!1 &8256348404097464289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1237,7 @@ PrefabInstance:
     - target: {fileID: 4612404175865070765, guid: d089642be5810e147885a6b218e3b5ae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 992.3
+      value: 808.4
       objectReference: {fileID: 0}
     - target: {fileID: 4612404175865070765, guid: d089642be5810e147885a6b218e3b5ae,
         type: 3}
@@ -2122,7 +2123,7 @@ PrefabInstance:
     - target: {fileID: 4612404175865070765, guid: d089642be5810e147885a6b218e3b5ae,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.7
+      value: 43.1
       objectReference: {fileID: 0}
     - target: {fileID: 4612404175865070765, guid: d089642be5810e147885a6b218e3b5ae,
         type: 3}

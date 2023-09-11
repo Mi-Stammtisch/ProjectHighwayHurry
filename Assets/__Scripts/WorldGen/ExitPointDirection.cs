@@ -208,10 +208,6 @@ public class ExitPointDirection : MonoBehaviour
         int totalSpawnPoints = spawnPoints.SelectMany(list => list).Count();
 
         if (totalSpawnPoints / 2 <= usedSpawnPointsInt) {
-            Debug.Log("GameObjectName: " + gameObject.name);
-            Debug.LogWarning("No more spawnpoints available");
-            Debug.Log("totalSpawnPoints: " + totalSpawnPoints);
-            Debug.Log("usedSpawnPointsInt: " + usedSpawnPointsInt);
             return new Tuple<int, int>(-1, -1);
         }
 

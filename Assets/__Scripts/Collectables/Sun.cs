@@ -18,6 +18,6 @@ public class Sun : MonoBehaviour
     {
         //Toggle the light
         GetComponent<Light>().enabled = state;
-        //Debug.Log("Light toggled");
+        Debug.Log("Light toggled");
     }
 }
