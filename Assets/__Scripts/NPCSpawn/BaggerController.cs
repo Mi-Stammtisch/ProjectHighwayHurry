@@ -25,6 +25,8 @@ public class BaggerController : MonoBehaviour
             baggerSpeed = -baggerSpeed;
             baggerModel.transform.rotation = Quaternion.Euler(0, 270, 0);
         }
+
+        transform.parent.GetComponent<TileReferenceHolder>().exitPointDirection.onReset += resetBagger;
     }
 
     // Update is called once per frame
@@ -44,5 +46,9 @@ public class BaggerController : MonoBehaviour
         driveLength = initialDriveLength;
         transform.localPosition = initialPosition;
         baggerTrigger.isTriggered = false;
+    }
+
+    void OnDestroy(){
+        transform.parent.GetComponent<TileReferenceHolder>().exitPointDirection.onReset -= resetBagger;
     }
 }

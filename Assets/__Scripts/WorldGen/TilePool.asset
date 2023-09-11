@@ -19,10 +19,10 @@ MonoBehaviour:
   rightTurnTiles:
   - {fileID: 2091638568948375565, guid: 7691218b8d1b57b4693c6aac9ab7504e, type: 3}
   specialTiles:
-  - {fileID: 8225489620772765178, guid: 86f594341244e40f3aa1482cb97c00b9, type: 3}
+  - {fileID: 8225489620772765178, guid: cef18c4ef61a44e74ab875e3fb17bdde, type: 3}
   specialTileSpawning: 1
   time: 0
-  tile: 5
+  tile: 15
   difficulty: 0
   random: 0
   noSpecialTiles: 0

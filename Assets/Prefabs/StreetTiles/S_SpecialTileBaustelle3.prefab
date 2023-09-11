@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7366851164090531076}
+  - component: {fileID: 8316485289293680831}
   m_Layer: 0
   m_Name: BaggerSlowLane
   m_TagString: Untagged
@@ -45,6 +46,19 @@ Transform:
   - {fileID: 4092811708026365621}
   m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8316485289293680831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299637728606469286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e92afcf69f8f1478597f93a0c243a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitPointDirection: {fileID: 3784396366674503286}
 --- !u!1 &1311780676966423950
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +90,7 @@ Transform:
   m_Children:
   - {fileID: 6509383333710553100}
   - {fileID: 7263412023349398690}
-  m_Father: {fileID: 8072378246456393287}
+  m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1454485627821389271
 GameObject:
@@ -87,6 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7615153402090023889}
+  - component: {fileID: 219914217463467341}
   m_Layer: 0
   m_Name: Coins
   m_TagString: Untagged
@@ -111,6 +126,20 @@ Transform:
   - {fileID: 2616209576085532128}
   m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &219914217463467341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454485627821389271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3e469addd886c4dbb553514dc1be5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitPointDirection: {fileID: 3784396366674503286}
+  coin: {fileID: 1380776303194083014, guid: d507bff8ae0abe54d9f5ed6f2892f243, type: 3}
 --- !u!1 &1749203795319967684
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +245,8 @@ Transform:
   - {fileID: 7366851164090531076}
   - {fileID: 261326776711835661}
   - {fileID: 4501877255039379110}
+  - {fileID: 9145970557953431717}
+  - {fileID: 8055729700209154657}
   m_Father: {fileID: 8072378246456393287}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3158255064949582342
@@ -227,6 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261326776711835661}
+  - component: {fileID: 4321381002627673359}
   m_Layer: 0
   m_Name: BaggerFastLane
   m_TagString: Untagged
@@ -256,6 +288,19 @@ Transform:
   - {fileID: 8588711590637540321}
   m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4321381002627673359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158255064949582342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e92afcf69f8f1478597f93a0c243a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitPointDirection: {fileID: 3784396366674503286}
 --- !u!1 &3286389580008183620
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7932943078727655707}
+  - component: {fileID: 6873425884480439499}
   m_Layer: 0
   m_Name: Cones
   m_TagString: Untagged
@@ -464,6 +510,19 @@ Transform:
   - {fileID: 1996170077716867437}
   m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6873425884480439499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413049459320463301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e92afcf69f8f1478597f93a0c243a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitPointDirection: {fileID: 3784396366674503286}
 --- !u!1 &5472269139934429687
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5919210460151785744}
+  - component: {fileID: 3652047808205167020}
   m_Layer: 0
   m_Name: Dixis
   m_TagString: Untagged
@@ -603,6 +663,19 @@ Transform:
   - {fileID: 1127209129564589165}
   m_Father: {fileID: 4962517408549262925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3652047808205167020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039402727518503965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e92afcf69f8f1478597f93a0c243a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exitPointDirection: {fileID: 3784396366674503286}
 --- !u!1 &8225489620772765178
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,8 +709,6 @@ Transform:
   - {fileID: 4962517408549262925}
   - {fileID: 3475395871848724450}
   - {fileID: 1434724044585734257}
-  - {fileID: 8055729700209154657}
-  - {fileID: 9145970557953431717}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3784396366674503286
@@ -658,8 +729,9 @@ MonoBehaviour:
   leftPath: {fileID: 3835060810851342810}
   middlePath: {fileID: 1447955525064747105}
   rightPath: {fileID: 2905370502261088413}
-  carSpawnPoints: {fileID: 0}
   canSpawnCars: 0
+  initialSpawnDistance: 10
+  spawnOffset: 10
   leftSpline:
     spline: {fileID: 0}
   middleSpline:
@@ -684,7 +756,9 @@ MonoBehaviour:
           m_CallState: 2
   nextSpline: {fileID: 0}
   previousSpline: {fileID: 0}
+  canSpawnBuildings: 0
   scaleObject: {fileID: 2360717530404039735}
+  carSpawnFactor: 0
 --- !u!1 &9007203293359234091
 GameObject:
   m_ObjectHideFlags: 0
@@ -7590,12 +7664,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8072378246456393287}
+    m_TransformParent: {fileID: 4962517408549262925}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 223d8a6bba381894e9d0a4291471b16d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 223d8a6bba381894e9d0a4291471b16d,
         type: 3}
@@ -7615,7 +7689,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 223d8a6bba381894e9d0a4291471b16d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 223d8a6bba381894e9d0a4291471b16d,
         type: 3}

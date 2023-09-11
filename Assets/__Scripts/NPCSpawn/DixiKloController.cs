@@ -19,6 +19,8 @@ public class DixiKloController : MonoBehaviour
         drive = false;
         initialPosition = transform.localPosition;
         initialDriveLength = driveLength;
+
+        transform.parent.GetComponent<TileReferenceHolder>().exitPointDirection.onReset += resetDixiKlo;
     }
 
     // Update is called once per frame
@@ -38,5 +40,9 @@ public class DixiKloController : MonoBehaviour
         driveLength = initialDriveLength;
         transform.localPosition = initialPosition;
         dixiTrigger.isTriggered = false;
+    }
+
+    void OnDestroy(){
+        transform.parent.GetComponent<TileReferenceHolder>().exitPointDirection.onReset -= resetDixiKlo;
     }
 }
