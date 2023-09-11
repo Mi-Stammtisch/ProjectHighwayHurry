@@ -8,6 +8,9 @@ public class FlowtNr : MonoBehaviour
     
     public void SetTextAndRotation(string text)
     {
+        if (Camera.main == null) return;
+
+
         gameObject.transform.GetChild(0).GetComponent<TMP_Text>().text = text;
         //rotate the text to face the camera main
         transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);

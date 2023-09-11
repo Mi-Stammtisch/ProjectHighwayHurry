@@ -7,7 +7,7 @@ using UnityEngine;
 public class SpawnTileV2 : MonoBehaviour
 {
     //Instance 
-    public static SpawnTileV2 Instance;
+    public static SpawnTileV2 Instance { get; private set; }
 
     [Header("Tile Pool Settings")]
     [SerializeField] private TilePool tilePool;
@@ -52,7 +52,20 @@ public class SpawnTileV2 : MonoBehaviour
    
     private void Awake()
     {
-        Instance = this;
+
+        if (!Instance)
+        {
+            Instance = this;
+        }
+        else
+        {
+            //Duplicate GameManager created every time the scene is loaded
+            Destroy(gameObject);
+        }
+        
+        
+        
+
         buildingSpawner = GameObject.Find("EnvironmentSpawner").GetComponent<BuildingSpawner>();
 
         //cache tiles
@@ -129,7 +142,6 @@ public class SpawnTileV2 : MonoBehaviour
         }
 
         await buildingSpawner.sortBuildingList();
-
 
         while (tiles.Count < tileCount) {
             spawnInitialTiles(tilePool.straightTiles[UnityEngine.Random.Range(0, tilePool.straightTiles.Count())]);
@@ -224,8 +236,8 @@ public class SpawnTileV2 : MonoBehaviour
         }
 
         newExitPointDirection.scaleObjects();
-
     }
+
 
     public void spawnNewTile() {
 
@@ -313,6 +325,13 @@ public class SpawnTileV2 : MonoBehaviour
         specialTile -= tileBased;
         specialTile -= diffBased;
         specialTile -= randomBased;
+
+        tileCache.Reset();
+        Destroy(this);
+    }
+
+    public void ResetInstance() {
+        Instance = null;
     }
 }
 
@@ -369,6 +388,11 @@ public class TileCache {
             Debug.LogError("TileType: " + type + " not registered in cache");
             return null;
         }
+    }
+
+    public void Reset() {
+        cachedTiles.Clear();
+        tileTypeIndex.Clear();
     }
 }
 
