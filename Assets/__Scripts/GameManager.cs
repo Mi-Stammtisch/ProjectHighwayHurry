@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject EndScoreDisplay;
     [SerializeField] GameObject BikeBlinker;
     [SerializeField] AudioClip PlayerHit;
+    [SerializeField] TMP_Text hptext;
+    [SerializeField] TMP_Text Speedtext;
+
 
     
 
@@ -40,6 +44,9 @@ public class GameManager : MonoBehaviour
     public void AddHealth() {
         Health++;
     }
+    public void UpdateSpeed(float speed) {
+        Speedtext.text = speed.ToString();
+    }
 
     // Update is called once per frame
     void Update()
@@ -49,7 +56,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
-        }   
+        } 
+        hptext.text = Health.ToString();  
     }
 
     [EButton("Player Damage")]
@@ -59,6 +67,7 @@ public class GameManager : MonoBehaviour
         if (Health > 0) {
             StartCoroutine(TakeDamage());
             Health--;
+            
             return;
         }
         
