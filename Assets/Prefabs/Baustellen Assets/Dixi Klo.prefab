@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dixiTrigger: {fileID: 560528586383856302}
-  dixiSpeed: 25
+  dixiSpeed: 35
   driveLength: 10
 --- !u!1 &8775142641858195478
 GameObject:

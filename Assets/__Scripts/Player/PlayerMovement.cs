@@ -255,6 +255,7 @@ public class PlayerMovement : MonoBehaviour
                 //update player speed
                 if (TotaldistanceTravelledInMeters / 100 > currentSpeedInceses)
                 {
+                    SoundManager.Instance.PlayAcellerateSound();
                     currentSpeedInceses++;
                     float boost = PlayerSpeedIncreaseOver100Meters * PlayerConstantStartingSpeed - PlayerConstantStartingSpeed;
                     currentPlayerSpeed += boost;
@@ -374,7 +375,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            //TODO: debug.logwarning ist commented right now
+            
             /*
             if (Vector3.Distance(transform.position, tempCurrentPosition) > 0.45f && Vector3.Distance(transform.position, tempCurrentPosition) < 5f)
             {
