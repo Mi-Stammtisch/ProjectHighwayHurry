@@ -18,10 +18,12 @@ public class PlayerScoreHandler : MonoBehaviour
 
     private int timeBonusIndex = 0;
     private bool hasMoreTimeBoni = true;
+    private float time;
 
 
     void Start() {
         hasMoreTimeBoni = scoreboardSettings.timeBonusLevels.Count > 0;
+        time = Time.time;
     }
 
     void Update() {
@@ -95,7 +97,7 @@ public class PlayerScoreHandler : MonoBehaviour
         }
 
         //check for timebonus
-        if (hasMoreTimeBoni && Time.time > scoreboardSettings.timeBonusLevels[timeBonusIndex].time) {
+        if (hasMoreTimeBoni && (Time.time - time) > scoreboardSettings.timeBonusLevels[timeBonusIndex].time) {
             Scoreboard.Instance.timeBonus(scoreboardSettings.timeBonusLevels[timeBonusIndex].value);
             if (scoreboardSettings.timeBonusLevels.Count - 1 <= timeBonusIndex) hasMoreTimeBoni = false;
             timeBonusIndex++;
