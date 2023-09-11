@@ -22,17 +22,21 @@ public class Text3D : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            #if UNITY_EDITOR
-            while (transform.childCount > 0)
+            
+            if(Application.isEditor)
             {
+                while (transform.childCount > 0)
+                {
                 DestroyImmediate(transform.GetChild(0).gameObject);
+                } 
             }
-            #else
-            while (transform.childCount > 0)
+            else
             {
-                Destroy(transform.GetChild(0).gameObject);
+                Destroy(child.gameObject);
             }
-            #endif
+                       
+            
+            
         }
         float totalWidth = 0;
         foreach (char c in text)
