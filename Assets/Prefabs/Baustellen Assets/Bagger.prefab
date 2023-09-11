@@ -71,7 +71,7 @@ MonoBehaviour:
   baggerTrigger: {fileID: 2862859321964152421}
   baggerModel: {fileID: 6252714944848878530}
   baggerSpeed: 18
-  driveLength: 5
+  driveLength: 15
 --- !u!1 &7038428540780844186
 GameObject:
   m_ObjectHideFlags: 0
