@@ -16,6 +16,8 @@ public class ScoreboardSettings : ScriptableObject
     [SerializeField] public int jumpBonusValue = 1;
     [SerializeField] public List<TimeBonusLevels> timeBonusLevels;
     [SerializeField] public List<SpeedMilestoneLevels> speedMilestoneLevels;
+
+    [SerializeField] public int gemValue = 10;
 }
 
 

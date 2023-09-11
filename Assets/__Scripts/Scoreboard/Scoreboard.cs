@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Scoreboard : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Scoreboard : MonoBehaviour
     [SerializeField] private ScoreboardSettings scoreboardSettings;
     private float time;
     private int coinsCollected = 0;
+    
 
     public int score = 0;
 
@@ -31,7 +33,17 @@ public class Scoreboard : MonoBehaviour
 
 
 
-    public void coinCollect() {
+    public void coinCollect(bool isGem = false) {
+        
+        if(isGem)
+        {
+            score += scoreboardSettings.gemValue;
+            createPopup(scoreboardSettings.gemValue, new string("+" + scoreboardSettings.gemValue.ToString()));
+            updateScore?.Invoke(score);
+            return;
+        }
+        
+        
         //collect coins
         //when coins are collected during the threshold, the bonus is multiplied for every coin collected during the threshold
         coinsCollected++;
