@@ -7,6 +7,7 @@ public class StuntController : MonoBehaviour
     [SerializeField] private List<AnimationClip> stuntClips;
     [SerializeField] GameObject animationObject;
     public AnimationClip stuntClip;
+    [SerializeField] AudioClip loopingSound;
 
     public static StuntController Instance;
     public bool canStunt = false;
@@ -28,7 +29,12 @@ public class StuntController : MonoBehaviour
             }
             else
             {
-                animationObject.GetComponent<Animation>().Play(stuntClips[Random.Range(0, stuntClips.Count)].name);
+
+                int random = Random.Range(0, stuntClips.Count);
+                animationObject.GetComponent<Animation>().Play(stuntClips[random].name);
+                if(random == 2) {
+                    SoundManager.Instance.PlaySound(loopingSound, 0.4f);
+                }
                 if(CanAllWaysStunt){
                     StartCoroutine(StuntTimer());
                 }

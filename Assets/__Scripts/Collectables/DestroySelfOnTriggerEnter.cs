@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class DestroySelfOnTriggerEnter : MonoBehaviour
 {
 
+    [SerializeField] AudioClip CoinCollectSound;
     private void OnTriggerEnter(Collider other)
     {
         //if the other object is the player
@@ -13,6 +14,7 @@ public class DestroySelfOnTriggerEnter : MonoBehaviour
         {
             //destroy this object
             //Debug.Log("Collected Coin");
+            SoundManager.Instance.PlaySound(CoinCollectSound);
             Scoreboard.Instance.coinCollect();
 
             Destroy(gameObject);

@@ -58,10 +58,11 @@ public class SoundManager : MonoBehaviour
         return MusicIntroFinishClip.length;
     }
 
-    public void PlaySound(AudioClip clip)
+    public void PlaySound(AudioClip clip, float volume = 1)
     {
         GameObject SoundSoureces = Instantiate(SoundSourece, transform.position, Quaternion.identity);
         SoundSoureces.GetComponent<AudioSource>().clip = clip;
+        SoundSoureces.GetComponent<AudioSource>().volume = volume;
         SoundSoureces.GetComponent<AudioSource>().Play();
         Destroy(SoundSoureces, clip.length + 1);
     }

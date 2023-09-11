@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
@@ -38,6 +37,9 @@ public class ExitPointDirection : MonoBehaviour
 
     [SerializeField] private PathCreator nextSpline;
     [SerializeField] private PathCreator previousSpline;
+
+    [Header("Scaling in Distance")]
+    [SerializeField] public GameObject scaleObject;
 
     private List<GameObject> cars = new List<GameObject>();
     private List<GameObject> buildings = new List<GameObject>();
@@ -282,6 +284,24 @@ public class ExitPointDirection : MonoBehaviour
     public void addBuildings(List<GameObject> buildings) {
         this.buildings.AddRange(buildings);
     }
+
+
+    public void scaleObjects() {
+
+        //tile
+        Vector3 initialPosition = scaleObject.transform.position;
+        scaleObject.transform.position += new Vector3(0, -10, 0);
+        LeanTween.moveLocalY(scaleObject, initialPosition.y, 0.2f).setEaseOutQuad();
+
+        //cars
+        foreach (GameObject car in cars) {
+            Vector3 initialCarPosition = car.transform.position;
+            car.transform.position += new Vector3(0, -10, 0);
+            LeanTween.moveLocalY(car, initialCarPosition.y, 0.2f).setEaseOutQuad();
+        }
+
+    }
+
 }
 
 

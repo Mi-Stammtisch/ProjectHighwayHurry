@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 1, g: 0.61310756, b: 0.25943398, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b68ab0232aa787641a17dadb2d8deb80, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.010390449, g: 0.00058920064, b: 0.0028070034, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,33 +154,38 @@ PrefabInstance:
     - target: {fileID: 458624811790423484, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11721817
+      value: 0.117218174
       objectReference: {fileID: 0}
     - target: {fileID: 458624811790423484, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.031128973
+      value: -0.03112898
       objectReference: {fileID: 0}
     - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: tileCount
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 614673089768956966, guid: 7f07de2e5eea36c46b982396a1e74211,
+        type: 3}
+      propertyPath: enableCarSpawning
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 775576696254246966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 423866642}
     - target: {fileID: 775576696254246966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: PlayerHud
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1255294834}
     - target: {fileID: 775576696254246966, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: PlayerCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 423866642}
     - target: {fileID: 902586810404423908, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -264,12 +269,12 @@ PrefabInstance:
     - target: {fileID: 6257544098831301929, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.025934955
+      value: 0.02593496
       objectReference: {fileID: 0}
     - target: {fileID: 6257544098831301929, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.017972933
+      value: 0.017972937
       objectReference: {fileID: 0}
     - target: {fileID: 7111454593069549839, guid: 7f07de2e5eea36c46b982396a1e74211,
         type: 3}
@@ -413,6 +418,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67927672}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &423866642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4412746062331989331, guid: 7f07de2e5eea36c46b982396a1e74211,
+    type: 3}
+  m_PrefabInstance: {fileID: 10208530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &565357576
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +791,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 59452450873976953, guid: 4ff458d48eec08f498bd9a0e2c255d4b,
     type: 3}
   m_PrefabInstance: {fileID: 1001772824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1255294834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5557818754469296209, guid: 7f07de2e5eea36c46b982396a1e74211,
+    type: 3}
+  m_PrefabInstance: {fileID: 10208530}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2065670404
 GameObject:
