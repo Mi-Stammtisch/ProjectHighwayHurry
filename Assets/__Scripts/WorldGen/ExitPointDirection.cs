@@ -288,6 +288,10 @@ public class ExitPointDirection : MonoBehaviour
 
     public void scaleObjects() {
 
+        if(scaleObject == null) {
+            Debug.LogWarning("No scaleObject found");
+            return;
+        }
         //tile
         Vector3 initialPosition = scaleObject.transform.position;
         scaleObject.transform.position += new Vector3(0, -10, 0);
