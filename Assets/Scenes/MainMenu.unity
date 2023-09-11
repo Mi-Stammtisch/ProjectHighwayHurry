@@ -20895,6 +20895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AcellerateSource: {fileID: 0}
   PlayMusic: 1
+  SoundSourece: {fileID: 0}
   MusicSource: {fileID: 40725266095204692}
   MusciIntroClip: {fileID: 8300000, guid: 8a690efc9b1f93347840ed48ad39c466, type: 3}
   MusicLoopClip: {fileID: 8300000, guid: 89f4fc683eab1b946ad0f271c97b420a, type: 3}
