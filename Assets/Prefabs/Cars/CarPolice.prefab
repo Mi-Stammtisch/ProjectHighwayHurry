@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2874854521880249077
+--- !u!1 &2266642065627237014
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6612459269590546404}
-  - component: {fileID: 6054921257394919442}
-  - component: {fileID: 6604416647302108341}
+  - component: {fileID: 5795483312292733165}
+  - component: {fileID: 6372660961979343619}
+  - component: {fileID: 3250911869377756313}
   m_Layer: 0
   m_Name: Spot Light (2)
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6612459269590546404
+--- !u!4 &5795483312292733165
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2874854521880249077}
+  m_GameObject: {fileID: 2266642065627237014}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06700887, y: -0, z: -0, w: 0.9977524}
-  m_LocalPosition: {x: 0.455, y: 0.41, z: 1.202}
+  m_LocalPosition: {x: 1.347, y: 1.159, z: 3.619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 360942215938119046}
   m_LocalEulerAnglesHint: {x: 7.684, y: 0, z: 0}
---- !u!108 &6054921257394919442
+--- !u!108 &6372660961979343619
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2874854521880249077}
+  m_GameObject: {fileID: 2266642065627237014}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 0
@@ -79,7 +79,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -95,13 +95,13 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6604416647302108341
+--- !u!114 &3250911869377756313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2874854521880249077}
+  m_GameObject: {fileID: 2266642065627237014}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
@@ -151,7 +151,7 @@ Transform:
   m_Children:
   - {fileID: 1966608934903145916}
   - {fileID: 171555471556206771}
-  - {fileID: 6612459269590546404}
+  - {fileID: 5795483312292733165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &735041369002947500
@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 8335477512825403795}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06700887, y: -0, z: -0, w: 0.9977524}
-  m_LocalPosition: {x: -0.432, y: 0.41, z: 1.202}
+  m_LocalPosition: {x: -1.422, y: 1.159, z: 3.619}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,6 +388,21 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 019fc05ce7e936743ad861d0a37b8bb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 019fc05ce7e936743ad861d0a37b8bb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 019fc05ce7e936743ad861d0a37b8bb8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6135f39e5feb1b544beeaed28877607c, type: 2}
     - target: {fileID: 919132149155446097, guid: 019fc05ce7e936743ad861d0a37b8bb8,
         type: 3}
       propertyPath: m_Name
